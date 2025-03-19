@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\MainController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\Users\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('admin/users/login', [LoginController::class, 'index']);
+Route::post('admin/users/login/store',[LoginController::class, 'store'])->name('login.store');
+Route::get('admin/main')->name('admin');
+Route::get('admin/main',[MainController::class, 'index'])->name('admin.main');
