@@ -13,7 +13,14 @@ use App\Http\Controllers\Admin\Users\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('admin/users/login', [LoginController::class, 'index']);
-Route::post('admin/users/login/store',[LoginController::class, 'store'])->name('login.store');
-Route::get('admin/main')->name('admin');
-Route::get('admin/main',[MainController::class, 'index'])->name('admin.main');
+
+// Login routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('users/login', [LoginController::class, 'index']);
+    Route::post('users/login/store', [LoginController::class, 'store'])->name('login.store');
+    Route::get('main', [MainController::class, 'index'])->name('main');
+});
+
+
+// Main route  
+Route::get('main', [MainController::class, 'index'])->name('main');

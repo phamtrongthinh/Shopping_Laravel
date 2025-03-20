@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class LoginController extends Controller
 {
@@ -15,14 +19,15 @@ class LoginController extends Controller
 
     function store(Request $request)
     {
-
         $request->validate([
             'email' => 'required|email:filter',
             'password' => 'required|min:6'
         ]);
-        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')] . $request->input('remember'))) {
+        $remember = $request->has('remember');
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             return redirect()->route('admin.main');
         }
+        Session::flash('error', 'Email hoặc mật khẩu không đúng');
         return redirect()->back();
     }
 }
