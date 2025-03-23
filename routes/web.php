@@ -25,7 +25,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('users/login/store', [LoginController::class, 'store'])->name('login.store');
     Route::get('users/logout', function () {
         Auth::logout();
-        return 'Bạn đã đăng xuất!';
+        return redirect()->route('admin.login');
     })->name('logout');
 });
 

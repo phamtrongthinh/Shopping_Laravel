@@ -24,15 +24,19 @@
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logout-button" role="button">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
             </ul>
         </nav>
-
         @include('admin.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
-            <!-- Main content -->
+            <!---------------------------------------------- Main content ------------------------------------------------->
             <section class="content">
                 <div class="container-fluid">
                     @include('admin.alert')
@@ -74,3 +78,15 @@
 </body>
 
 </html>
+
+
+<!-- Thêm đoạn JavaScript này vào cuối file hoặc trong phần scripts -->
+<script>
+    document.getElementById('logout-button').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if (confirm("Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?")) {
+            window.location.href = "{{ route('admin.logout') }}";
+        }
+    });
+</script>

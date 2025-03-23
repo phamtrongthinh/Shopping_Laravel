@@ -47,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+        // Cấu hình route login mặc định
+        Route::get('/login', function () {
+            return redirect()->route('admin.login');
+        })->name('login');
     }
 
     /**

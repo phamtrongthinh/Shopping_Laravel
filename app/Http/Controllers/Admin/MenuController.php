@@ -23,9 +23,10 @@ class MenuController extends Controller
 
     public function store(createFormRequest $request)
     {
+        dd($request->all());
         $validatedData = $request->validated(); // Lấy dữ liệu đã được kiểm tra hợp lệ
         // Tạo danh mục mới
-       
+
     }
 
     public function edit($id)

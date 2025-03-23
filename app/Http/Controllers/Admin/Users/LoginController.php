@@ -25,7 +25,17 @@ class LoginController extends Controller
         ]);
         $remember = $request->has('remember');
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-            return redirect()->route('admin.main');
+            $user = Auth::user();
+            // Kiểm tra role và điều hướng
+            switch ($user->role) {
+                case 'chu_cua_hang':
+                    return redirect()->route('admin.main');
+                case 'khach_hang':
+                    return redirect('/custom/dashboard');
+                default:
+                    Auth::logout(); // Nếu role không hợp lệ, logout luôn
+                    return redirect()->route('admin.login')->withErrors(['error' => 'Tài khoản không hợp lệ']);
+            }
         }
         Session::flash('error', 'Email hoặc mật khẩu không đúng');
         return redirect()->back();
