@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +16,19 @@ use App\Http\Controllers\Admin\Users\LoginController;
 |
 */
 
-// Login routes
+
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('users/login', [LoginController::class, 'index']);
+    // Trang login
+    Route::get('users/login', [LoginController::class, 'index'])->name('login');
     Route::post('users/login/store', [LoginController::class, 'store'])->name('login.store');
-    Route::get('main', [MainController::class, 'index'])->name('main');
+    Route::get('users/logout', function () {
+        Auth::logout();
+        return 'Bạn đã đăng xuất!';
+    })->name('logout');
 });
 
-
-// Main route  
-Route::get('main', [MainController::class, 'index'])->name('main');
+// Trang chủ  
+Route::middleware('auth')->group(function () {
+    Route::get('admin', [MainController::class, 'index'])->name('admin');
+    Route::get('admin/main', [MainController::class, 'index'])->name('admin.main');
+});

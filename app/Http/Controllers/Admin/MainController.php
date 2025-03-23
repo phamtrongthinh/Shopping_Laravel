@@ -9,6 +9,6 @@ class MainController extends Controller
 {
     public function index()
     {
-        echo 'Main controller';
+        return view('admin.home', ['title' => 'Trang quản trị admin ']);
     }
 }

@@ -1,4 +1,4 @@
-<!----------------- Footer login ------------------>
+<!----------------- Footer ------------------>
 <!-- jQuery -->
 <script src="{{ asset('template/admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
