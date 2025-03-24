@@ -52,13 +52,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.account.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm Tài Khoản</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.account.listusser') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh Sách Người Dùng</p>
                             </a>
@@ -78,13 +78,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.menu.create') }}" class="nav-link">
+                            <a href="{{ route('admin.categorys.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm Danh Mục</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.menu.index') }}" class="nav-link">
+                            <a href="{{ route('admin.categorys.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh Sách Danh Mục</p>
                             </a>
