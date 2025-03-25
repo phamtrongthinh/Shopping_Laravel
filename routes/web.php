@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
-use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,7 +54,9 @@ Route::middleware('auth')->group(function () {
         Route::get('create', [CategoryController::class, 'create'])->name('create');
         Route::post('create', [CategoryController::class, 'store'])->name('store');
         Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
-        Route::post('update/{id}', [CategoryController::class, 'update'])->name('update');
-        Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+        Route::put('update/{id}', [CategoryController::class, 'update'])->name('update');
+        Route::delete('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
     });
+
+    
 });

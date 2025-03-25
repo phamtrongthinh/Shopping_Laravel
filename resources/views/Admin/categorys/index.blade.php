@@ -5,12 +5,6 @@
         <h2>Danh Sách Danh Mục</h2>
         <a href="{{ route('admin.categorys.create') }}" class="btn btn-primary " style="margin-right:0.5cm;">Thêm Danh Mục</a>
     </div>
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -31,8 +25,9 @@
                     <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td>
-                        <a href="{{-- route('categories.edit', $category->id) --}}" class="btn btn-warning">Sửa</a>
-                        <form action="{{-- route('categories.destroy', $category->id) --}}" method="POST" style="display:inline-block;">
+                        <a href="{{ route('admin.categorys.edit', $category->id) }}" class="btn btn-warning">Sửa</a>
+                        <form action="{{ route('admin.categorys.delete', $category->id) }}" method="POST"
+                            style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"

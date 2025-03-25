@@ -9,15 +9,15 @@
         <div class="card-body">
             <form action="{{ route('admin.account.store') }}" method="POST">
                 @csrf
-                
+
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter name" required>
+                    <input type="text" name="name" class="form-control" placeholder="Enter name">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                    <input type="email" name="email" class="form-control" placeholder="Enter email">
                 </div>
 
                 <div class="form-group">
@@ -33,8 +33,10 @@
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select name="role" class="form-control">
-                        <option value="Admin">Admin</option>
-                        <option value="User">User</option>
+                        <option value="khach_hang">Khách Hàng</option>
+                        <option value="nhan_vien_ban_hang">Nhân Viên Bán Hàng</option>
+                        <option value="nhan_vien_kho">Nhân Viên Kho</option>
+                        <option value="chu_cua_hang">Chủ Cửa Hàng</option>
                     </select>
                 </div>
 
@@ -48,7 +50,13 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Enter password">
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm passwword</label>
+                    <input type="password" name="password_confirmation" class="form-control"
+                        placeholder="Enter confirm password">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Create Account</button>

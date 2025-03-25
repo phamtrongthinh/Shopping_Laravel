@@ -59,10 +59,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -72,7 +69,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id);
+            $title = 'Chỉnh sửa danh mục';
+            return view('admin.categorys.edit', compact('category', 'title'));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.categorys.index')->with('error', 'Không tìm thấy danh mục.');
+        }
     }
 
     /**
@@ -84,7 +87,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id);
+            $category->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'active' => $request->active ?? 1,
+            ]);
+
+            return redirect()->route('admin.categorys.index')->with('success', 'Cập nhật danh mục thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật danh mục thất bại. ' . $e->getMessage());
+        }
     }
 
     /**
@@ -93,8 +107,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id); // Tìm danh mục theo ID
+            $category->delete(); // Xoá danh mục
+
+            return redirect()->route('admin.categorys.index')->with('success', 'Xoá danh mục thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Xoá danh mục thất bại. ' . $e->getMessage());
+        }
     }
 }
