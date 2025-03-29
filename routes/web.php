@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
 Route::get('/', [LoginController::class, 'index']);
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -57,6 +58,4 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{id}', [CategoryController::class, 'update'])->name('update');
         Route::delete('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
     });
-
-    
 });

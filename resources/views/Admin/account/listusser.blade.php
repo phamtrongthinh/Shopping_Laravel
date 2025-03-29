@@ -28,32 +28,20 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $user->id ?? 'null' }}</td>
-                                    <td>{{ $user->name ?? 'null' }}</td>
-                                    <td>{{ $user->email ?? 'null' }}</td>
-                                    <td>{{ $user->phone ?? 'null' }}</td>
-                                    <td>{{ $user->address ?? 'null' }}</td>
-                                    <td>{{ $user->role ?? 'null' }}</td>
-                                    <td>{{ $user->status ?? 'null' }}</td>
-                                    <td>{{ $user->created_at ?? 'null' }}</td>
-                                    <td>{{ $user->updated_at ?? 'null' }}</td>
+                                    <td>{{ $user->id ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->name ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->email ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->phone ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->address ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->role ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->status ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->created_at ?? 'Chưa cập nhật' }}</td>
+                                    <td>{{ $user->updated_at ?? 'Chưa cập nhật' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                            </tr>
-                        </tfoot>
                     </table>
+                    {{ $users->links() }}
                 </div>
             </div>
             <!-- Pagination Section -->

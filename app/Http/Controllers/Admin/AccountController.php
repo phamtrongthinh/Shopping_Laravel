@@ -12,7 +12,7 @@ class AccountController extends Controller
 {
     function listusser()
     {
-        $users = User::all();
+        $users = User::paginate(2);
         return view('admin.account.listusser', ['title' => 'Danh sách tài khoản', 'users' => $users]);
     }
     function create()
