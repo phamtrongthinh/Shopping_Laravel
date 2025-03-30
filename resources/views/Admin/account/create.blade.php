@@ -1,6 +1,7 @@
 @extends('Admin.main')
 
 @section('content')
+    `<!-----------------------------Thêm tài khoản--------------------------->
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Create New Account</h3>
@@ -11,12 +12,12 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name" class="star_red">Name</label>
                     <input type="text" name="name" class="form-control" placeholder="Enter name">
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email" class="star_red">Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Enter email">
                 </div>
 
@@ -31,7 +32,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="role">Role</label>
+                    <label for="role"class="star_red">Role</label>
                     <select name="role" class="form-control">
                         <option value="khach_hang">Khách Hàng</option>
                         <option value="nhan_vien_ban_hang">Nhân Viên Bán Hàng</option>
@@ -41,7 +42,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status" class="star_red">Status</label>
                     <select name="status" class="form-control">
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
@@ -49,12 +50,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password"class="star_red"> Password</label>
                     <input type="password" name="password" class="form-control" placeholder="Enter password">
                 </div>
 
                 <div class="form-group">
-                    <label for="password_confirmation">Confirm passwword</label>
+                    <label for="password_confirmation" class="star_red">Confirm passwword</label>
                     <input type="password" name="password_confirmation" class="form-control"
                         placeholder="Enter confirm password">
                 </div>

@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10); // Phân trang 10 bản ghi mỗi trang
+        $categories = Category::orderBy('id', 'desc')->paginate(5); // Phân trang 10 bản ghi mỗi trang
         return view('admin.categorys.index', ['title' => 'Danh sách danh mục'], compact('categories'));
     }
 
