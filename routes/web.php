@@ -44,8 +44,8 @@ Route::middleware('auth')->group(function () {
         Route::get('create',  [AccountController::class, 'create'])->name('create');
         Route::post('create',  [AccountController::class, 'store'])->name('store');
         Route::get('edit/{id}',  [AccountController::class, 'edit'])->name('edit');
-        Route::post('update/{id}', [AccountController::class, 'update'])->name('update');
-        Route::get('delete/{id}',  [AccountController::class, 'delete'])->name('delete');
+        Route::put('update/{id}', [AccountController::class, 'update'])->name('update');
+        Route::delete('delete/{id}',  [AccountController::class, 'delete'])->name('delete');
     });
 
     // Quản lý danh mục

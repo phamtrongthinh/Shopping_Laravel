@@ -7,14 +7,35 @@ use App\Http\Requests\AccountRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateUserRequest;
 
 class AccountController extends Controller
 {
-    function listusser()
+    public function listusser(Request $request)
     {
-        $users = User::paginate(2);
-        return view('admin.account.listusser', ['title' => 'Danh sách tài khoản', 'users' => $users]);
+        $query = User::query();
+
+        $search = $request->search_user; // Đổi thành 'search_user' cho khớp với input name
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhere('phone', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $users = $query->orderBy('id', 'desc')->paginate(5);
+
+        return view('admin.account.listusser', [
+            'title' => 'Danh sách tài khoản',
+            'users' => $users,
+            'search_user' => $search, // Truyền từ khóa tìm kiếm về view
+        ]);
     }
+
+
+
     function create()
     {
         return view('admin.account.create', ['title' => 'Tạo tài khoản']);
@@ -41,10 +62,54 @@ class AccountController extends Controller
 
     function edit($id)
     {
-        return view('admin.account.edit');
+        try {
+            $user = User::findOrFail($id);
+            $title = 'Chỉnh sửa thông tin tài khoản';
+            return view('admin.account.edit', compact('user', 'title'));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.account.listusser')->with('error', 'Không tìm thấy tài khoản.');
+        }
     }
-    function update(Request $request, $id)
+
+
+    function update(UpdateUserRequest $request, $id)
     {
-        return view('admin.account.update');
+        try {
+            $user = User::findOrFail($id);
+
+            // Chuẩn bị dữ liệu cập nhật
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'role' => $request->role,
+                'status' => $request->status,
+            ];
+
+            // Nếu có mật khẩu mới thì cập nhật
+            if ($request->filled('password')) {
+                $data['password'] = bcrypt($request->password);
+            }
+
+            // Cập nhật tài khoản
+            $user->update($data);
+
+            return redirect()->route('admin.account.listusser')->with('success', 'Cập nhật tài khoản thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Cập nhật tài khoản thất bại. ' . $e->getMessage());
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $user = User::findOrFail($id); // Tìm danh mục theo ID
+            $user->delete(); // Xoá danh mục
+
+            return redirect()->route('admin.account.listusser')->with('success', 'Xoá danh mục thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Xoá danh mục thất bại. ' . $e->getMessage());
+        }
     }
 }

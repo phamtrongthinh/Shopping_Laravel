@@ -26,7 +26,7 @@ class AccountRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'phone' => 'nullable|string|max:15',
+            'phone' => 'nullable|regex:/^(\+?[0-9]{10,15})$/',
             'address' => 'nullable|string|max:255',
             'password' => 'required|string|min:6|confirmed',
         ];
@@ -39,6 +39,8 @@ class AccountRequest extends FormRequest
             'email.required' => 'Email không được để trống.',
             'email.email' => 'Email không hợp lệ.',
             'email.unique' => 'Email đã được sử dụng.',
+            'phone.max' => 'Số điện thoại không được quá 15 ký tự.',
+            'phone.regex' => 'Số điện thoại không hợp lệ',
             'password.required' => 'Mật khẩu không được để trống.',
             'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
             'password.confirmed' => 'Xác nhận mật khẩu không khớp.',

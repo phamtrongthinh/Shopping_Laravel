@@ -61,6 +61,8 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Create Account</button>
+                <a href="{{ route('admin.account.listusser') }}" class="btn btn-secondary">Quay lại</a>
+
             </form>
         </div>
     </div>
