@@ -14,14 +14,28 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('id', 'desc')->paginate(5); // Phân trang 10 bản ghi mỗi trang
-        return view('admin.categorys.index', ['title' => 'Danh sách danh mục'], compact('categories'));
+        $query = Category::query();
+
+        $search = $request->search; // Lấy từ khóa tìm kiếm từ request
+
+        if (!empty($search)) {
+            $query->whereRaw("name REGEXP '[[:<:]]" . $search . "[[:>:]]'");
+        }
+
+        $categories = $query->orderBy('id', 'desc')->paginate(5);
+
+        return view('admin.categorys.index', [
+            'title' => 'Danh sách danh mục',
+            'categories' => $categories,
+            'search' => $search, // Truyền từ khóa tìm kiếm về view
+        ]);
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,7 +46,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

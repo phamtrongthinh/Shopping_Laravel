@@ -1,45 +1,71 @@
 @extends('admin.main')
 @section('title', 'Danh Sách Danh Mục')
 
-
 @section('content')
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Danh Sách Danh Mục</h2>
-        <a href="{{ route('admin.categorys.create') }}" class="btn btn-primary " style="margin-right:0.5cm;">Thêm Danh Mục</a>
+        <div class="d-flex">
+            <!-- Ô tìm kiếm -->
+            <form action="{{ route('admin.categorys.index') }}" method="GET" class="d-flex">
+                <input type="text" name="search" class="form-control mr-2" placeholder="Tìm kiếm danh mục..."
+                    value="{{ request('search') }}">
+                <button type="submit" class="btn btn-secondary">Tìm</button>
+            </form>
+            <!-- Nút thêm danh mục -->
+            <a href="{{ route('admin.categorys.create') }}" class="btn btn-primary ml-2">Thêm Danh Mục</a>
+        </div>
     </div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên Danh Mục</th>
-                <th>Mô Tả</th>
-                <th>Trạng Thái</th>
-                <th>Ngày Tạo</th>
-                <th>Hành Động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($categories as $category)
-                <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
-                    <td>{{ $category->description ?? 'Không có mô tả' }}</td>
-                    <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td>
-                    <td>{{ $category->created_at }}</td>
-                    <td>
-                        <a href="{{ route('admin.categorys.edit', $category->id) }}" class="btn btn-warning">Sửa</a>
-                        <form action="{{ route('admin.categorys.delete', $category->id) }}" method="POST"
-                            style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
 
-    {{ $categories->links() }}
+    <!-- Hiển thị thông báo kết quả tìm kiếm -->
+    @if (request()->has('search') && request('search') != '')
+        <div class="alert alert-info">
+            Kết quả tìm kiếm cho từ khóa: <strong>{{ request('search') }}</strong>
+        </div>
+    @endif
+
+    <!-- Kiểm tra nếu không có kết quả tìm kiếm -->
+    @if ($categories->count() > 0)
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Danh Mục</th>
+                    <th>Mô Tả</th>
+                    <th>Trạng Thái</th>
+                    <th>Ngày Tạo</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($categories as $category)
+                    <tr>
+                        <td>{{ $category->id }}</td>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->description ?? 'Không có mô tả' }}</td>
+                        <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td>
+                        <td>{{ $category->created_at }}</td>
+                        <td>
+                            <a href="{{ route('admin.categorys.edit', $category->id) }}" class="btn btn-warning">Sửa</a>
+                            <form action="{{ route('admin.categorys.delete', $category->id) }}" method="POST"
+                                style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        {{ $categories->links() }}
+    @else
+        <div class="alert alert-warning">
+            Không có kết quả tìm kiếm nào phù hợp với từ khóa: <strong>{{ request('search') }}</strong>
+            <a href="{{ route('admin.categorys.index') }}" class="btn btn-sm btn-primary ml-2">Quay lại</a>
+        </div>
+    @endif
+
 @endsection
