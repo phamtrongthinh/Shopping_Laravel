@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductDetailController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -60,7 +61,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
     });
 
-    // Quản lý danh mục
+    // Quản lý sản phẩm
     Route::prefix('admin/products')->name('admin.products.')->group(function () {
         Route::get('', [ProductController::class, 'index']);
         Route::get('index', [ProductController::class, 'index'])->name('index');
@@ -70,4 +71,15 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{id}', [ProductController::class, 'update'])->name('update');
         Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
     });
+
+    // Quản lý chi tiết sản phẩm 
+    Route::prefix('admin/products/{product}/details')->group(function () {
+        Route::get('/', [ProductDetailController::class, 'index'])->name('admin.product_details.index');
+        Route::get('/create', [ProductDetailController::class, 'create'])->name('admin.product_details.create');
+        Route::post('/', [ProductDetailController::class, 'store'])->name('admin.product_details.store');
+        Route::get('/{detail}/edit', [ProductDetailController::class, 'edit'])->name('admin.product_details.edit');
+        Route::put('/{detail}', [ProductDetailController::class, 'update'])->name('admin.product_details.update');
+        Route::delete('/{detail}', [ProductDetailController::class, 'destroy'])->name('admin.product_details.destroy');
+    });
+    
 });
