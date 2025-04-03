@@ -60,6 +60,7 @@ class CategoryController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'active' => $request->active ?? 1, // Nếu không có giá trị, mặc định là 1
+                'gender'=> $request ->gender ?? 'Unisex',
             ]);
             return redirect()->route('admin.categorys.index')->with('success', 'Thêm danh mục thành công.');
         } catch (\Exception $e) {
@@ -107,6 +108,7 @@ class CategoryController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'active' => $request->active ?? 1,
+                'gender'=> $request ->gender ?? 'Unisex',
             ]);
 
             return redirect()->route('admin.categorys.index')->with('success', 'Cập nhật danh mục thành công.');

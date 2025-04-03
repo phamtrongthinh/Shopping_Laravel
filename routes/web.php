@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -57,5 +58,16 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
         Route::put('update/{id}', [CategoryController::class, 'update'])->name('update');
         Route::delete('delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+    });
+
+    // Quản lý danh mục
+    Route::prefix('admin/products')->name('admin.products.')->group(function () {
+        Route::get('', [ProductController::class, 'index']);
+        Route::get('index', [ProductController::class, 'index'])->name('index');
+        Route::get('add', [ProductController::class, 'add'])->name('add');
+        Route::post('create', [ProductController::class, 'store'])->name('store');
+        Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [ProductController::class, 'update'])->name('update');
+        Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
     });
 });

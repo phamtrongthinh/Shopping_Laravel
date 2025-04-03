@@ -12,12 +12,21 @@
                 <div class="form-group">
                     <label for="name">Tên Danh Mục</label>
                     <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên danh mục">
-
                 </div>
 
                 <div class="form-group">
                     <label for="description">Mô Tả</label>
                     <textarea name="description" class="form-control" id="description" rows="4" placeholder="Nhập mô tả danh mục"></textarea>
+                </div>
+                <!-- Thêm trường Gender -->
+                <div class="form-group">
+                    <label for="gender">Giới Tính</label>
+                    <select name="gender" class="form-control" id="gender">
+                        <option value="Unisex">Unisex</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -27,6 +36,8 @@
                         <option value="0">Không Hoạt Động</option>
                     </select>
                 </div>
+
+
             </div>
 
             <div class="card-footer">
