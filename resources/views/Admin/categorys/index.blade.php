@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 @extends('admin.main')
 @section('title', 'Danh Sách Danh Mục')
 
@@ -32,7 +36,7 @@
                     <th style="width: 5%;">ID</th>
                     <th style="width: 20%;">Tên Danh Mục</th>
                     <th style="width: 25%;">Mô Tả</th>
-                    <th style="width: 10%;">Giới Tính</th> <!-- Thêm cột Giới Tính -->
+                    <th style="width: 10%;">Phân loại</th> <!-- Thêm cột Giới Tính -->
                     <th style="width: 10%;">Trạng Thái</th>
                     <th style="width: 15%;">Ngày Tạo</th>
                     <th style="width: 15%;">Hành Động</th>
@@ -43,7 +47,7 @@
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
-                        <td>{{ $category->description ?? 'Không có mô tả' }}</td>
+                        <td>{{ Str::limit($category->description ?? 'Không có mô tả', 82, '...') }}</td>
                         <td>{{ $category->gender ?? 'Không xác định' }}</td> <!-- Hiển thị giới tính -->
                         <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td>
                         <td>{{ $category->created_at }}</td>
