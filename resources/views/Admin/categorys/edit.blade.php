@@ -23,7 +23,7 @@
 
                 <!-- Thêm trường Gender -->
                 <div class="form-group">
-                    <label for="gender">Giới Tính</label>
+                    <label for="gender">Phân loại</label>
                     <select name="gender" class="form-control" id="gender">
                         <option value="Unisex" {{ $category->gender == 'Unisex' ? 'selected' : '' }}>Unisex</option>
                         <option value="Nam" {{ $category->gender == 'Nam' ? 'selected' : '' }}>Nam</option>

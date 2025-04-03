@@ -146,6 +146,6 @@
                 alert.style.opacity = "0"; // Làm mờ dần
                 setTimeout(() => alert.remove(), 500); // Xóa hoàn toàn sau khi mờ
             });
-        }, 5000); // 5 giây
+        },20000); // 5 giây
     });
 </script>

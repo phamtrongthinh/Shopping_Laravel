@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label for="name">Tên Sản Phẩm</label>
                             <input type="text" name="name" class="form-control" id="name"
-                                placeholder="Nhập tên sản phẩm" required>
+                                placeholder="Nhập tên sản phẩm" >
                         </div>
 
                         <!-- Mô Tả Sản Phẩm -->
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label for="price">Giá Sản Phẩm</label>
                             <input type="number" name="price" class="form-control" id="price"
-                                placeholder="Nhập giá sản phẩm" required>
+                                placeholder="Nhập giá sản phẩm" >
                         </div>
 
                         <!-- Giảm Giá -->
@@ -70,10 +70,10 @@
                     <div id="product-details">
                         <div class="row product-detail-item">
                             <div class="col-md-3">
-                                <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" required>
+                                <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" >
                             </div>
                             <div class="col-md-3">
-                                <select name="sizes[]" class="form-control" required>
+                                <select name="sizes[]" class="form-control" >
                                     <option value="">Chọn kích thước</option>
                                     <option value="S">S</option>
                                     <option value="M">M</option>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-md-2">
                                 <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng"
-                                    required>
+                                    >
                             </div>
                             <div class="col-md-3">
                                 <input type="file" name="images[]" class="form-control">
@@ -101,10 +101,10 @@
                 <template id="product-detail-template">
                     <div class="row product-detail-item" style="margin-top: 15px;">
                         <div class="col-md-3">
-                            <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" required>
+                            <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" >
                         </div>
                         <div class="col-md-3">
-                            <select name="sizes[]" class="form-control" required>
+                            <select name="sizes[]" class="form-control" >
                                 <option value="">Chọn kích thước</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-md-2">
                             <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng"
-                                required>
+                                >
                         </div>
                         <div class="col-md-3">
                             <input type="file" name="images[]" class="form-control">

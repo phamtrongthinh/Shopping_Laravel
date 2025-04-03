@@ -14,4 +14,9 @@ class Category extends Model
         'gender',
         'active',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
