@@ -47,7 +47,7 @@
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
-                        <td>{{ Str::limit($category->description ?? 'Không có mô tả', 82, '...') }}</td>
+                        <td>{{ Str::limit($category->description ?? 'Không có mô tả', 80, '...') }}</td>
                         <td>{{ $category->gender ?? 'Không xác định' }}</td> <!-- Hiển thị giới tính -->
                         <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td>
                         <td>{{ $category->created_at }}</td>

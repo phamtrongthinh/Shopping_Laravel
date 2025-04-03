@@ -96,6 +96,36 @@
                     </div>
                     <button type="button" class="btn btn-success mt-2" id="add-detail">Thêm biến thể</button>
                 </div>
+                <!------------Tạo template ẩn để khi ấn thêm khói tạo biến thể nó sẽ đảm bảo copy khối template này ko sợ bị xoá khối template này-->
+
+                <template id="product-detail-template">
+                    <div class="row product-detail-item" style="margin-top: 15px;">
+                        <div class="col-md-3">
+                            <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" required>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="sizes[]" class="form-control" required>
+                                <option value="">Chọn kích thước</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng"
+                                required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="file" name="images[]" class="form-control">
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-danger remove-detail">X</button>
+                        </div>
+                    </div>
+                </template>
+
             </div>
 
             <div class="card-footer">
@@ -108,16 +138,8 @@
     <script>
         // khi ấn vào nút thêm biến thể thì thực hiện tạo 1 bản sao thêm dữ liệu
         document.getElementById('add-detail').addEventListener('click', function() {
-            let newDetail = document.querySelector('.product-detail-item').cloneNode(true);
-
-            // Reset giá trị các trường input
-            newDetail.querySelectorAll('input').forEach(input => input.value = '');
-            newDetail.querySelectorAll('select').forEach(select => select.selectedIndex = 0); // Reset select option
-
-            // Thêm margin-bottom để tạo khoảng cách giữa các biến thể
-            newDetail.style.marginTop = '15px';
-
-            document.getElementById('product-details').appendChild(newDetail);
+            let template = document.getElementById('product-detail-template').content.cloneNode(true);
+            document.getElementById('product-details').appendChild(template);
         });
 
         // khi ấn vào dấu x sẽ xoá thẻ chứa các trương nhập dữ liệu đấy 
