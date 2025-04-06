@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label for="name">Tên Sản Phẩm</label>
                             <input type="text" name="name" class="form-control" id="name"
-                                placeholder="Nhập tên sản phẩm" >
+                                placeholder="Nhập tên sản phẩm">
                         </div>
 
                         <!-- Mô Tả Sản Phẩm -->
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label for="price">Giá Sản Phẩm</label>
                             <input type="number" name="price" class="form-control" id="price"
-                                placeholder="Nhập giá sản phẩm" >
+                                placeholder="Nhập giá sản phẩm">
                         </div>
 
                         <!-- Giảm Giá -->
@@ -64,16 +64,35 @@
                     </div>
                 </div>
 
+
                 <!----------------------------------------- Biến thể sản phẩm --------------------------------------------------------->
+
+                {{-- 
+
                 <div class="form-group">
                     <label>Chi Tiết Sản Phẩm</label>
                     <div id="product-details">
-                        <div class="row product-detail-item">
-                            <div class="col-md-3">
-                                <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" >
+                        <!-- Các biến thể sản phẩm sẽ được thêm vào đây -->
+                        <div class="row product-detail-item align-items-center mb-2">
+                            <!-- Màu -->
+                            <div class="col-md-2">
+                                <select name="colorselect" class="form-control" id="colorSelect">
+                                    <option value="">Chọn màu</option>
+                                    @foreach ($colors as $otherColor)
+                                        <option value="{{ $otherColor->code }}" data-name="{{ $otherColor->name }}">
+                                            {{ $otherColor->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-md-3">
-                                <select name="sizes[]" class="form-control" >
+
+                            <div class="col-md-1">
+                                <input type="color" name="colorInput" class="form-control" id="colorInput" value=""
+                                    readonly>
+                            </div>
+
+                            <!-- Size -->
+                            <div class="col-md-2">
+                                <select name="sizes[]" class="form-control" required>
                                     <option value="">Chọn kích thước</option>
                                     <option value="S">S</option>
                                     <option value="M">M</option>
@@ -82,29 +101,52 @@
                                     <option value="XXL">XXL</option>
                                 </select>
                             </div>
+
+                            <!-- Số lượng -->
                             <div class="col-md-2">
                                 <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng"
-                                    >
+                                    required min="1">
                             </div>
+
+                            <!-- Ảnh -->
                             <div class="col-md-3">
-                                <input type="file" name="images[]" class="form-control">
+                                <input type="file" name="images[]" class="form-control" required>
                             </div>
+
+                            <!-- Nút xóa -->
                             <div class="col-md-1">
                                 <button type="button" class="btn btn-danger remove-detail">X</button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Nút thêm biến thể -->
                     <button type="button" class="btn btn-success mt-2" id="add-detail">Thêm biến thể</button>
                 </div>
+
+
+
                 <!------------Tạo template ẩn để khi ấn thêm khói tạo biến thể nó sẽ đảm bảo copy khối template này ko sợ bị xoá khối template này-->
 
                 <template id="product-detail-template">
                     <div class="row product-detail-item" style="margin-top: 15px;">
-                        <div class="col-md-3">
-                            <input type="text" name="colors[]" class="form-control" placeholder="Màu sắc" >
+                        <div class="col-md-2">
+                            <select name="colorselect" class="form-control" id="colorSelect2">
+                                <option value="">Chọn màu</option>
+                                @foreach ($colors as $otherColor)
+                                    <option value="{{ $otherColor->code }}" data-name="{{ $otherColor->name }}">
+                                        {{ $otherColor->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md-3">
-                            <select name="sizes[]" class="form-control" >
+
+                        <div class="col-md-1">
+                            <input type="color" name="colorInput" class="form-control" id="colorInput2"
+                                value="" readonly>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select name="sizes[]" class="form-control">
                                 <option value="">Chọn kích thước</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
@@ -114,8 +156,7 @@
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng"
-                                >
+                            <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng">
                         </div>
                         <div class="col-md-3">
                             <input type="file" name="images[]" class="form-control">
@@ -124,7 +165,7 @@
                             <button type="button" class="btn btn-danger remove-detail">X</button>
                         </div>
                     </div>
-                </template>
+                </template> --}}
 
             </div>
 
@@ -135,7 +176,7 @@
         </form>
     </div>
 
-    <script>
+    {{-- <script>
         // khi ấn vào nút thêm biến thể thì thực hiện tạo 1 bản sao thêm dữ liệu
         document.getElementById('add-detail').addEventListener('click', function() {
             let template = document.getElementById('product-detail-template').content.cloneNode(true);
@@ -148,5 +189,31 @@
                 event.target.closest('.product-detail-item').remove();
             }
         });
-    </script>
+    </script> --}}
+
+    {{-- 
+    <script>
+        // Lắng nghe sự kiện thay đổi lựa chọn trong select
+        document.getElementById('colorSelect').addEventListener('change', function() {
+            // Lấy giá trị mã màu đã chọn (value của option)
+            var selectedColorCode = this.value;
+            // Gán mã màu cho ô input
+            document.getElementById('colorInput').value = selectedColorCode;
+
+
+
+
+        });
+    </script> --}}
+
+
+    {{-- <script>
+        document.getElementById('colorSelect2').addEventListener('change', function() {
+            // Lấy giá trị mã màu đã chọn (value của option)
+            var selectedColorCode2 = this.value;
+            // Gán mã màu cho ô input
+            document.getElementById('colorInput2').value = selectedColorCode2;
+
+        });
+    </script> --}}
 @endsection

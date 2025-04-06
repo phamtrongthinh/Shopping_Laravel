@@ -5,8 +5,10 @@ use App\Http\Controllers\Admin\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailController;
+use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -70,6 +72,17 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
         Route::put('update/{id}', [ProductController::class, 'update'])->name('update');
         Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
+    });
+
+     // Quản lý mau sắc sản phẩm
+     Route::prefix('admin/products/colors')->name('admin.products.colors.')->group(function () {
+        Route::get('', [ColorController::class, 'index']);
+        Route::get('index', [ColorController::class, 'index'])->name('index');
+        Route::get('add', [ColorController::class, 'add'])->name('add');
+        Route::post('create', [ColorController::class, 'store'])->name('store');
+        Route::get('edit/{id}', [ColorController::class, 'edit'])->name('edit');
+        Route::put('update/{id}', [ColorController::class, 'update'])->name('update');
+        Route::delete('delete/{id}', [ColorController::class, 'delete'])->name('delete');
     });
 
     // Quản lý chi tiết sản phẩm 

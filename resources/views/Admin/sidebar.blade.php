@@ -104,21 +104,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('admin.products.add')}}" class="nav-link">
+                            <a href="{{ route('admin.products.add') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm Sản Phẩm</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.products.colors.add') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Danh Sách Sản Phẩm</p>
+                                <p>Thêm mã màu sản phẩm </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.products.colors.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Danh Mục Sản Phẩm</p>
+                                <p>Danh sách mã màu sản phẩm</p>
                             </a>
                         </li>
                         <li class="nav-item">

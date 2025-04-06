@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\ProductStoreRequest;
+use App\Models\Color;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +14,8 @@ class ProductController extends Controller
     public function add()
     {
         $categories = Category::all(); // Hoặc có thể sử dụng logic lọc danh mục        
-        return view('admin.products.add', ['title' => 'Tạo danh sản phẩm'], compact('categories'));
+        $colors = Color::all(); // Lấy tất cả các màu sắc từ cơ sở dữ liệu
+        return view('admin.products.add', ['title' => 'Tạo danh sản phẩm'], compact('categories', 'colors'));
     }
 
     public function store(ProductStoreRequest $request)
