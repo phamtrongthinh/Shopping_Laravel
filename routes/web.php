@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
     });
 
-     // Quản lý mau sắc sản phẩm
+     // Quản lý màu sắc sản phẩm
      Route::prefix('admin/products/colors')->name('admin.products.colors.')->group(function () {
         Route::get('', [ColorController::class, 'index']);
         Route::get('index', [ColorController::class, 'index'])->name('index');

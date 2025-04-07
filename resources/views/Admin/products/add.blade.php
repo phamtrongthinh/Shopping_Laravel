@@ -63,13 +63,14 @@
                         </div>
 
                         <!-- Ảnh Sản Phẩm -->
-                        <div class="form-group">
+                        <div class="form-group border p-3 rounded">
                             <label for="image">Ảnh Sản Phẩm</label>
                             <input type="file" name="image" class="form-control-file" id="image" accept="image/*"
                                 onchange="previewImage(event)">
                             <br>
-                            <img id="preview" src="#" alt="Xem trước ảnh"
-                                style="max-width: 100%; height: auto; display: none; margin-top: 10px;">
+                            <img id="preview" class="img-thumbnail mt-2" style="display:none; max-width: 100px;"
+                                alt="Xem trước ảnh">
+
                         </div>
 
                     </div>
@@ -186,6 +187,19 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('preview');
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
 
     {{-- <script>
         // khi ấn vào nút thêm biến thể thì thực hiện tạo 1 bản sao thêm dữ liệu

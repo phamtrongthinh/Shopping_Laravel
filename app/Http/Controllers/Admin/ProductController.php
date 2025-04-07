@@ -11,11 +11,23 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function index(Request $request)
+    {
+        $product = Product::orderBy('id', 'desc')->paginate(5);
+
+
+        return view('admin.products.index', [
+            'title' => 'Danh sách sản phẩm',
+            'product' => $product,
+
+        ]);
+    }
+
     public function add()
     {
         $categories = Category::all(); // Hoặc có thể sử dụng logic lọc danh mục        
         $colors = Color::all(); // Lấy tất cả các màu sắc từ cơ sở dữ liệu
-        return view('admin.products.add', ['title' => 'Tạo danh sản phẩm'], compact('categories', 'colors'));
+        return view('admin.products.add', ['title' => 'Tạo sản phẩm mới'], compact('categories', 'colors'));
     }
 
     public function store(ProductStoreRequest $request)
@@ -40,7 +52,7 @@ class ProductController extends Controller
                 'status' => $validatedData['status'],
             ]);
 
-            return redirect()->route('admin.categorys.index')->with('success', 'Thêm danh mục thành công.');
+            return redirect()->route('admin.products.index')->with('success', 'Thêm danh mục thành công.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Thêm sản phẩm thất bại. ' . $e->getMessage());
         }

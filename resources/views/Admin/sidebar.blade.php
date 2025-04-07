@@ -110,11 +110,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.products.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách sản phẩm </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.products.colors.add') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mã màu sản phẩm </p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{ route('admin.products.colors.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
