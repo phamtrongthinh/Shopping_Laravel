@@ -33,18 +33,20 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         // Dữ liệu đã được xác thực
-        $validatedData = $request->validated();      
+        $validatedData = $request->validated();
         try {
             $imageName = null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('uploads/products'), $imageName);
+                // Tạo đường dẫn tuyệt đối
+                $absoluteImagePath = 'uploads/products/' . $imageName;
             }
             // Lưu sản phẩm mới
             $product = Product::create([
                 'name' => $validatedData['name'],
-                'image' => $imageName,
+                'image' => $absoluteImagePath,
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'sale' => $validatedData['sale'] ?? 0,

@@ -32,8 +32,7 @@
                                 <td>{{ $detail->quantity }}</td>
                                 <td>
                                     @if ($detail->image)
-                                        <img src="{{ asset('storage/' . $detail->image) }}" alt="Ảnh chi tiết"
-                                            style="max-width: 100px;">
+                                        <img src="{{ asset($detail->image) }}" alt="Ảnh chi tiết" style="max-width: 100px;">
                                     @endif
                                 </td>
                                 <td>
@@ -41,7 +40,7 @@
                                         class="btn btn-warning btn-sm">Sửa</a>
                                     <form
                                         action="{{ route('admin.product_details.destroy', ['product' => $product->id, 'detail' => $detail->id]) }}"
-                                        method="POST" style="display:inline;">
+                                        method="POST" style="display:inline;" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
@@ -64,3 +63,10 @@
         </div>
     </div>
 @endsection
+
+<script>
+    // Hàm cảnh báo khi nhấn nút Xóa
+    function confirmDelete() {
+        return confirm('Bạn có chắc chắn muốn xóa chi tiết sản phẩm này không?');
+    }
+</script>

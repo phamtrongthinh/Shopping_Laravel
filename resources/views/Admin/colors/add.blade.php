@@ -24,12 +24,15 @@
                 </div>
 
                 <div class="card-footer d-flex justify-content-between">
+
+                    <a href="{{ route('admin.products.colors.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Quay Lại danh sách màu sác
+                    </a>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-plus-circle"></i> Thêm Màu
                     </button>
-                    <a href="{{ route('admin.products.colors.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Quay Lại
-                    </a>
+
+
                 </div>
             </form>
         </div>

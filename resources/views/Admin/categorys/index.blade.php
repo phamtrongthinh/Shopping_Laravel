@@ -33,7 +33,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th style="width: 5%;">ID</th>
+                    <th style="width: 5%;">STT</th>
                     <th style="width: 20%;">Tên Danh Mục</th>
                     <th style="width: 25%;">Mô Tả</th>
                     <th style="width: 10%;">Phân loại</th> <!-- Thêm cột Giới Tính -->
@@ -43,9 +43,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
+                @foreach ($categories as $STT => $category)
                     <tr>
-                        <td>{{ $category->id }}</td>
+                        <td>{{ $STT+1 }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ Str::limit($category->description ?? 'Không có mô tả', 80, '...') }}</td>
                         <td>{{ $category->gender ?? 'Không xác định' }}</td> <!-- Hiển thị giới tính -->
