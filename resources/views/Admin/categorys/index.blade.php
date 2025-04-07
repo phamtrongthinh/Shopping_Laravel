@@ -54,11 +54,11 @@
                         <td>
                             <a href="{{ route('admin.categorys.edit', $category->id) }}" class="btn btn-warning">Sửa</a>
                             <form action="{{ route('admin.categorys.delete', $category->id) }}" method="POST"
-                                style="display:inline-block;">
+                                style="display:inline-block;"
+                                onsubmit="return confirmDelete({{ $category->products->count() }})">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
+                                <button type="submit" class="btn btn-danger">Xóa</button>
                             </form>
                         </td>
                     </tr>
@@ -73,5 +73,14 @@
             <a href="{{ route('admin.categorys.index') }}" class="btn btn-sm btn-primary ml-2">Quay lại</a>
         </div>
     @endif
+    <script>
+        function confirmDelete(productCount) {
+            if (productCount > 0) {
+                return confirm("Danh mục này đang được " + productCount + " sản phẩm sử dụng. Bạn có chắc muốn xóa?");
+            }
+            return confirm("Bạn có chắc muốn xóa danh mục này?");
+        }
+    </script>
+
 
 @endsection

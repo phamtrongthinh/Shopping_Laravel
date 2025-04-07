@@ -29,15 +29,8 @@ class ProductStoreRequest extends FormRequest
             'category_id' => 'required|exists:categories,id', // kiểm tra xem giá trị category_id có tồn tại trong bảng categories và trong cột id hay không.
             'price' => 'required|numeric|min:0', //numeric đảm bảo chỉ nhận số
             'sale' => 'nullable|numeric|min:0|max:100',
-            'status' => 'required|boolean',
-            'colors' => 'required|array', // yêu cầu dữ liệu đầu vào phải là mảng vì bên nhập view phần hập các biến thể mỗi biến thêr có màu sác và kích thước khác nhau
-            'colors.*' => 'string|max:255',// với mỗi đối tượng trong mảng phải là kiểu string
-            'sizes' => 'required|array',
-            'sizes.*' => 'in:S,M,L,XL,XXL',
-            'quantities' => 'required|array',
-            'quantities.*' => 'integer|min:1',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'required|boolean', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',// kiểm tra xem hình ảnh có phải là định dạng ảnh hay không
         ];
     }
 
@@ -54,7 +47,7 @@ class ProductStoreRequest extends FormRequest
             'colors.required' => 'Màu sắc là bắt buộc.',
             'sizes.required' => 'Kích thước là bắt buộc.',
             'quantities.required' => 'Số lượng là bắt buộc.',
-            'images.*.image' => 'Hình ảnh phải có định dạng ảnh.',
+            'image' => 'Hình ảnh phải có định dạng ảnh.',
         ];
     }
 }

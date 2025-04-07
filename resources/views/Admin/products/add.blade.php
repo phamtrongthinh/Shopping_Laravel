@@ -61,6 +61,17 @@
                                 <option value="0">Không Hoạt Động</option>
                             </select>
                         </div>
+
+                        <!-- Ảnh Sản Phẩm -->
+                        <div class="form-group">
+                            <label for="image">Ảnh Sản Phẩm</label>
+                            <input type="file" name="image" class="form-control-file" id="image" accept="image/*"
+                                onchange="previewImage(event)">
+                            <br>
+                            <img id="preview" src="#" alt="Xem trước ảnh"
+                                style="max-width: 100%; height: auto; display: none; margin-top: 10px;">
+                        </div>
+
                     </div>
                 </div>
 

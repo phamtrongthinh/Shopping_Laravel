@@ -23,28 +23,26 @@ class ProductController extends Controller
         // Dữ liệu đã được xác thực
         $validatedData = $request->validated();
         try {
+            $imageName = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads/products'), $imageName);
+            }
             // Lưu sản phẩm mới
             $product = Product::create([
                 'name' => $validatedData['name'],
+                'image' => $imageName,
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
-                'sale' => $validatedData['sale'],
+                'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
                 'status' => $validatedData['status'],
             ]);
-            // Xử lý các chi tiết sản phẩm
-            foreach ($validatedData['colors'] as $index => $color) {
-                $product->details()->create([
-                    'color' => $color,
-                    'size' => $validatedData['sizes'][$index],
-                    'quantity' => $validatedData['quantities'][$index],
-                    'image' => $validatedData['images'][$index] ?? null,
-                ]);
-            }
 
             return redirect()->route('admin.categorys.index')->with('success', 'Thêm danh mục thành công.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Thêm danh mục thất bại. ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Thêm sản phẩm thất bại. ' . $e->getMessage());
         }
     }
 }
