@@ -74,8 +74,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
     });
 
-     // Quản lý màu sắc sản phẩm
-     Route::prefix('admin/products/colors')->name('admin.products.colors.')->group(function () {
+    // Quản lý màu sắc sản phẩm
+    Route::prefix('admin/products/colors')->name('admin.products.colors.')->group(function () {
         Route::get('', [ColorController::class, 'index']);
         Route::get('index', [ColorController::class, 'index'])->name('index');
         Route::get('add', [ColorController::class, 'add'])->name('add');
@@ -85,7 +85,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{id}', [ColorController::class, 'delete'])->name('delete');
     });
 
-    // Quản lý chi tiết sản phẩm 
+    // Quản lý chi tiết sản phẩm   
+
     Route::prefix('admin/products/{product}/details')->group(function () {
         Route::get('/', [ProductDetailController::class, 'index'])->name('admin.product_details.index');
         Route::get('/create', [ProductDetailController::class, 'create'])->name('admin.product_details.create');
@@ -94,5 +95,4 @@ Route::middleware('auth')->group(function () {
         Route::put('/{detail}', [ProductDetailController::class, 'update'])->name('admin.product_details.update');
         Route::delete('/{detail}', [ProductDetailController::class, 'destroy'])->name('admin.product_details.destroy');
     });
-    
 });

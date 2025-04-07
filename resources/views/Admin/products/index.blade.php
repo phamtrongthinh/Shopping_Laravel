@@ -41,7 +41,7 @@
 
                             </td>
                             <td>
-                                <a href="{{-- route('admin.products.show', $item->id) --}}" class="btn btn-info btn-sm">Xem</a>
+                                <a href="{{route('admin.product_details.index', ['product' => $item->id]) }}" class="btn btn-info btn-sm">Xem</a>                               
                                 <a href="{{route('admin.products.edit', $item->id) }}" class="btn btn-warning btn-sm">Sửa</a>
                                 <form action="{{ route('admin.products.delete', $item->id) }}" method="POST"
                                     style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xoá?')">
