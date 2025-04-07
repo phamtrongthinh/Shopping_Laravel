@@ -28,7 +28,7 @@ class AccountController extends Controller
         $users = $query->orderBy('id', 'desc')->paginate(5);
 
         return view('admin.account.listusser', [
-            'title' => 'Danh sách tài khoản',
+            'title' => 'Quản lý tài khoản',
             'users' => $users,
             'search_user' => $search, // Truyền từ khóa tìm kiếm về view
         ]);
@@ -38,7 +38,7 @@ class AccountController extends Controller
 
     function create()
     {
-        return view('admin.account.create', ['title' => 'Tạo tài khoản']);
+        return view('admin.account.create', ['title' => 'Quản lý tài khoản']);
     }
 
     function store(AccountRequest $request)
@@ -64,7 +64,7 @@ class AccountController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            $title = 'Chỉnh sửa thông tin tài khoản';
+            $title = 'Quản lý tài khoản';
             return view('admin.account.edit', compact('user', 'title'));
         } catch (\Exception $e) {
             return redirect()->route('admin.account.listusser')->with('error', 'Không tìm thấy tài khoản.');

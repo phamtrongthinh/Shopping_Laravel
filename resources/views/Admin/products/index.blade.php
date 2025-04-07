@@ -42,9 +42,9 @@
                             </td>
                             <td>
                                 <a href="{{-- route('admin.products.show', $item->id) --}}" class="btn btn-info btn-sm">Xem</a>
-                                <a href="{{-- route('admin.products.edit', $item->id) --}}" class="btn btn-warning btn-sm">Sửa</a>
-                                <form action="{{-- route('admin.products.destroy', $item->id) --}}" method="POST" style="display:inline-block;"
-                                    onsubmit="return confirm('Bạn có chắc muốn xoá?')">
+                                <a href="{{route('admin.products.edit', $item->id) }}" class="btn btn-warning btn-sm">Sửa</a>
+                                <form action="{{ route('admin.products.delete', $item->id) }}" method="POST"
+                                    style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xoá?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">Xoá</button>

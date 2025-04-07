@@ -47,7 +47,12 @@
                                 <td>{{ $user->phone ?? 'Chưa cập nhật' }}</td>
                                 <td>{{ $user->address ?? 'Chưa cập nhật' }}</td>
                                 <td>{{ $user->role ?? 'Chưa cập nhật' }}</td>
-                                <td>{{ $user->status ?? 'Chưa cập nhật' }}</td>
+                                <td>
+                                    <span class="badge badge-{{ $user->status ? 'success' : 'secondary' }}">
+                                        {{ $user->status ? 'Hoạt động' : 'Không hoạt động' }}
+                                    </span>
+                                </td>
+                                {{-- <td>{{ $user->status ?? 'Chưa cập nhật' }}</td> --}}
                                 <td>{{ $user->created_at ?? 'Chưa cập nhật' }}</td>
                                 <td>
                                     <a href="{{ route('admin.account.edit', $user->id) }}"

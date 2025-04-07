@@ -46,6 +46,8 @@ class ProductStoreRequest extends FormRequest
             'price.min' => 'Giá sản phẩm phải lớn hơn hoặc bằng 0.',
             'price.max' => 'Giá sản phẩm không được vượt quá 9.999.999',
             'sale.numeric' => 'Giảm giá phải là số.',
+            'sale.min' => 'Giảm giá phải lớn hơn hoặc bằng 0.',
+            'sale.max' => 'Giảm giá không được vượt quá 100%.',
             'status.required' => 'Trạng thái là bắt buộc.',
             'colors.required' => 'Màu sắc là bắt buộc.',
             'sizes.required' => 'Kích thước là bắt buộc.',

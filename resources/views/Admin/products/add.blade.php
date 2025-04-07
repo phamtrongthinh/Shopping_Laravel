@@ -49,8 +49,8 @@
                         <!-- Giảm Giá -->
                         <div class="form-group">
                             <label for="sale">Giảm Giá (%)</label>
-                            <input type="number" name="sale" class="form-control" id="sale"
-                                placeholder="Nhập giảm giá (nếu có)" min="0" max="100">
+                            <input type="number" name="sale" class="form-control" id="sale" value="{{ old('sale') }}"
+                                placeholder="Nhập giảm giá (nếu có)">
                         </div>
 
                         <!-- Trạng Thái -->
@@ -70,7 +70,6 @@
                             <br>
                             <img id="preview" class="img-thumbnail mt-2" style="display:none; max-width: 100px;"
                                 alt="Xem trước ảnh">
-
                         </div>
 
                     </div>

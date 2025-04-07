@@ -17,7 +17,7 @@ class ProductController extends Controller
 
 
         return view('admin.products.index', [
-            'title' => 'Danh sách sản phẩm',
+            'title' => 'Quản lý sản phẩm',
             'product' => $product,
 
         ]);
@@ -27,13 +27,13 @@ class ProductController extends Controller
     {
         $categories = Category::all(); // Hoặc có thể sử dụng logic lọc danh mục        
         $colors = Color::all(); // Lấy tất cả các màu sắc từ cơ sở dữ liệu
-        return view('admin.products.add', ['title' => 'Tạo sản phẩm mới'], compact('categories', 'colors'));
+        return view('admin.products.add', ['title' => 'Quản lý sản phẩm'], compact('categories', 'colors'));
     }
 
     public function store(ProductStoreRequest $request)
     {
         // Dữ liệu đã được xác thực
-        $validatedData = $request->validated();
+        $validatedData = $request->validated();      
         try {
             $imageName = null;
             if ($request->hasFile('image')) {
@@ -56,5 +56,58 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Thêm sản phẩm thất bại. ' . $e->getMessage());
         }
+    }
+
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all(); // Hoặc có thể sử dụng logic lọc danh mục
+        return view('admin.products.edit', [
+            'title' => 'Quản lý sản phẩm',
+            'product' => $product,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update(ProductStoreRequest $request, $id)
+    {
+        $validatedData = $request->validated();
+
+        try {
+            $product = Product::findOrFail($id);
+
+            $imageName = $product->image; // Giữ ảnh cũ nếu không chọn ảnh mới
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads/products'), $imageName);
+            }
+
+            $product->update([
+                'name' => $validatedData['name'],
+                'description' => $validatedData['description'],
+                'price' => $validatedData['price'],
+                'sale' => $validatedData['sale'] ?? 0,
+                'category_id' => $validatedData['category_id'],
+                'status' => $validatedData['status'],
+                'image' => $imageName,
+            ]);
+
+            return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Lỗi khi cập nhật sản phẩm: ' . $e->getMessage());
+        }
+    }
+
+
+
+    public function delete($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Xóa sản phẩm thành công');
     }
 }

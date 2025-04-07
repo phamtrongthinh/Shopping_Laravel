@@ -27,7 +27,7 @@ class CategoryController extends Controller
         $categories = $query->orderBy('id', 'desc')->paginate(5);
 
         return view('admin.categorys.index', [
-            'title' => 'Danh sách danh mục',
+            'title' => 'Quản lý danh mục',
             'categories' => $categories,
             'search' => $search, // Truyền từ khóa tìm kiếm về view
         ]);
@@ -42,7 +42,7 @@ class CategoryController extends Controller
     public function create()
     {
 
-        return view('admin.categorys.create', ['title' => 'Tạo danh mục']);
+        return view('admin.categorys.create', ['title' => 'Quản lý danh mục']);
     }
 
     /**
@@ -86,7 +86,7 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
-            $title = 'Chỉnh sửa danh mục';
+            $title = 'Quản lý danh mục';
             return view('admin.categorys.edit', compact('category', 'title'));
         } catch (\Exception $e) {
             return redirect()->route('admin.categorys.index')->with('error', 'Không tìm thấy danh mục.');

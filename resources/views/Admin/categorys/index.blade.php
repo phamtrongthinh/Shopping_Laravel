@@ -49,7 +49,12 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ Str::limit($category->description ?? 'Không có mô tả', 80, '...') }}</td>
                         <td>{{ $category->gender ?? 'Không xác định' }}</td> <!-- Hiển thị giới tính -->
-                        <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td>
+                        <td>
+                            <span class="badge badge-{{ $category->active ? 'success' : 'secondary' }}">
+                                {{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}
+                            </span>
+                        </td>
+                        {{-- <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td> --}}
                         <td>{{ $category->created_at }}</td>
                         <td>
                             <a href="{{ route('admin.categorys.edit', $category->id) }}" class="btn btn-warning">Sửa</a>

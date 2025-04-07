@@ -16,14 +16,14 @@ class ColorController extends Controller
 
         // Trả về view 'admin.colors.index' với dữ liệu màu sắc
         return view('admin.colors.index', [
-            'title' => 'Danh sách màu sắc',
+            'title' => 'Quản lý mã màu sản phẩm',
             'colors' => $colors,
         ]);
     }
 
     public function add()
     {
-        return view('admin.colors.add', ['title' => 'Tạo màu sắc']);
+        return view('admin.colors.add', ['title' => 'Quản lý mã màu sản phẩm']);
     }
 
 
@@ -57,7 +57,7 @@ class ColorController extends Controller
     {
         $color = Color::findOrFail($id);
         return view('admin.colors.edit', [
-            'title' => 'Chỉnh sửa màu sắc',
+            'title' => 'Quản lý mã màu sản phẩm',
             'color' => $color,
         ]);
     }
