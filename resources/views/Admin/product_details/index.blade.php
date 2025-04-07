@@ -27,7 +27,7 @@
                     <tbody>
                         @foreach ($details as $detail)
                             <tr>
-                                <td>{{ $detail->color }}</td>
+                                <td>{{ $detail->color->name }}</td>
                                 <td>{{ $detail->size }}</td>
                                 <td>{{ $detail->quantity }}</td>
                                 <td>

@@ -8,20 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class ProductDetail extends Model
 {
     use HasFactory;
-     // Chỉ định bảng (nếu tên bảng không phải là số nhiều của model)
-     protected $table = 'product_details';
-      // Các trường có thể mass assign
+    // Chỉ định bảng (nếu tên bảng không phải là số nhiều của model)
+    protected $table = 'product_details';
+    // Các trường có thể mass assign
     protected $fillable = [
-        'product_id', 
-        'color', 
-        'size', 
-        'quantity', 
+        'product_id',
+        'color_id',
+        'size',
+        'quantity',
         'image'
     ];
     // Quan hệ với bảng Product (nhiều-1)
-   // Quan hệ với bảng Product (nhiều-1)
-   public function product()
-   {
-       return $this->belongsTo(Product::class, 'product_id');
-   }
+    // Quan hệ với bảng Product (nhiều-1)
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
+    }
 }

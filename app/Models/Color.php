@@ -12,4 +12,10 @@ class Color extends Model
 
     // Các cột có thể được gán giá trị hàng loạt
     protected $fillable = ['name', 'code'];
+
+    // Quan hệ với bảng ProductDetail (1-n)
+    public function productDetails()
+    {
+        return $this->hasMany(ProductDetail::class, 'color_id');
+    }
 }
