@@ -128,18 +128,6 @@
                                 <p>Danh sách mã màu sản phẩm</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thuộc Tính Sản Phẩm</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Quản Lý Kho</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <!-- Nhập kho -->
@@ -164,24 +152,8 @@
                                 <p>Danh Sách Phiếu Nhập</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Quản Lý Nhà Cung Cấp</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Phiếu Nhập Chờ Xử Lý</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Lịch Sử Nhập Kho</p>
-                            </a>
-                        </li>
+
+
                     </ul>
                 </li>
                 <!-- Phần quản lý đơn hàng mới -->
@@ -317,33 +289,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <!-- Phần quản lý bài viết -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-newspaper"></i>
-                        <p>
-                            Quản Lý Bài Viết
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm Bài Viết</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh Sách Bài Viết</p>
-                            </a>
-                        </li>
-                    </ul>
-
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

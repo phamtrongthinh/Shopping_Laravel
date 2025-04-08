@@ -37,28 +37,36 @@ class ProductDetailController extends Controller
 
     public function store(StoreProductDetailRequest $request, $productId)
     {
-        // Lấy dữ liệu từ form sau khi đã được xác thực
         $validated = $request->validated();
+
+        // Kiểm tra trùng lặp color_id và size cho cùng product_id
+        $exists = ProductDetail::where('product_id', $productId)
+            ->where('color_id', $validated['colorselect'])
+            ->where('size', $validated['size'])
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'Đã tồn tại sản phẩm với màu và size này vui lòng chỉ cập nhập!'])
+                ->withInput();
+        }
 
         // Lưu ảnh nếu có
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $fileName = time() . '_' . $file->getClientOriginalName(); // Đặt tên file (có timestamp tránh trùng)
-            $file->move(public_path('uploads/product_details'), $fileName); // Di chuyển file
-
-            $imagePath = 'uploads/product_details/' . $fileName; // Lưu đường dẫn tương đối để hiển thị
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/product_details'), $fileName);
+            $imagePath = 'uploads/product_details/' . $fileName;
         } else {
             $imagePath = null;
         }
 
-
-        // Tạo chi tiết sản phẩm mới và lưu vào cơ sở dữ liệu
         ProductDetail::create([
             'product_id' => $productId,
             'color_id' => $validated['colorselect'],
             'size' => $validated['size'],
             'quantity' => $validated['quantities'],
-            'image' => $imagePath,  // Lưu đường dẫn ảnh
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.product_details.index', ['product' => $productId])
@@ -80,35 +88,45 @@ class ProductDetailController extends Controller
     }
     public function update(StoreProductDetailRequest $request, $productId, $detailId)
     {
-        // Tìm sản phẩm và chi tiết sản phẩm
-        $product = Product::findOrFail($productId);
+        // Tìm chi tiết sản phẩm
         $detail = ProductDetail::where('product_id', $productId)->findOrFail($detailId);
-
-        // Cập nhật thông tin chi tiết sản phẩm (ví dụ như size, color, quantity, v.v.)
-        $detail->size = $request->input('size');
-        $detail->color_id = $request->input('colorselect');
-        $detail->quantity = $request->input('quantities');
-
+    
+        // Lấy dữ liệu đã validate từ form
+        $validated = $request->validated();
+    
+        // Kiểm tra xem có bản ghi trùng màu + size (nhưng khác ID) không
+        $exists = ProductDetail::where('product_id', $productId)
+            ->where('color_id', $validated['colorselect'])
+            ->where('size', $validated['size'])
+            ->where('id', '!=', $detailId) // bỏ qua chính bản ghi đang update
+            ->exists();
+    
+        if ($exists) {
+            return redirect()->back()
+                ->withErrors(['duplicate' => 'Đã tồn tại sản phẩm với màu và size này, vui lòng chọn thông tin khác.'])
+                ->withInput();
+        }
+    
+        // Cập nhật thông tin
+        $detail->color_id = $validated['colorselect'];
+        $detail->size = $validated['size'];
+        $detail->quantity = $validated['quantities'];
+    
         // Nếu có ảnh mới
         if ($request->hasFile('image')) {
-            // Xử lý ảnh
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
-            // Di chuyển ảnh vào thư mục public/uploads/product_details
             $file->move(public_path('uploads/product_details'), $imageName);
-
-            // Cập nhật đường dẫn ảnh vào chi tiết sản phẩm
             $detail->image = 'uploads/product_details/' . $imageName;
         }
-
-        // Lưu thông tin chi tiết sản phẩm đã được cập nhật
+    
+        // Lưu lại
         $detail->save();
-
-        // Chuyển hướng về danh sách chi tiết sản phẩm với thông báo thành công
+    
         return redirect()->route('admin.product_details.index', ['product' => $productId])
             ->with('success', 'Chi tiết sản phẩm đã được cập nhật!');
     }
-
+    
 
     public function destroy($productId, $detailId)
     {
