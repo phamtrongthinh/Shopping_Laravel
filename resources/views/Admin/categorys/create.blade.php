@@ -46,4 +46,30 @@
             </div>
         </form>
     </div>
+
+    
+
+    <script>
+        // Hàm xem trước ảnh
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('preview');
+                preview.src = reader.result;
+                preview.style.display = 'block'; // Hiển thị ảnh
+                document.getElementById('removeImageBtn').style.display = 'inline-block'; // Hiển thị nút xóa
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function removeImage() {
+            // Xóa hình ảnh đã tải lên
+            var preview = document.getElementById('preview');
+            preview.style.display = 'none'; // Ẩn ảnh
+            document.getElementById('image').value = ''; // Xóa giá trị của input file
+
+            // Ẩn nút xóa
+            document.getElementById('removeImageBtn').style.display = 'none';
+        }
+    </script>
 @endsection

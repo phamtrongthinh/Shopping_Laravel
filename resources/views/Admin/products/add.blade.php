@@ -63,13 +63,20 @@
                         </div>
 
                         <!-- Ảnh Sản Phẩm -->
-                        <div class="form-group border p-3 rounded">
-                            <label for="image">Ảnh Sản Phẩm</label>
-                            <input type="file" name="image" class="form-control-file" id="image" accept="image/*"
-                                onchange="previewImage(event)">
-                            <br>
-                            <img id="preview" class="img-thumbnail mt-2" style="display:none; max-width: 100px;"
-                                alt="Xem trước ảnh">
+                        <!-- Ảnh (Làm cho ảnh xuống dòng dưới các input khác) -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group border p-3 rounded">
+                                    <label for="image">Ảnh Sản Phẩm</label>
+                                    <input type="file" name="image" class="form-control-file" id="image"
+                                        accept="image/*" onchange="previewImage(event)">
+                                    <br>
+                                    <img id="preview" class="img-thumbnail mt-2" style="display:none; max-width: 100px;"
+                                        alt="Xem trước ảnh">
+                                    <button type="button" class="btn btn-danger mt-2" id="removeImageBtn"
+                                        style="display:none;" onclick="removeImage()">Xóa ảnh</button>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -188,16 +195,30 @@
     </div>
 
     <script>
+        // Hàm xem trước ảnh
         function previewImage(event) {
             var reader = new FileReader();
             reader.onload = function() {
                 var preview = document.getElementById('preview');
                 preview.src = reader.result;
-                preview.style.display = 'block';
+                preview.style.display = 'block'; // Hiển thị ảnh
+                document.getElementById('removeImageBtn').style.display = 'inline-block'; // Hiển thị nút xóa
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+
+        // Hàm xóa ảnh
+        function removeImage() {
+            // Xóa hình ảnh đã tải lên
+            var preview = document.getElementById('preview');
+            preview.style.display = 'none'; // Ẩn ảnh
+            document.getElementById('image').value = ''; // Xóa giá trị của input file
+
+            // Ẩn nút xóa
+            document.getElementById('removeImageBtn').style.display = 'none';
+        }
     </script>
+
 
 
     {{-- <script>
