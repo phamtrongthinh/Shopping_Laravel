@@ -96,3 +96,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{detail}', [ProductDetailController::class, 'destroy'])->name('admin.product_details.destroy');
     });
 });
+Route::get('/login', function () {
+    return view('custom.users.login');
+});

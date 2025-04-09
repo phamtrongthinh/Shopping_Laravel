@@ -1,0 +1,423 @@
+.input-container {
+    position: relative;
+    margin: 20px auto;
+}
+
+span.toggle-password {
+    top: 50%;
+    position: absolute;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.input-container input[type='text'],
+.input-container input[type='tel'],
+.input-container select {
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    border: 1px solid #646468;
+    padding: 6px 10px 6px 35px;
+    background-color: transparent;
+    outline: none;
+    border-radius: 5px;
+    font-weight: 300;
+    color: #000000;
+    height: 44px;
+}
+
+.input-container select {
+    font-size: 15px;
+}
+
+.form-input-wisdom.phone-name.sdt-gioithieu input::placeholder {
+    color: #000;
+    font-size: 14px;
+}
+
+.input-container .label {
+    position: absolute;
+    top: 12px;
+    left: 36px;
+    color: #000000;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    display: inline-block;
+    background: #f7f2ec;
+    padding: 0px 10px 0px 0px;
+    font-weight: 300;
+}
+
+.input-container input[type='text']:focus~.label,
+.input-container input[type='text']:valid~.label {
+    top: -14px;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+}
+
+.input-container select:focus~.label,
+.input-container select:valid~.label {
+    top: -14px;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+}
+
+.input-container input[type='tel']:focus~.label,
+.input-container input[type='tel']:valid~.label {
+    top: -14px;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+}
+
+.input-container input[type='password']:focus~.label,
+.input-container input[type='password']:valid~.label {
+    top: -14px;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+}
+
+.input-container .underline {
+    position: absolute;
+    bottom: 0;
+    left: 6px;
+    height: 1px;
+    width: 96%;
+    background-color: #ffffff;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+    font-weight: 300;
+    border-radius: 5px;
+}
+
+.input-container input[type='text']:focus~.underline,
+.input-container input[type='text']:valid~.underline {
+    transform: scaleX(1);
+}
+
+.box-signin {
+    background: #bf91601f;
+    height: 100%;
+}
+
+.input-container input::placeholder,
+.input-container select::placeholder {
+    color: #fff;
+}
+
+.images-logo img {
+    height: 60px;
+}
+
+.images-logo {
+    padding: 20px 0px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.box-login-wisdom {
+    border-radius: 41px;
+    margin-top: -13px;
+    position: relative;
+    z-index: 9999;
+    background: #f7f2ec;
+}
+
+.ghichu {
+    display: flex;
+    align-items: center;
+    gap: 0px 5px;
+}
+
+.ghichu p {
+    margin-bottom: 0px;
+    color: #000000;
+}
+
+.ghichu input {
+    background: unset !important;
+    border: 1px solid #fff;
+}
+
+.btn-dangnhap {
+    margin-top: 20px;
+}
+
+.btn-dangnhap button {
+    width: 100%;
+    height: 40px;
+    background: #d9af7b;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    padding: 0;
+    font-size: 1.4rem;
+}
+
+.btn-dangky {
+    margin-top: 20px;
+}
+
+.btn-dangky a {
+    width: 100%;
+    height: 40px;
+    background: none;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    color: #000000;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    border: 1px solid #646468;
+}
+
+.quenmk {
+    text-align: center;
+    margin-top: 20px;
+    color: #000000;
+}
+
+.box-chucnang-login {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.list-chucnang-logins {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0px 1px;
+    background: #5b5b5b;
+}
+
+.item-login-chucnang {
+    text-align: center;
+    width: calc(100% / 3);
+    padding: 9px 5px;
+    background: #11321a;
+}
+
+.content-chucnang a {
+    margin-bottom: 0px;
+    color: #fff;
+    padding-bottom: 0px;
+}
+
+.content-chucnang {
+    margin-top: 2px;
+}
+
+.icon-chucnang i {
+    color: #fff;
+    font-size: 16px;
+}
+
+.box-container-wisdom .ctnr {
+    padding: 0px 25px;
+}
+
+.input-container input[type='password'] {
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    border: 1px solid #646468;
+    padding: 6px 10px 6px 35px;
+    background-color: transparent;
+    outline: none;
+    border-radius: 5px;
+    font-weight: 300;
+    color: #000000;
+    height: 44px;
+}
+
+.input-container:before {
+    content: '';
+    position: absolute;
+}
+
+.form-input-wisdom.pasword .input-container:before {
+    content: '\f06e';
+    position: absolute;
+    font-family: 'Font Awesome 5 Free';
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+}
+
+.form-input-wisdom .input-container:before {
+    content: '\f007';
+    font-family: 'Font Awesome 5 Free';
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    position: absolute;
+}
+
+.form-input-wisdom.email .input-container:before {
+    content: '\f0e0';
+}
+
+.form-input-wisdom.phone-name .input-container:before {
+    content: '\f879';
+    font-weight: 700;
+}
+
+.form-input-wisdom.location-name .input-container:before {
+    content: '\f3c5';
+    font-weight: 700;
+}
+
+button.btn-dangnhap-wisdom {
+    width: 100%;
+    height: 40px;
+    background: #d9af7b;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.box-chucnang-login {
+    display: none;
+}
+
+
+.box-login-wisdom {
+    height: 100%;
+}
+
+
+.box-chucnang-login {
+    z-index: 999999;
+}
+
+.box-member-login {
+    display: flex;
+    gap: 0px 47px;
+}
+
+.box-member-login p {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.box-member-login {
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+.marquee-content p {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    color: #fff;
+}
+
+.marquee-content {
+    padding: 10px 0px 7px;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: #000000;
+    /* chỉnh màu nếu muốn */
+}
+
+.marquee-content {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: scroll-left 15s linear infinite;
+    will-change: transform;
+    gap: 0px 20px;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translate3d(100%, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+@media (min-width: 990px) {
+    .app-sigin {
+        display: none;
+    }
+
+    .box-container-wisdom {
+        padding-top: 10vh;
+    }
+
+    .box-container-wisdom {
+        height: 100%;
+    }
+}
+
+@media (min-width: 990px) and (max-width: 1200px) {
+    .ctnr {
+        max-width: 60%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .box-container-wisdom .ctnr {
+        padding: 0px 25px;
+        max-width: 740px;
+    }
+
+    .box-signin {
+        height: auto;
+    }
+
+    .box-chucnang-login {
+        z-index: 99999;
+    }
+}
+
+@media (min-width: 680px) {
+    .box-chucnang-login {
+        /* position: relative; */
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 990px) {
+    .box-chucnang-login {
+        display: block;
+    }
+}
+
+@media (max-width: 350px) {
+    .ghichu label {
+        font-size: 12px;
+    }
+
+    .ghichu p {
+        font-size: 13px;
+    }
+}
+
+.ghichu label {
+    margin: 0;
+    font-weight: normal;
+}
