@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailController;
+use App\Http\Controllers\MainController as FrontendMainController;
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,8 +23,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-
-Route::get('/', [LoginController::class, 'index']);
+Route::get('/', [FrontendMainController::class, 'main']);
+Route::get('/admin', [LoginController::class, 'index']);
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Trang login    
