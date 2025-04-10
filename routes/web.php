@@ -23,7 +23,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [FrontendMainController::class, 'main']);
+Route::get('/', [FrontendMainController::class, 'home']);
+Route::get('/contact', [FrontendMainController::class, 'contact']) -> name('contact');
+Route::get('/about', [FrontendMainController::class, 'about']) -> name('about');
 Route::get('/admin', [LoginController::class, 'index']);
 
 Route::prefix('admin')->name('admin.')->group(function () {
