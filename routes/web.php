@@ -26,7 +26,10 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [FrontendMainController::class, 'home']);
 Route::get('/contact', [FrontendMainController::class, 'contact']) -> name('contact');
 Route::get('/about', [FrontendMainController::class, 'about']) -> name('about');
+Route::get('/login', [FrontendMainController::class, 'login']) -> name('login');
 Route::get('/admin', [LoginController::class, 'index']);
+
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Trang login    
@@ -98,7 +101,4 @@ Route::middleware('auth')->group(function () {
         Route::put('/{detail}', [ProductDetailController::class, 'update'])->name('admin.product_details.update');
         Route::delete('/{detail}', [ProductDetailController::class, 'destroy'])->name('admin.product_details.destroy');
     });
-});
-Route::get('/login', function () {
-    return view('custom.users.login');
 });
