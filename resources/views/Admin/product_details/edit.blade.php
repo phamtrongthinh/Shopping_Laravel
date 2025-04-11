@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-1">
                                 <input type="color" name="colorInput" id="colorInput" class="form-control"
-                                    value="{{ $detail->color ? $detail->color->code : '' }}" readonly>
+                                    value="{{ $detail->color ? $detail->color->code : '' }}" disabled>
                             </div>
 
                             <div class="col-md-2">
