@@ -24,9 +24,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [FrontendMainController::class, 'home']);
-Route::get('/contact', [FrontendMainController::class, 'contact']) -> name('contact');
-Route::get('/about', [FrontendMainController::class, 'about']) -> name('about');
-Route::get('/login', [FrontendMainController::class, 'login']) -> name('login');
+Route::get('/contact', [FrontendMainController::class, 'contact'])->name('contact');
+Route::get('/about', [FrontendMainController::class, 'about'])->name('about');
+Route::get('/login', [FrontendMainController::class, 'login'])->name('login');
+Route::get('/signup', [FrontendMainController::class, 'signup'])->name('signup');
+Route::get('/forget-password', [FrontendMainController::class, 'forgetpasswword'])->name('forgetpasswword');
 Route::get('/admin', [LoginController::class, 'index']);
 
 

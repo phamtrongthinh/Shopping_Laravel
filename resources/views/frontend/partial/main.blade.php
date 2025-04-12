@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    @include('head')
+    @include('frontend.partial.head')
 </head>
 
 <body class="animsition">
 
-    @include('header')
+    @include('frontend.partial.header')
 
     <!-- Cart -->
     <div class="wrap-header-cart js-panel-cart">
@@ -97,7 +97,7 @@
     </div>
     @yield('content')
 
-    @include('footer')
+    @include('frontend.partial.footer')
 
 </body>
 

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('frontend.partial.main')
 @section('content')
     <!-- Slider -->
     <section class="section-slide">
