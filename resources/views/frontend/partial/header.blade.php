@@ -1,41 +1,56 @@
  <!-- Header -->
- <header>
+ <header @unless (request()->is('/')) class="header-v4" @endunless>
+
      <!-- Header desktop -->
      <div class="container-menu-desktop">
+         <!-- Topbar -->
+         <div class="top-bar" style="background-color: #222; color: #fff; font-size: 14px;">
+             <div class="content-topbar flex-sb-m h-full container">
+                 <div class="left-top-bar" style="color: #fff8f8;">
+                     Hotline mua hàng:
+                     <strong> 0396 945 033</strong>
+                     (8:30 - 21:30, tất cả các ngày trong tuần)
+                 </div>
 
-         <div class="wrap-menu-desktop">
-             <nav class="limiter-menu-desktop container">
+                 <div class="right-top-bar flex-w h-full">
+                     <span class="flex-c-m " style="color: #fff8f8;font-size: 12px;">
+                         Phục vụ tận tâm - Chất lượng hàng đầu
+                     </span>
+                 </div>
+             </div>
+         </div>
+
+
+         <div class="wrap-menu-desktop @unless (request()->is('/')) how-shadow1 @endunless">
+             <nav class="limiter-menu-desktop
+             container">
 
                  <!-- Logo desktop -->
-                 <a href="#" class="logo">
-                     <img src="template/images/icons/logo-01.png" alt="IMG-LOGO">
+                 <a href="/" class="logo">
+                     <img src="{{ asset('image/logo_fashion.png') }}" style="height: 40px; " alt="IMG-LOGO">
                  </a>
 
                  <!-- Menu desktop -->
                  <div class="menu-desktop">
                      <ul class="main-menu">
-                         <li class="active-menu">
-                             <a href="index.html">Home</a>
+                         <li class="{{ request()->is('/') ? 'active-menu' : '' }}">
+                             <a href="/">Trang chủ</a>
                          </li>
 
-                         <li>
-                             <a href="product.html">Shop</a>
+                         <li class="{{ request()->is('/san-pham') ? 'active-menu' : '' }}">
+                             <a href="{{ route('product') }}">Cửa hàng</a>
                          </li>
 
-                         <li class="label1" data-label1="hot">
-                             <a href="shoping-cart.html">Features</a>
+                         <li class="label1 {{ request()->is('/gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
+                             <a href="{{ route('cart') }}">Tính năng</a>
                          </li>
 
-                         <li>
-                             <a href="blog.html">Blog</a>
+                         <li class="{{ request()->is('ve-chung-toi') ? 'active-menu' : '' }}">
+                             <a href="{{ route('about') }}">Về chúng tôi</a>
                          </li>
 
-                         <li>
-                             <a href="{{ route('about') }}">About</a>
-                         </li>
-
-                         <li>
-                             <a href="{{ route('contact') }}">Contact</a>
+                         <li class="{{ request()->is('lien-he') ? 'active-menu' : '' }}">
+                             <a href="{{ route('contact') }}">Liên hệ</a>
                          </li>
                      </ul>
                  </div>
@@ -45,6 +60,10 @@
                      <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                          <i class="zmdi zmdi-search"></i>
                      </div>
+
+                     <a href="/login" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
+                         <i class="zmdi zmdi-account"></i>
+                     </a>
 
                      <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
                          data-notify="2">
@@ -111,4 +130,6 @@
              </form>
          </div>
      </div>
+
+
  </header>

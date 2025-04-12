@@ -14,11 +14,12 @@
     <header class="header desktop-header">
         <a href="/" class="brand">
             <img src="image/logo_fashion.png" alt="FashionShop Logo" class="logo" />
+            <div class="brand-text">
+                <span class="brand-name">YaM Fashion</span>
+                <span class="brand-slogan">Vẻ đẹp từ phong cách</span>
+            </div>
         </a>
-        <div class="brand-text">
-            <span class="brand-name">YaM Fashion</span>
-            <span class="brand-slogan">Vẻ đẹp từ phong cách</span>
-        </div>
+
     </header>
 
     <!-- Đăng ký -->

@@ -2,7 +2,7 @@
 @section('content')
     <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('template/images/bg-01.jpg');">
         <h2 class="ltext-105 cl0 txt-center">
-            About
+            Về chúng tôi
         </h2>
     </section>
     <section class="bg0 p-t-75 p-b-120">
@@ -11,33 +11,30 @@
                 <div class="col-md-7 col-lg-8">
                     <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
                         <h3 class="mtext-111 cl2 p-b-16">
-                            Our Story
+                            Câu chuyện của chúng tôi
                         </h3>
 
                         <p class="stext-113 cl6 p-b-26">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat consequat enim, non
-                            auctor massa ultrices non. Morbi sed odio massa. Quisque at vehicula tellus, sed tincidunt
-                            augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                            Maecenas varius egestas diam, eu sodales metus scelerisque congue. Pellentesque habitant morbi
-                            tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas gravida justo eu arcu
-                            egestas convallis. Nullam eu erat bibendum, tempus ipsum eget, dictum enim. Donec non neque ut
-                            enim dapibus tincidunt vitae nec augue. Suspendisse potenti. Proin ut est diam. Donec
-                            condimentum euismod tortor, eget facilisis diam faucibus et. Morbi a tempor elit.
+                            YaM được ra đời từ niềm đam mê bất tận với thời trang và khát khao sáng tạo không ngừng. Chúng
+                            tôi tự hào mang đến những thiết kế độc đáo, vừa đảm bảo chất lượng vượt trội, vừa gợi lên nét
+                            phong cách riêng biệt. Mỗi sản phẩm đều là một sự kết nối đầy ý nghĩa giữa YaM và khách hàng –
+                            một hành trình mà chúng tôi luôn trân trọng.
                         </p>
 
                         <p class="stext-113 cl6 p-b-26">
-                            Donec gravida lorem elit, quis condimentum ex semper sit amet. Fusce eget ligula magna. Aliquam
-                            aliquam imperdiet sodales. Ut fringilla turpis in vehicula vehicula. Pellentesque congue ac orci
-                            ut gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu facilisis, eu sodales lectus
-                            sagittis. Etiam pellentesque, magna vel dictum rutrum, neque justo eleifend elit, vel tincidunt
-                            erat arcu ut sem. Sed rutrum, turpis ut commodo efficitur, quam velit convallis ipsum, et
-                            maximus enim ligula ac ligula.
+                            Với đội ngũ nhà thiết kế trẻ trung, giàu nhiệt huyết, YaM không chỉ mang đến những sản phẩm thời
+                            trang tinh tế mà còn là nguồn cảm hứng giúp bạn tự tin thể hiện cá tính riêng của mình. Đối với
+                            chúng tôi, thời trang không chỉ là một sự lựa chọn – đó là cách để mỗi người bộc lộ vẻ đẹp tiềm
+                            ẩn và trở thành phiên bản tốt nhất của bản thân.
                         </p>
 
                         <p class="stext-113 cl6 p-b-26">
-                            Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
-                            on (+1) 96 716 6879
+                            Nếu bạn cần giải đáp bất kỳ câu hỏi hoặc hỗ trợ nào, đừng ngần ngại liên hệ với chúng tôi tại
+                            địa chỉ: số 47 Đường Thanh Liệt, Thanh Quang, Thanh Trì, Hà Nội. Ngoài ra, đội ngũ của chúng tôi
+                            luôn sẵn sàng hỗ trợ qua số điện thoại 0396945033. Chúng tôi rất mong được đồng hành cùng bạn
+                            trên hành trình thời trang đầy cảm hứng!
                         </p>
+
                     </div>
                 </div>
 
@@ -54,31 +51,33 @@
                 <div class="order-md-2 col-md-7 col-lg-8 p-b-30">
                     <div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
                         <h3 class="mtext-111 cl2 p-b-16">
-                            Our Mission
+                            Sứ mệnh của chúng tôi
                         </h3>
 
                         <p class="stext-113 cl6 p-b-26">
-                            Mauris non lacinia magna. Sed nec lobortis dolor. Vestibulum rhoncus dignissim risus, sed
-                            consectetur erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                            turpis egestas. Nullam maximus mauris sit amet odio convallis, in pharetra magna gravida.
-                            Praesent sed nunc fermentum mi molestie tempor. Morbi vitae viverra odio. Pellentesque ac velit
-                            egestas, luctus arcu non, laoreet mauris. Sed in ipsum tempor, consequat odio in, porttitor
-                            ante. Ut mauris ligula, volutpat in sodales in, porta non odio. Pellentesque tempor urna vitae
-                            mi vestibulum, nec venenatis nulla lobortis. Proin at gravida ante. Mauris auctor purus at lacus
-                            maximus euismod. Pellentesque vulputate massa ut nisl hendrerit, eget elementum libero iaculis.
+                            YaM tự hào định hướng trở thành thương hiệu thời trang tiên phong, nơi khơi nguồn cảm hứng và
+                            mang đến sự tự tin cho khách hàng thông qua từng sản phẩm. Mỗi thiết kế của chúng tôi không chỉ
+                            là một món đồ thời trang, mà còn là một câu chuyện, một thông điệp giúp bạn tỏa sáng theo cách
+                            riêng của mình.
+                        </p>
+
+                        <p class="stext-113 cl6 p-b-26">
+                            Chúng tôi không ngừng vươn xa, sáng tạo từng ngày để mang lại những giá trị vượt trội cho cộng
+                            đồng, để thời trang không chỉ là những bộ trang phục mà còn là sự kết nối của cảm xúc, phong
+                            cách và cái đẹp. YaM, cùng bạn, kiến tạo nên một thế giới tràn đầy cảm hứng.
                         </p>
 
                         <div class="bor16 p-l-29 p-b-9 m-t-22">
                             <p class="stext-114 cl6 p-r-40 p-b-11">
-                                Creativity is just connecting things. When you ask creative people how they did something,
-                                they feel a little guilty because they didn't really do it, they just saw something. It
-                                seemed obvious to them after a while.
+                                "Thời trang không chỉ là quần áo, mà là cách bạn thể hiện bản thân và giao tiếp với thế
+                                giới."
                             </p>
 
                             <span class="stext-111 cl8">
-                                - Steve Job’s
+                                - Coco Chanel
                             </span>
                         </div>
+
                     </div>
                 </div>
 

@@ -24,12 +24,24 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [FrontendMainController::class, 'home']);
-Route::get('/contact', [FrontendMainController::class, 'contact'])->name('contact');
-Route::get('/about', [FrontendMainController::class, 'about'])->name('about');
+Route::get('/admin', [LoginController::class, 'index']);
+
+
 Route::get('/login', [FrontendMainController::class, 'login'])->name('login');
 Route::get('/signup', [FrontendMainController::class, 'signup'])->name('signup');
 Route::get('/forget-password', [FrontendMainController::class, 'forgetpasswword'])->name('forgetpasswword');
-Route::get('/admin', [LoginController::class, 'index']);
+
+
+Route::get('/lien-he', [FrontendMainController::class, 'contact'])->name('contact');
+Route::get('/ve-chung-toi', [FrontendMainController::class, 'about'])->name('about');
+Route::get('/san-pham', function () {
+    return view('frontend.product');
+})->name('product');
+Route::get('/gio-hang', function () {
+    return view('frontend.cart');
+})->name('cart');
+
+
 
 
 
