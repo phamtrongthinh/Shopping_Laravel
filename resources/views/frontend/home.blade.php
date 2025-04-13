@@ -231,7 +231,7 @@
                 <!-- Filter -->
                 <div class="dis-none panel-filter w-full p-t-10">
                     <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-                        <div class="filter-col1 p-r-15 p-b-27" style="width: 33.3333%; padding-left: 120px ">
+                        <div class="filter-col1 p-r-15 p-b-27" style="width: 33.3333%; padding: 0 10% ">
                             <div class="mtext-102 cl2 p-b-15">
                                 Sắp xếp theo
                             </div>
@@ -275,7 +275,7 @@
                             </ul>
                         </div>
 
-                        <div class="filter-col2 p-r-15 p-b-27" style="width: 33.3333%;padding-left: 120px">
+                        <div class="filter-col2 p-r-15 p-b-27" style="width: 33.3333%;padding: 0 10%">
                             <div class="mtext-102 cl2 p-b-15">
                                 Giá
                             </div>
@@ -319,7 +319,7 @@
 
                         </div>
 
-                        <div class="filter-col3 p-r-15 p-b-27" style="width: 33.3333%;padding-left: 120px">
+                        <div class="filter-col3 p-r-15 p-b-27" style="width: 33.3333%;padding: 0 10%">
                             <div class="mtext-102 cl2 p-b-15">
                                 Màu sắc
                             </div>
@@ -380,8 +380,6 @@
                                 </li>
                             </ul>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -606,24 +604,24 @@
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-07.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Áo sơ mi cotton co giãn
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     1.280.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -635,30 +633,30 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-08.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Váy họa tiết ánh kim
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     460.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -670,30 +668,30 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item shoes">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-09.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Giày Converse All Star Hi
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     1.830.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -705,7 +703,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                     <!-- Block2 -->
@@ -746,24 +744,24 @@
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-10.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Áo thun nữ kẻ sọc
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     630.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -775,30 +773,30 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item men">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-12.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Ba lô Herschel
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     1.475.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -810,30 +808,30 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-13.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Áo thun nữ có tay áo
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     455.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -845,30 +843,30 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-14.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Pretty Little Thing
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     1.287.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -880,31 +878,31 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item watches">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-15.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Đồng hồ Mini Mesh Bạc
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     2.068.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -916,30 +914,30 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                     <!-- Block2 -->
                     <div class="block2">
                         <div class="block2-pic hov-img0">
                             <img src="template/images/product-16.jpg" alt="HÌNH ẢNH SẢN PHẨM">
-                
+
                             <a href="#"
                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Xem nhanh
                             </a>
                         </div>
-                
+
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l">
                                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     Square Neck Back
                                 </a>
-                
+
                                 <span class="stext-105 cl3">
                                     736.000₫
                                 </span>
                             </div>
-                
+
                             <div class="block2-txt-child2 flex-r p-t-3">
                                 <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                     <img class="icon-heart1 dis-block trans-04"
@@ -951,13 +949,13 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <!-- Load more -->
             <div class="flex-c-m flex-w w-full p-t-45">
                 <a href="/san-pham" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                    Xem thêm 
+                    Xem thêm
                 </a>
             </div>
         </div>

@@ -22,9 +22,9 @@
         <div class="container">
             <div class="flex-w flex-tr">
                 <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form action="{{--route('contact.storeAjax') --}}" data-url="{{-- route('contact.storeAjax') --}}"
-                        data-ajax="submit02" data-target="alert" data-href="#modalAjax" data-content="#content"
-                        data-method="POST" method="POST" name="frm" id="frm">
+                    <form action="{{-- route('contact.storeAjax') --}}" data-url="{{-- route('contact.storeAjax') --}}" data-ajax="submit02"
+                        data-target="alert" data-href="#modalAjax" data-content="#content" data-method="POST" method="POST"
+                        name="frm" id="frm">
                         <input type="hidden" name="title" value="THÔNG TIN LIÊN HỆ">
                         <input type="hidden" name="robot_check" value="" id="robot_check">
                         @csrf
@@ -34,18 +34,19 @@
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="name"
                                 placeholder="Tên">
-                            <img class="how-pos4 pointer-none" src="template/images/icons/icon-email.png" alt="ICON">
+                            <i class="fa-solid fa-user how-pos4 pointer-none"></i>
                         </div>
 
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email"
                                 placeholder="Địa chỉ Email của bạn">
-                            <img class="how-pos4 pointer-none" src="template/images/icons/icon-email.png" alt="ICON">
+                            <i class="fa-solid fa-envelope how-pos4 pointer-none"></i>
                         </div>
+
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="phone"
                                 placeholder="Số điện thoại">
-                            <img class="how-pos4 pointer-none" src="template/images/icons/icon-email.png" alt="ICON">
+                            <i class="fa-solid fa-phone how-pos4 pointer-none"></i>
                         </div>
 
 

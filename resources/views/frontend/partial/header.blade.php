@@ -74,9 +74,7 @@
                          <i class="zmdi zmdi-search"></i>
                      </div>
 
-                     <a href="/login" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
-                         <i class="zmdi zmdi-account"></i>
-                     </a>
+
 
                      <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
                          data-notify="2">
@@ -87,6 +85,9 @@
                          class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                          data-notify="0">
                          <i class="zmdi zmdi-favorite-outline"></i>
+                     </a>
+                     <a href="/login" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
+                         <i class="zmdi zmdi-account"></i>
                      </a>
                  </div>
              </nav>
@@ -124,8 +125,67 @@
              </span>
          </div>
      </div>
+     <!-- Menu Mobile -->
+     <div class="menu-mobile" style="display: none;">
+         {{-- <ul class="topbar-mobile">
+             <li>
+                 <div class="left-top-bar">
+                     Free shipping for standard order over $100
+                 </div>
+             </li>
 
+             <li>
+                 <div class="right-top-bar flex-w h-full">
+                     <a href="#" class="flex-c-m p-lr-10 trans-04">
+                         Help &amp; FAQs
+                     </a>
 
+                     <a href="#" class="flex-c-m p-lr-10 trans-04">
+                         My Account
+                     </a>
+
+                     <a href="#" class="flex-c-m p-lr-10 trans-04">
+                         EN
+                     </a>
+
+                     <a href="#" class="flex-c-m p-lr-10 trans-04">
+                         USD
+                     </a>
+                 </div>
+             </li>
+         </ul> --}}
+
+         <ul class="main-menu-m">
+             <li>
+                 <a href="/">Trang chủ</a>
+                 {{-- <ul class="sub-menu-m">
+                     <li><a href="index.html">Homepage 1</a></li>
+                     <li><a href="home-02.html">Homepage 2</a></li>
+                     <li><a href="home-03.html">Homepage 3</a></li>
+                 </ul>
+                 <span class="arrow-main-menu-m">
+                     <i class="fa fa-angle-right" aria-hidden="true"></i>
+                 </span> --}}
+             </li>
+
+             <li>
+                 <a href="{{ route('product') }}">Cửa hàng</a>
+             </li>
+
+             <li>
+                 <a href="{{ route('cart') }}" class="label1 rs1" data-label1="hot">Tính năng</a>
+             </li>
+
+             <li>
+                 <a href="{{ route('about') }}">Về chúng tôi</a>
+             </li>
+
+             <li>
+                 <a href="{{ route('contact') }}">Liên hệ</a>
+             </li>
+
+         </ul>
+     </div>
 
 
      <!-- Modal Search -->
