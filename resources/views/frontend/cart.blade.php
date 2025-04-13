@@ -17,7 +17,7 @@
     <form class="bg0 p-t-75 p-b-85">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-12 col-xl-10 mb-5">
+                <div class="col-12 col-lg-12 col-xl-12 mb-5">
 
                     <div class="mx-auto px-3 px-lg-4">
                         <div class="wrap-table-shopping-cart">
@@ -57,6 +57,7 @@
                                         <td class="column-5">$ 36.00</td>
                                     </tr>
 
+
                                     <tr class="table_row">
                                         <td class="column-1">
                                             <div class="how-itemcart1">
@@ -81,6 +82,14 @@
                                         </td>
                                         <td class="column-5">₫ 384,000</td>
                                     </tr>
+                                    <!-- Dòng hiển thị tổng tiền -->
+                                    <tr class="table_row" style="height: 40px;">
+                                        <td colspan="5"
+                                            style="text-align: right; font-weight: bold; font-size: 14px; padding: 5px 40px;">
+                                            Tổng tiền: ₫ 420,000
+                                        </td>
+                                    </tr>
+
 
                                 </tbody>
                             </table>
@@ -105,93 +114,63 @@
 
                     </div>
                 </div>
-
-
             </div>
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-10 col-xl-8 mb-5">
+                <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
                     <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
                         <h4 class="mtext-109 cl2 pb-3">
-                            Tổng giỏ hàng
+                            Thông tin người đặt hàng
                         </h4>
-            
-                        <div class="flex-w flex-t bor12 pb-3">
-                            <div class="size-208">
-                                <span class="stext-110 cl2">
-                                    Tổng phụ:
-                                </span>
+
+                        <form>
+                            <div class="mb-3">
+                                <label class="stext-110 cl2" for="fullname">Họ và tên</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="Nhập họ và tên">
                             </div>
-            
-                            <div class="size-209">
-                                <span class="mtext-110 cl2">
-                                    $79.65
-                                </span>
+
+                            <div class="mb-3">
+                                <label class="stext-110 cl2" for="phone">Số điện thoại</label>
+                                <input type="text" id="phone" class="form-control" placeholder="Nhập số điện thoại">
                             </div>
-                        </div>
-            
-                        <div class="flex-w flex-t bor12 pt-3 pb-4">
-                            <div class="size-208 w-full-ssm">
-                                <span class="stext-110 cl2">
-                                    Phí vận chuyển:
-                                </span>
+
+                            <div class="mb-3">
+                                <label class="stext-110 cl2" for="email">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Nhập email (nếu có)">
                             </div>
-            
-                            <div class="size-209 pr-lg-4 w-full-ssm">
-                                <p class="stext-111 cl6 pt-2">
-                                    Hiện tại không có phương thức vận chuyển nào. Vui lòng kiểm tra lại địa chỉ của bạn, hoặc liên hệ với chúng tôi nếu cần hỗ trợ.
-                                </p>
-            
-                                <div class="pt-3">
-                                    <span class="stext-112 cl8">
-                                        Tính phí vận chuyển
-                                    </span>
-            
-                                    <div class="rs1-select2 rs2-select2 bor8 bg0 mb-3 mt-2">
-                                        <select class="js-select2" name="country">
-                                            <option>Chọn quốc gia...</option>
-                                            <option>USA</option>
-                                            <option>UK</option>
-                                        </select>
-                                    </div>
-            
-                                    <div class="bor8 bg0 mb-3">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Tỉnh / quốc gia">
-                                    </div>
-            
-                                    <div class="bor8 bg0 mb-3">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Mã bưu điện / Zip">
-                                    </div>
-            
-                                    <div class="flex-w">
-                                        <div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
-                                            Cập nhật tổng
-                                        </div>
-                                    </div>
+
+                            <div class="mb-3">
+                                <label class="stext-110 cl2" for="address">Địa chỉ giao hàng</label>
+                                <textarea id="address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="stext-110 cl2" for="province">Tỉnh / Thành phố</label>
+                                    <input type="text" id="province" class="form-control" placeholder="VD: Hà Nội">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="stext-110 cl2" for="district">Quận / Huyện</label>
+                                    <input type="text" id="district" class="form-control"
+                                        placeholder="VD: Thanh Trì">
                                 </div>
                             </div>
-                        </div>
-            
-                        <div class="flex-w flex-t pt-3 pb-4">
-                            <div class="size-208">
-                                <span class="mtext-101 cl2">
-                                    Tổng cộng:
-                                </span>
+
+                            <div class="mb-4">
+                                <label class="stext-110 cl2" for="note">Ghi chú (nếu có)</label>
+                                <textarea id="note" class="form-control" rows="2" placeholder="VD: Giao trong giờ hành chính"></textarea>
                             </div>
-            
-                            <div class="size-209 pt-1">
-                                <span class="mtext-110 cl2">
-                                    $79.65
-                                </span>
-                            </div>
-                        </div>
-            
-                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                            Tiến hành thanh toán
-                        </button>
+
+                            <button type="submit"
+                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
+                                Tiến hành đặt hàng
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-            
+
+
         </div>
     </form>
 @endsection
