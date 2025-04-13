@@ -3,12 +3,12 @@
     <!-- breadcrumb -->
     <div class="container">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-            <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                Home
+            <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+                Trang chủ
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
-            <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
+            <a href="/san-pham" class="stext-109 cl8 hov-cl1 trans-04">
                 Men
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
@@ -27,7 +27,8 @@
                         <div class="wrap-slick3 flex-sb flex-w">
                             <div class="wrap-slick3-dots">
                                 <ul class="slick3-dots" role="tablist" style="">
-                                    <li class="slick-active" role="presentation"><img src=" template/images/product-detail-01.jpg ">
+                                    <li class="slick-active" role="presentation"><img
+                                            src=" template/images/product-detail-01.jpg ">
                                         <div class="slick3-dot-overlay"></div>
                                     </li>
                                     <li role="presentation"><img src=" template/images/product-detail-02.jpg ">
@@ -60,9 +61,10 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="item-slick3 slick-slide" data-thumb="template/images/product-detail-02.jpg"
-                                            data-slick-index="1" aria-hidden="true" tabindex="-1" role="tabpanel"
-                                            id="slick-slide11" aria-describedby="slick-slide-control11"
+                                        <div class="item-slick3 slick-slide"
+                                            data-thumb="template/images/product-detail-02.jpg" data-slick-index="1"
+                                            aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide11"
+                                            aria-describedby="slick-slide-control11"
                                             style="width: 513px; position: relative; left: -513px; top: 0px; z-index: 998; opacity: 0;">
                                             <div class="wrap-pic-w pos-relative">
                                                 <img src="template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
@@ -73,9 +75,10 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="item-slick3 slick-slide" data-thumb="template/images/product-detail-03.jpg"
-                                            data-slick-index="2" aria-hidden="true" tabindex="-1" role="tabpanel"
-                                            id="slick-slide12" aria-describedby="slick-slide-control12"
+                                        <div class="item-slick3 slick-slide"
+                                            data-thumb="template/images/product-detail-03.jpg" data-slick-index="2"
+                                            aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide12"
+                                            aria-describedby="slick-slide-control12"
                                             style="width: 513px; position: relative; left: -1026px; top: 0px; z-index: 998; opacity: 0;">
                                             <div class="wrap-pic-w pos-relative">
                                                 <img src="template/images/product-detail-03.jpg" alt="IMG-PRODUCT">

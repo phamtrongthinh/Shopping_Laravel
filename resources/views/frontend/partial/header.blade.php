@@ -7,9 +7,22 @@
          <div class="top-bar" style="background-color: #222; color: #fff; font-size: 14px;">
              <div class="content-topbar flex-sb-m h-full container">
                  <div class="left-top-bar" style="color: #fff8f8;">
-                     Hotline mua hàng:
+                     <!-- Icon mạng xã hội -->
+                     <span style="margin-left: -40px;">
+                         <a href="https://facebook.com" target="_blank" style="color: white; margin-right: 15px;">
+                             <i class="fab fa-facebook-f"></i>
+                         </a>
+                         <a href="https://youtube.com" target="_blank" style="color: white; margin-right: 15px;">
+                             <i class="fab fa-youtube"></i>
+                         </a>
+                         <a href="https://instagram.com" target="_blank" style="color: white; margin-right: 15px;">
+                             <i class="fab fa-instagram"></i>
+                         </a>
+                     </span>
+                     <i class="fas fa-phone-alt" style="margin-right: 5px; transform: scaleX(-1);"></i>
                      <strong> 0396 945 033</strong>
                      (8:30 - 21:30, tất cả các ngày trong tuần)
+
                  </div>
 
                  <div class="right-top-bar flex-w h-full">
@@ -83,8 +96,8 @@
      <!-- Header Mobile -->
      <div class="wrap-header-mobile">
          <!-- Logo moblie -->
-         <div class="logo-mobile">
-             <a href="index.html"><img src="template/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+         <div class="logo-mobile" style="margin-left:20px ">
+             <a href="/"><img src="{{ asset('image/logo_fashion.png') }}" alt="IMG-LOGO"></a>
          </div>
 
          <!-- Icon header -->
