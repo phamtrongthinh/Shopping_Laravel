@@ -66,16 +66,14 @@
                   </p>
 
                   <div class="p-t-27">
-                      <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                          <i class="fa fa-facebook"></i>
+                      <a href="https://facebook.com" target="_blank" style="color: white; margin-right: 15px;">
+                          <i class="fab fa-facebook-f"></i>
                       </a>
-
-                      <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                          <i class="fa fa-instagram"></i>
+                      <a href="https://youtube.com" target="_blank" style="color: white; margin-right: 15px;">
+                          <i class="fab fa-youtube"></i>
                       </a>
-
-                      <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                          <i class="fa fa-pinterest-p"></i>
+                      <a href="https://instagram.com" target="_blank" style="color: white; margin-right: 15px;">
+                          <i class="fab fa-instagram"></i>
                       </a>
                   </div>
               </div>
@@ -310,6 +308,7 @@
           });
       })
   </script>
+
   <!--===============================================================================================-->
   <script src="/template/vendor/daterangepicker/moment.min.js"></script>
   <script src="/template/vendor/daterangepicker/daterangepicker.js"></script>
@@ -393,3 +392,11 @@
   </script>
   <!--===============================================================================================-->
   <script src="/template/js/main.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  @yield('js')

@@ -30,7 +30,10 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="template/css/util.css">
 <link rel="stylesheet" type="text/css" href="template/css/main.css">
-<!-- Font Awesome CDN nếu chưa có -->
+<!-- Font Awesome CDN nếu chưa có header -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Font Awesome CDN nếu chưa có footer -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <!--===============================================================================================-->

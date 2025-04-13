@@ -22,20 +22,35 @@
         <div class="container">
             <div class="flex-w flex-tr">
                 <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form>
+                    <form action="{{--route('contact.storeAjax') --}}" data-url="{{-- route('contact.storeAjax') --}}"
+                        data-ajax="submit02" data-target="alert" data-href="#modalAjax" data-content="#content"
+                        data-method="POST" method="POST" name="frm" id="frm">
+                        <input type="hidden" name="title" value="THÔNG TIN LIÊN HỆ">
+                        <input type="hidden" name="robot_check" value="" id="robot_check">
+                        @csrf
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                             Gửi Tin Nhắn Cho Chúng Tôi
                         </h4>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="name"
+                                placeholder="Tên">
+                            <img class="how-pos4 pointer-none" src="template/images/icons/icon-email.png" alt="ICON">
+                        </div>
 
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email"
                                 placeholder="Địa chỉ Email của bạn">
                             <img class="how-pos4 pointer-none" src="template/images/icons/icon-email.png" alt="ICON">
                         </div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="phone"
+                                placeholder="Số điện thoại">
+                            <img class="how-pos4 pointer-none" src="template/images/icons/icon-email.png" alt="ICON">
+                        </div>
 
 
                         <div class="bor8 m-b-30">
-                            <textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="msg"
+                            <textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="content"
                                 placeholder="Chúng tôi có thể giúp gì cho bạn?"></textarea>
                         </div>
 
@@ -107,4 +122,138 @@
             width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(document).on('submit', "[data-ajax='submit02']", function(event) {
+            event.preventDefault();
+            console.log('Click');
+            let myThis = $(this);
+            let formValues = $(this).serialize();
+            let dataInput = $(this).data();
+
+            var nameVal = myThis.find('[name="name"]').val().trim();
+            var emailVal = myThis.find('[name="email"]').val().trim();
+            var phoneVal = myThis.find('[name="phone"]').val().trim();
+
+            let isEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            let isPhone = /^(0[2-9]{1}[0-9]{8})$/;
+            let robotCheckVal = myThis.find('[name="robot_check"]').val().trim();
+
+            if (robotCheckVal !== '') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: "Yêu cầu không hợp lệ!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+
+            if (nameVal === '') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Vui lòng nhập Tên!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+
+            if (emailVal === '') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Vui lòng nhập email!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            } else if (!(isEmail.test(emailVal))) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Vui lòng nhập email hợp lệ!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+
+            if (phoneVal === '') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Vui lòng nhập số điện thoại!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            } else if (!(isPhone.test(phoneVal))) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Vui lòng nhập số điện thoại hợp lệ!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+
+            $.ajax({
+                type: dataInput.method,
+                url: dataInput.url,
+                data: formValues,
+                dataType: "json",
+                success: function(response) {
+                    if (response.code == 200) {
+                        myThis.find('input:not([type="hidden"]), textarea:not([type="hidden"])').val(
+                            '');
+                        if (dataInput.content) {
+                            $(dataInput.content).html(response.html);
+
+                        }
+                        if (dataInput.target) {
+                            switch (dataInput.target) {
+                                case 'modal':
+                                    $(dataInput.href).modal();
+                                    break;
+                                case 'alert':
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: response.html,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                default:
+                                    break;
+                            }
+                        }
+                    } else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: response.html,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                },
+                error: function(response) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Gửi thông tin thấy bại',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+            return false;
+        });
+    </script>
 @endsection
