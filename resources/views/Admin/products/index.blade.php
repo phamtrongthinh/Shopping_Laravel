@@ -21,7 +21,7 @@
                         <th>Giảm giá</th>
                         <th>Trạng thái</th>
                         <th>Ảnh</th>
-                        <th>Số lượng</th>
+                        <th>Số lượng tồn</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -32,7 +32,7 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->category->name ?? 'Không có' }}</td>
                             <td>{{ number_format($item->price, 0, ',', '.') }} đ</td>
-                            <td>{{ $item->sale }}%</td>
+                            <td style="text-align: center">{{ $item->sale }}%</td>
                             <td>
                                 <span class="badge badge-{{ $item->status ? 'success' : 'secondary' }}">
                                     {{ $item->status ? 'Hoạt động' : 'Không hoạt động' }}
@@ -45,7 +45,14 @@
                                 @endif
 
                             </td>
-                            <td>{{ $item->productDetails->sum('quantity') }}</td>
+                            @php
+                                $totalQuantity = $item->productDetails->sum('quantity');
+                            @endphp
+
+                            <td style="text-align: center; color: {{ $totalQuantity < 10 ? 'red' : 'inherit' }}">
+                                {{ $totalQuantity }}
+                            </td>
+
                             <td>
                                 <a href="{{ route('admin.product_details.index', ['product' => $item->id]) }}"
                                     class="btn btn-info btn-sm">Xem</a>

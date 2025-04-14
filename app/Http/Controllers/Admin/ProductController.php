@@ -83,8 +83,10 @@ class ProductController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();
+                $imageName = time() . '_' . $image->getClientOriginalName();              
                 $image->move(public_path('uploads/products'), $imageName);
+                // Tạo đường dẫn tuyệt đối
+                $absoluteImagePath = 'uploads/products/' . $imageName;
             }
 
             $product->update([
@@ -94,7 +96,7 @@ class ProductController extends Controller
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
                 'status' => $validatedData['status'],
-                'image' => $imageName,
+                'image' =>  $absoluteImagePath,
             ]);
 
             return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');

@@ -50,11 +50,11 @@
                              <a href="/">Trang chủ</a>
                          </li>
 
-                         <li class="{{ request()->is('/san-pham') ? 'active-menu' : '' }}">
+                         <li class="{{ request()->is('san-pham') ? 'active-menu' : '' }}">
                              <a href="{{ route('product') }}">Cửa hàng</a>
                          </li>
 
-                         <li class="label1 {{ request()->is('/gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
+                         <li class="label1 {{ request()->is('gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
                              <a href="{{ route('cart') }}">Tính năng</a>
                          </li>
 

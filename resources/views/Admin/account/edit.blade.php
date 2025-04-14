@@ -23,7 +23,9 @@
 
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
+                    <input type="text" name="phone" class="form-control"
+                        value="{{ $user->phone && strtolower($user->phone) != 'chưa câp nhât' ? $user->phone : '' }}">
+
                 </div>
 
                 <div class="form-group">
