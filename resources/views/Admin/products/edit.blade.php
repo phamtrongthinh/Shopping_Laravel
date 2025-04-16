@@ -27,16 +27,29 @@
                         </div>
 
                         <!-- Danh mục -->
-                        <div class="form-group">
-                            <label for="category_id">Danh Mục</label>
-                            <select name="category_id" class="form-control" id="category_id">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ $product->category_id == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
+                        <div class="form-group" style="display: flex; justify-content: space-between;">
+                            <div style="flex: 1; margin-right: 10px;">
+                                <label for="category_id">Danh Mục</label>
+                                <select name="category_id" class="form-control" id="category_id">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div style="flex: 1;">
+                                <label for="hot">Nổi bật</label>
+                                <select name="hot" class="form-control" id="hot">
+                                    <option value="0" {{ old('hot', $product->hot) == 0 ? 'selected' : '' }}>Không
                                     </option>
-                                @endforeach
-                            </select>
+                                    <option value="1" {{ old('hot', $product->hot) == 1 ? 'selected' : '' }}>Có
+                                    </option>
+
+                                </select>
+                            </div>
                         </div>
                     </div>
 

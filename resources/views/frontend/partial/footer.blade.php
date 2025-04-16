@@ -176,20 +176,33 @@
                         <div class="wrap-slick3 flex-sb flex-w">
                             <div class="wrap-slick3-dots"></div>
                             <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+                            @php
+                                $dataimage = \App\Models\Product::with('productDetails')->where('status', 1)->get();
+                            @endphp
+
 
                             <div class="slick3 gallery-lb">
-                                <div class="item-slick3" data-thumb="template/images/product-detail-01.jpg">
-                                    <div class="wrap-pic-w pos-relative">
-                                        <img src="template/images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                @foreach ($dataimage as $product)
+                                    @foreach ($product->productDetails as $detail)
+                                        @if ($detail->image_path)
+                                            <div class="item-slick3" data-thumb="{{ asset($detail->image_path) }}">
+                                                <div class="wrap-pic-w pos-relative">
+                                                    <img src="{{ asset($detail->image_path) }}" alt="IMG-PRODUCT">
+                                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                                        href="{{ asset($detail->image_path) }}">
+                                                        <i class="fa fa-expand"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endforeach
 
-                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                            href="template/images/product-detail-01.jpg">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                            </div>
+                            
 
-                                <div class="item-slick3" data-thumb="template/images/product-detail-02.jpg">
+                            {{--
+                                 <div class="item-slick3" data-thumb="template/images/product-detail-02.jpg">
                                     <div class="wrap-pic-w pos-relative">
                                         <img src="template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
 
@@ -209,121 +222,123 @@
                                             <i class="fa fa-expand"></i>
                                         </a>
                                     </div>
-                                </div>
-                            </div>
+                                </div> --}}
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-md-6 col-lg-5 p-b-30">
-                    <div class="p-r-50 p-t-5 p-lr-0-lg">
-                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                            Lightweight Jacket
-                        </h4>
+            <div class="col-md-6 col-lg-5 p-b-30">
+                <div class="p-r-50 p-t-5 p-lr-0-lg">
+                    <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                        Lightweight Jacket
+                    </h4>
 
-                        <span class="mtext-106 cl2">
-                            $58.79
-                        </span>
+                    <span class="mtext-106 cl2 price">
+                        $58.79
+                    </span>
 
-                        <p class="stext-102 cl3 p-t-23">
-                            Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat
-                            ornare feugiat.
-                        </p>
+                    <p class="stext-102 cl3 p-t-23 description">
+                        Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat
+                        ornare feugiat.
+                    </p>
 
-                        <!--  -->
-                        <div class="p-t-33">
-                            <div class="flex-w flex-r-m p-b-10">
-                                <div class="size-203 flex-c-m respon6">
-                                    Size
-                                </div>
-
-                                <div class="size-204 respon6-next">
-                                    <div class="rs1-select2 bor8 bg0">
-                                        <select class="js-select2" name="time">
-                                            <option>Choose an option</option>
-                                            <option>Size S</option>
-                                            <option>Size M</option>
-                                            <option>Size L</option>
-                                            <option>Size XL</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                </div>
+                    <!--  -->
+                    <div class="p-t-33">
+                        <div class="flex-w flex-r-m p-b-10">
+                            <div class="size-203 flex-c-m respon6">
+                                Size
                             </div>
 
-                            <div class="flex-w flex-r-m p-b-10">
-                                <div class="size-203 flex-c-m respon6">
-                                    Color
-                                </div>
-
-                                <div class="size-204 respon6-next">
-                                    <div class="rs1-select2 bor8 bg0">
-                                        <select class="js-select2" name="time">
-                                            <option>Choose an option</option>
-                                            <option>Red</option>
-                                            <option>Blue</option>
-                                            <option>White</option>
-                                            <option>Grey</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex-w flex-r-m p-b-10">
-                                <div class="size-204 flex-w flex-m respon6-next">
-                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-minus"></i>
-                                        </div>
-
-                                        <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                            name="num-product" value="1">
-
-                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-plus"></i>
-                                        </div>
-                                    </div>
-
-                                    <button
-                                        class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                        Add to cart
-                                    </button>
+                            <div class="size-204 respon6-next">
+                                <div class="rs1-select2 bor8 bg0">
+                                    <select class="js-select2" name="time">
+                                        <option>Choose an option</option>
+                                        <option>Size S</option>
+                                        <option>Size M</option>
+                                        <option>Size L</option>
+                                        <option>Size XL</option>
+                                    </select>
+                                    <div class="dropDownSelect2"></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!--  -->
-                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
-                            <div class="flex-m bor9 p-r-10 m-r-11">
-                                <a href="#"
-                                    class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-                                    data-tooltip="Add to Wishlist">
-                                    <i class="zmdi zmdi-favorite"></i>
-                                </a>
+                        <div class="flex-w flex-r-m p-b-10">
+                            <div class="size-203 flex-c-m respon6">
+                                Color
                             </div>
 
-                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-                                data-tooltip="Facebook">
-                                <i class="fa fa-facebook"></i>
-                            </a>
+                            <div class="size-204 respon6-next">
+                                <div class="rs1-select2 bor8 bg0">
+                                    <select class="js-select2" name="time">
+                                        <option>Choose an option</option>
+                                        <option>Red</option>
+                                        <option>Blue</option>
+                                        <option>White</option>
+                                        <option>Grey</option>
+                                    </select>
+                                    <div class="dropDownSelect2"></div>
+                                </div>
+                            </div>
+                        </div>
 
-                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-                                data-tooltip="Twitter">
-                                <i class="fa fa-twitter"></i>
-                            </a>
+                        <div class="flex-w flex-r-m p-b-10">
+                            <div class="size-204 flex-w flex-m respon6-next">
+                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                        <i class="fs-16 zmdi zmdi-minus"></i>
+                                    </div>
 
-                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-                                data-tooltip="Google Plus">
-                                <i class="fa fa-google-plus"></i>
+                                    <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                        name="num-product" value="1">
+
+                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                        <i class="fs-16 zmdi zmdi-plus"></i>
+                                    </div>
+                                </div>
+
+                                <button
+                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--  -->
+                    <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                        <div class="flex-m bor9 p-r-10 m-r-11">
+                            <a href="#"
+                                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                                data-tooltip="Add to Wishlist">
+                                <i class="zmdi zmdi-favorite"></i>
                             </a>
                         </div>
+
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                            data-tooltip="Facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                            data-tooltip="Twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                            data-tooltip="Google Plus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+
+
 <!--===============================================================================================-->
 <script src="/template/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -431,5 +446,56 @@
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(value);
+    }
+
+    $(document).ready(function() {
+        $('.js-show-modal1').on('click', function(e) {
+            e.preventDefault();
+            console.log('Nút Xem chi tiết được nhấp.'); // Kiểm tra sự kiện click
+            $('.js-modal1').addClass('show-modal1');
+            console.log('Modal được hiển thị.'); // Kiểm tra class show-modal1
+
+            var productId = $(this).closest('.block2').data('id');
+            console.log('ID sản phẩm:', productId); // Kiểm tra ID sản phẩm
+
+            $.ajax({
+                url: '/san-pham/' + productId,
+                type: 'GET',
+                success: function(product) {
+                    console.log('Dữ liệu sản phẩm:', product); // Kiểm tra dữ liệu sản phẩm
+
+                    // Tên sản phẩm
+                    $('.js-name-detail').text(product.name);
+
+
+                    // Giá sản phẩm
+                    $('.price').text(formatCurrency(product.price));
+
+                    // Mô tả sản phẩm
+                    $('.description').text(product.description);
+                },
+                error: function(error) {
+                    console.error('Lỗi AJAX:', error); // Kiểm tra lỗi AJAX
+                    alert('Có lỗi xảy ra khi tải dữ liệu sản phẩm.');
+                }
+            });
+        });
+
+        $('.js-hide-modal1').on('click', function() {
+            $('.js-modal1').removeClass('show-modal1');
+            console.log('Modal bị ẩn.'); // Kiểm tra ẩn modal
+        });
+    }); 
+</script>  
+
 
 @yield('js')

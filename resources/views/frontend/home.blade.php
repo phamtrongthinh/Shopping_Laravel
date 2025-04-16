@@ -187,14 +187,14 @@
                         Tất cả sản phẩm
                     </button>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".Nữ">
                         Nữ giới
                     </button>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".Nam">
                         Nam giới
                     </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".unisex">
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".Unisex">
                         Unisex
                     </button>
 
@@ -386,9 +386,10 @@
 
             <div class="row isotope-grid">
                 @foreach ($dataproduct as $item)
-                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                    <div
+                        class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{$item->category->gender}}">
                         <!-- Block2 -->
-                        <div class="block2">
+                        <div class="block2" data-id="{{ $item->id }}">
                             <div class="block2-pic hov-img0">
                                 <img src="{{ asset($item->image) }}" alt="{{ $item->name }}"
                                     style="height: 334px; width: 270px;  object-fit: cover; display: block;">
@@ -422,6 +423,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 @endforeach
 
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">

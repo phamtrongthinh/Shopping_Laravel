@@ -25,16 +25,27 @@
                             <textarea name="description" class="form-control" id="description" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
                         </div>
 
-                        <!-- Danh Mục -->
-                        <div class="form-group">
-                            <label for="category_id">Danh Mục</label>
-                            <select name="category_id" class="form-control" id="category_id">
-                                <option value="">Chọn danh mục</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                        <!-- Danh Mục, hot -->
+                        <div class="form-group" style="display: flex; justify-content: space-between;">
+                            <div style="flex: 1; margin-right: 10px;"> 
+                                <label for="category_id">Danh Mục</label>
+                                <select name="category_id" class="form-control" id="category_id">
+                                    <option value="">Chọn danh mục</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="Hot">Nổi bật</label>
+                                <select name="hot" class="form-control" id="hot">                                    
+                                    <option value="0">Không</option>
+                                    <option value="1">Có</option>
+                                </select>
+                            </div>
                         </div>
+
+                        
                     </div>
 
                     <!--------------------------------------- Bên phải (1 phần)-------------------------------------- -->

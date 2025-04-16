@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Color;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
@@ -51,6 +52,7 @@ class ProductController extends Controller
                 'price' => $validatedData['price'],
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
+                'hot' => $request -> input('hot'),
                 'status' => $validatedData['status'],
             ]);
 
@@ -71,34 +73,34 @@ class ProductController extends Controller
             'categories' => $categories,
         ]);
     }
-
     public function update(ProductStoreRequest $request, $id)
     {
         $validatedData = $request->validated();
-
+    
         try {
             $product = Product::findOrFail($id);
-
+    
             $imageName = $product->image; // Giữ ảnh cũ nếu không chọn ảnh mới
-
+    
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();              
+                $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('uploads/products'), $imageName);
                 // Tạo đường dẫn tuyệt đối
-                $absoluteImagePath = 'uploads/products/' . $imageName;
+                $imageName = 'uploads/products/' . $imageName;
             }
-
+    
             $product->update([
                 'name' => $validatedData['name'],
                 'description' => $validatedData['description'],
                 'price' => $validatedData['price'],
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
+                'hot' => $request->input('hot'),
                 'status' => $validatedData['status'],
-                'image' =>  $absoluteImagePath,
+                'image' => $imageName, // Sử dụng $imageName, đường dẫn mới hoặc cũ.
             ]);
-
+    
             return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Lỗi khi cập nhật sản phẩm: ' . $e->getMessage());

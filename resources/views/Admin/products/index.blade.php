@@ -13,12 +13,13 @@
         <div class="card-body">
             <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
+                    <tr style="text-align: center">
                         <th>Stt</th>
                         <th>Tên sản phẩm</th>
                         <th>Danh mục</th>
                         <th>Giá</th>
                         <th>Giảm giá</th>
+                        <th> Nổi bật </th>
                         <th>Trạng thái</th>
                         <th>Ảnh</th>
                         <th>Số lượng tồn</th>
@@ -27,12 +28,18 @@
                 </thead>
                 <tbody>
                     @foreach ($product as $stt => $item)
-                        <tr>
+                        <tr style="text-align: center">
                             <td>{{ $stt + 1 }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->category->name ?? 'Không có' }}</td>
                             <td>{{ number_format($item->price, 0, ',', '.') }} đ</td>
                             <td style="text-align: center">{{ $item->sale }}%</td>
+                            <td>
+                                <span class="badge badge-{{ $item->hot ? 'danger' : 'secondary' }}"
+                                    style="min-width: 40px; text-align: center;">
+                                    {{ $item->hot ? 'Có' : 'Không' }}
+                                </span>
+                            </td>
                             <td>
                                 <span class="badge badge-{{ $item->status ? 'success' : 'secondary' }}">
                                     {{ $item->status ? 'Hoạt động' : 'Không hoạt động' }}

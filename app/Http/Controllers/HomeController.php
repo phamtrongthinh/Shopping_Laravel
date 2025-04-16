@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,7 +29,18 @@ class HomeController extends Controller
 
     public function index()
     {
-        $dataproduct = $this->product->all();
+        $dataproduct = $this->product->where('hot', 1)->where('status', 1)->get();
         return view('frontend.home', compact('dataproduct'));
+    }
+
+    public function getProductDetails($id)
+    {
+        // $product = DB::table('products')->where('id', $id)->first();
+
+        // if ($product) {
+        //     return response()->json($product);
+        // } else {
+        //     return response()->json(['error' => 'Không tìm thấy chi tiết sản phẩm'], 404);
+        // }
     }
 }

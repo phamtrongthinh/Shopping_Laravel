@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController as FrontendMainController;
@@ -40,4 +41,5 @@ Route::get('/gio-hang', function () {
 // HomeController
 Route::get('/', [HomeController::class, 'index']);
 
+// Route::get('/san-pham/{id}', [HomeController::class, 'getProductDetails']);
 require __DIR__ . '/admin.php';
