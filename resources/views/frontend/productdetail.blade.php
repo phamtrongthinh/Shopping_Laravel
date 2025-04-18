@@ -237,14 +237,14 @@
                                 role="tab">Description</a>
                         </li>
 
-                        <li class="nav-item p-b-10">
+                        {{-- <li class="nav-item p-b-10">
                             <a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional
                                 information</a>
-                        </li>
+                        </li> --}}
 
-                        <li class="nav-item p-b-10">
+                        {{-- <li class="nav-item p-b-10">
                             <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <!-- Tab panes -->
@@ -426,7 +426,7 @@
         </div>
     </section>
     <!-- Related Products -->
-    <section class="sec-relate-product bg0 p-t-45 p-b-105">
+    {{-- <section class="sec-relate-product bg0 p-t-45 p-b-105">
         <div class="container">
             <div class="p-b-45">
                 <h3 class="ltext-106 cl5 txt-center">
@@ -766,5 +766,5 @@
                         class="fa fa-angle-right" aria-hidden="true"></i></button>
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection

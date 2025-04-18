@@ -176,28 +176,8 @@
                         <div class="wrap-slick3 flex-sb flex-w">
                             <div class="wrap-slick3-dots"></div>
                             <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-                            @php
-                                $dataimage = \App\Models\Product::with('productDetails')->where('status', 1)->get();
-                            @endphp
-
-
-                            <div class="slick3 gallery-lb">
-                                @foreach ($dataimage as $product)
-                                    @foreach ($product->productDetails as $detail)
-                                        @if ($detail->image_path)
-                                            <div class="item-slick3" data-thumb="{{ asset($detail->image_path) }}">
-                                                <div class="wrap-pic-w pos-relative">
-                                                    <img src="{{ asset($detail->image_path) }}" alt="IMG-PRODUCT">
-                                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                        href="{{ asset($detail->image_path) }}">
-                                                        <i class="fa fa-expand"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-
+                            <div class="slick3 gallery-lb js-gallery-modal">
+                                <!-- Ảnh sản phẩm sẽ được thêm bằng JavaScript -->
                             </div>
                             
 
@@ -447,8 +427,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-
 <script>
     function formatCurrency(value) {
         return new Intl.NumberFormat('vi-VN', {
@@ -457,45 +435,75 @@
         }).format(value);
     }
 
-    $(document).ready(function() {
-        $('.js-show-modal1').on('click', function(e) {
+    $(document).ready(function () {
+        $('.js-show-modal1').on('click', function (e) {
             e.preventDefault();
-            console.log('Nút Xem chi tiết được nhấp.'); // Kiểm tra sự kiện click
+
             $('.js-modal1').addClass('show-modal1');
-            console.log('Modal được hiển thị.'); // Kiểm tra class show-modal1
 
             var productId = $(this).closest('.block2').data('id');
-            console.log('ID sản phẩm:', productId); // Kiểm tra ID sản phẩm
 
             $.ajax({
                 url: '/san-pham/' + productId,
                 type: 'GET',
-                success: function(product) {
-                    console.log('Dữ liệu sản phẩm:', product); // Kiểm tra dữ liệu sản phẩm
-
+                success: function (product) {
                     // Tên sản phẩm
                     $('.js-name-detail').text(product.name);
-
 
                     // Giá sản phẩm
                     $('.price').text(formatCurrency(product.price));
 
                     // Mô tả sản phẩm
                     $('.description').text(product.description);
+
+                    // Gán ảnh sản phẩm
+                    let imageHtml = '';
+                    product.product_details.forEach(function (detail) {
+                        if (detail.image_path) {
+                            imageHtml += `
+                                <div class="item-slick3" data-thumb="${detail.image_path}">
+                                    <div class="wrap-pic-w pos-relative">
+                                        <img src="${detail.image_path}" alt="IMG-PRODUCT">
+                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                            href="${detail.image_path}">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    // Cập nhật vào slick slider
+                    const $gallery = $('.js-gallery-modal');
+
+                    if ($gallery.hasClass('slick-initialized')) {
+                        $gallery.slick('unslick');
+                    }
+
+                    $gallery.html(imageHtml);
+
+                    $gallery.slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        arrows: true,
+                        fade: true,
+                        dots: true
+                    });
                 },
-                error: function(error) {
-                    console.error('Lỗi AJAX:', error); // Kiểm tra lỗi AJAX
+                error: function (error) {
+                    console.error('Lỗi AJAX:', error);
                     alert('Có lỗi xảy ra khi tải dữ liệu sản phẩm.');
                 }
             });
         });
 
-        $('.js-hide-modal1').on('click', function() {
+        $('.js-hide-modal1').on('click', function () {
             $('.js-modal1').removeClass('show-modal1');
-            console.log('Modal bị ẩn.'); // Kiểm tra ẩn modal
         });
-    }); 
-</script>  
+    });
+</script>
+
 
 
 @yield('js')

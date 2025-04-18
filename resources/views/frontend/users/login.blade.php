@@ -41,30 +41,43 @@
             </div>
             <div class="login-image-mobile"></div>
             <h2>Đăng nhập tài khoản</h2>
-            <form action="#" method="POST">
+            <form action="{{ route('login') }}" method="POST">
+                @csrf <!-- Bắt buộc có -->
+
+
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" name="username" placeholder="Tên đăng nhập" required />
+                    <input type="text" name="email" id="email" placeholder="Tên đăng nhập" />
+                   
                 </div>
+
 
 
                 <div class="input-group">
 
                     <i id="toggleIcon" class="fas fa-eye" onclick="togglePassword()"></i>
-                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required />
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu" />
                 </div>
 
                 <div class="remember">
-                    <input type="checkbox" id="remember" />
+                    <input type="checkbox" id="remember" name="remember" />
                     <label for="remember">Ghi nhớ đăng nhập</label>
                 </div>
+                @if ($errors->any())
+                    <div class="error-message"  style="color: red; margin-bottom: 10px; text-align: center; padding:3px">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+                <div id="js-error" class="error-message"
+                    style="color: red; margin-bottom: 10px; text-align: center; padding:3px"></div>
 
                 <button type="submit" class="btn-login">ĐĂNG NHẬP</button>
                 <div class="link-forgot">
-                    <a href="/signup">Đăng ký tài khoản</a>
-                    <span>|</span>
-                    <a href="/forget-password">Quên mật khẩu?</a>
+                    <a href="/register">Đăng ký tài khoản</a>
+                    {{-- <span>|</span>
+                    <a href="/forget-password">Quên mật khẩu?</a> --}}
                 </div>
+
             </form>
         </div>
     </div>
@@ -86,6 +99,20 @@
             icon.classList.replace("fa-eye-slash", "fa-eye");
         }
     }
+
+    // Kiểm tra form khi submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const username = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const errorDiv = document.getElementById('js-error');
+
+        if (!username || !password) {
+            e.preventDefault(); // chặn submit
+            errorDiv.textContent = 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.';
+        } else {
+            errorDiv.textContent = ''; // xóa lỗi nếu có
+        }
+    });
 </script>
 
 </html>

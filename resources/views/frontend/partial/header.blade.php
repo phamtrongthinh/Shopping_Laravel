@@ -86,7 +86,7 @@
                          data-notify="0">
                          <i class="zmdi zmdi-favorite-outline"></i>
                      </a>
-                     <a href="/login" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
+                     <a href="{{route("show_login")}}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
                          <i class="zmdi zmdi-account"></i>
                      </a>
                  </div>

@@ -141,7 +141,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('create_product_receipt')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tạo Phiếu Nhập Kho</p>
                             </a>
@@ -166,7 +166,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất Cả Đơn Hàng</p>
@@ -201,7 +201,7 @@
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Đơn Hàng Đã Hủy</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <!-- Phần quản doanh thu  -->
@@ -214,7 +214,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tổng Quan Doanh Thu</p>
@@ -243,7 +243,7 @@
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Báo Cáo Chi Tiết</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
 
@@ -257,7 +257,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất Cả Liên Hệ</p>
@@ -286,7 +286,7 @@
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Liên Hệ Bị Từ Chối</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             </ul>

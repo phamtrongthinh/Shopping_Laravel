@@ -38,15 +38,16 @@
             </div>
             <div class="login-image-mobile"></div>
             <h2>Tạo tài khoản mới</h2>
-            <form action="#" method="POST">
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" name="name" placeholder="Họ và tên" required />
+                    <input type="text" name="name" placeholder="Họ và tên" />
                 </div>
 
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="email" name="email" placeholder="Email" />
                 </div>
 
                 <div class="input-group">
@@ -55,14 +56,21 @@
                 </div>
 
                 <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required />
+                    <i id="toggleIcon" class="fas fa-eye" onclick="togglePassword()"></i>
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu" />
                 </div>
 
                 <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" required />
+                    <i id="toggleIcon2" class="fas fa-eye" onclick="togglePassword2()"></i>
+                    <input type="password" id="password2" name="password_confirmation" placeholder="Nhập lại mật khẩu" />
                 </div>
+                @if ($errors->any())
+                    <div class="error-message" style="color: red; margin-bottom: 10px; text-align: center; padding:3px">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+                <div id="js-error" class="error-message"
+                    style="color: red; margin-bottom: 10px; text-align: center; padding:3px"></div>
 
                 <button type="submit" class="btn-login">ĐĂNG KÝ</button>
 
@@ -77,6 +85,74 @@
     <footer>
         © 2025 FashionShop. Bản quyền được bảo hộ.
     </footer>
+    <script>
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const icon = document.getElementById("toggleIcon");
+            if (password.type === "password") {
+                password.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                password.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+        function togglePassword2() {
+            const password = document.getElementById("password2");
+            const icon = document.getElementById("toggleIcon2");
+            if (password.type === "password") {
+                password.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                password.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const name = document.querySelector('input[name="name"]').value.trim();
+            const email = document.querySelector('input[name="email"]').value.trim();
+            const phone = document.querySelector('input[name="phone"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value;
+            const passwordConfirmation = document.querySelector('input[name="password_confirmation"]').value;
+            const errorBox = document.getElementById('js-error');
+
+            errorBox.innerText = ''; // Clear error
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^(0[1-9])+([0-9]{8,9})$/; // SĐT VN cơ bản
+
+            if (!name || !email || !phone || !password || !passwordConfirmation) {
+                e.preventDefault();
+                errorBox.innerText = 'Vui lòng điền đầy đủ tất cả các trường.';
+                return;
+            }
+
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                errorBox.innerText = 'Email không hợp lệ.';
+                return;
+            }
+
+            if (!phoneRegex.test(phone)) {
+                e.preventDefault();
+                errorBox.innerText = 'Số điện thoại không hợp lệ.';
+                return;
+            }
+
+            if (password.length < 6) {
+                e.preventDefault();
+                errorBox.innerText = 'Mật khẩu phải có ít nhất 6 ký tự.';
+                return;
+            }
+
+            if (password !== passwordConfirmation) {
+                e.preventDefault();
+                errorBox.innerText = 'Mật khẩu xác nhận không khớp.';
+                return;
+            }
+        });
+    </script>
+
 </body>
 
 </html>

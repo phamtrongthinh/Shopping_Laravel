@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\AccountController as FrontendAccountController;
 use App\Http\Controllers\MainController as FrontendMainController;
+use App\Http\Controllers\AuthController;
 
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
@@ -35,11 +39,31 @@ Route::get('/san-pham', function () {
 Route::get('/gio-hang', function () {
     return view('frontend.cart');
 })->name('cart');
+Route::get('/chi-tiet', function () {
+    return view('frontend.productdetail');
+})->name('cart');
+
+Route::get('/tao-phieu-nhap', function () {
+    return view('admin.product_receipts.add');
+})->name('create_product_receipt');
+Route::get('/tao-phieu-xuat', function () {
+    return view('admin.product_receipts.add');
+})->name('create_product_receipt');
+
 
 
 
 // HomeController
 Route::get('/', [HomeController::class, 'index']);
 
-// Route::get('/san-pham/{id}', [HomeController::class, 'getProductDetails']);
+Route::get('/san-pham/{id}', [HomeController::class, 'getProductDetails']);
 require __DIR__ . '/admin.php';
+
+
+
+Route::get('/login', [FrontendAccountController::class, 'showLoginForm'])->name('show_login');
+Route::post('/login', [FrontendAccountController::class, 'login'])-> name('login'); // Đăng nhập
+Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [FrontendAccountController::class, 'register'])-> name('register'); // Đăng ký
+Route::get('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
+
