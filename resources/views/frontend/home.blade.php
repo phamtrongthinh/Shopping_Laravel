@@ -1,5 +1,16 @@
 @extends('frontend.partial.main')
 @section('content')
+    {{-- @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thông báo',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif --}}
+
     <!-- Slider -->
     <section class="section-slide">
         <div class="wrap-slick1">
@@ -386,8 +397,7 @@
 
             <div class="row isotope-grid">
                 @foreach ($dataproduct as $item)
-                    <div
-                        class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{$item->category->gender}}">
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ $item->category->gender }}">
                         <!-- Block2 -->
                         <div class="block2" data-id="{{ $item->id }}">
                             <div class="block2-pic hov-img0">
@@ -423,7 +433,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 @endforeach
 
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">

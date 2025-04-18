@@ -1,3 +1,51 @@
+ <style>
+     .user-dropdown {
+         position: relative;
+     }
+
+     .dropdown-menu {
+         display: none;
+         position: absolute;
+         right: 0;
+         top: 100%;
+         background: white;
+         border-radius: 12px;
+         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+         padding: 15px;
+         min-width: 240px;
+         z-index: 999;
+         font-family: 'Segoe UI', sans-serif;
+     }
+
+     .user-info p {
+         font-size: 14px;
+         margin: 6px 0;
+         color: #555;
+         display: flex;
+         align-items: center;
+         gap: 8px;
+     }
+
+     .dropdown-menu a {
+         display: flex;
+         align-items: center;
+         gap: 8px;
+         margin-top: 10px;
+         font-size: 14px;
+         color: #333;
+         text-decoration: none;
+         transition: 0.3s;
+     }
+
+     .dropdown-menu a:hover {
+         color: #ff5c5c;
+         transform: translateX(3px);
+     }
+
+     .user-dropdown.active .dropdown-menu {
+         display: block;
+     }
+ </style>
  <!-- Header -->
  <header @unless (request()->is('/')) class="header-v4" @endunless>
 
@@ -86,9 +134,33 @@
                          data-notify="0">
                          <i class="zmdi zmdi-favorite-outline"></i>
                      </a>
-                     <a href="{{route("show_login")}}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
-                         <i class="zmdi zmdi-account"></i>
-                     </a>
+                     @guest
+                         <!-- Hiển thị nút Đăng nhập nếu chưa đăng nhập -->
+                         <a href="{{ route('show_login') }}"
+                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
+                             <i class="zmdi zmdi-account"></i>
+                         </a>
+                     @endguest
+                     @auth
+                         <div class="user-dropdown">
+                             <a href="#" class="user-toggle icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11"
+                                 style="display: flex; align-items: center; gap: 10px;">
+                                 <i class="zmdi zmdi-account-circle" style="font-size: 22px;"></i>
+                                 <span style="font-size: 15px; font-weight: 500;">{{ Auth::user()->name }}</span>
+                             </a>
+                             <div class="dropdown-menu" id="userDropdown">
+                                 <div class="user-info">
+                                     <p><i class="zmdi zmdi-account"></i> {{ Auth::user()->name }}</p>
+                                     <p><i class="zmdi zmdi-email"></i> {{ Auth::user()->email }}</p>
+                                     <p><i class="zmdi zmdi-phone"></i> {{ Auth::user()->phone ?? 'Chưa cập nhật' }}</p>
+                                 </div>
+                                 <hr>
+                                 <a href="{{-- route('profile') --}}"><i class="zmdi zmdi-face"></i> Trang cá nhân</a>
+                                 <a href="{{ route('logout') }}">
+                                     <i class="zmdi zmdi-power"></i> Đăng xuất</a>
+                             </div>
+                         </div>
+                     @endauth
                  </div>
              </nav>
          </div>
@@ -206,3 +278,21 @@
 
 
  </header>
+ @section('js')
+     <script>
+         const userToggle = document.querySelector('.user-toggle');
+         const dropdown = document.querySelector('.user-dropdown');
+
+         userToggle.addEventListener('click', function(e) {
+             e.preventDefault();
+             dropdown.classList.toggle('active');
+         });
+
+         // Tự động ẩn khi click ra ngoài
+         window.addEventListener('click', function(e) {
+             if (!dropdown.contains(e.target)) {
+                 dropdown.classList.remove('active');
+             }
+         });
+     </script>
+ @endsection
