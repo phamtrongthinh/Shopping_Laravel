@@ -54,6 +54,12 @@
                     <i class="fas fa-phone"></i>
                     <input type="text" name="phone" placeholder="Số điện thoại" />
                 </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-location-dot"></i>
+                    <input type="text" name="address" placeholder="Địa chỉ" />
+                </div>
+
 
                 <div class="input-group">
                     <i id="toggleIcon" class="fas fa-eye" onclick="togglePassword()"></i>
@@ -62,7 +68,8 @@
 
                 <div class="input-group">
                     <i id="toggleIcon2" class="fas fa-eye" onclick="togglePassword2()"></i>
-                    <input type="password" id="password2" name="password_confirmation" placeholder="Nhập lại mật khẩu" />
+                    <input type="password" id="password2" name="password_confirmation"
+                        placeholder="Nhập lại mật khẩu" />
                 </div>
                 @if ($errors->any())
                     <div class="error-message" style="color: red; margin-bottom: 10px; text-align: center; padding:3px">
@@ -97,6 +104,7 @@
                 icon.classList.replace("fa-eye-slash", "fa-eye");
             }
         }
+
         function togglePassword2() {
             const password = document.getElementById("password2");
             const icon = document.getElementById("toggleIcon2");

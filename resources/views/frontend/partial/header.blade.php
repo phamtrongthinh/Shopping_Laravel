@@ -153,11 +153,20 @@
                                      <p><i class="zmdi zmdi-account"></i> {{ Auth::user()->name }}</p>
                                      <p><i class="zmdi zmdi-email"></i> {{ Auth::user()->email }}</p>
                                      <p><i class="zmdi zmdi-phone"></i> {{ Auth::user()->phone ?? 'Chưa cập nhật' }}</p>
+                                     <p><i class="zmdi zmdi-pin"></i> {{ Auth::user()->address ?? 'Chưa cập nhật' }}</p>
                                  </div>
                                  <hr>
-                                 <a href="{{-- route('profile') --}}"><i class="zmdi zmdi-face"></i> Trang cá nhân</a>
-                                 <a href="{{ route('logout') }}">
-                                     <i class="zmdi zmdi-power"></i> Đăng xuất</a>
+                                 <a href="{{ route('profile.edit')}}"><i class="zmdi zmdi-face"></i> Trang cá nhân</a>
+                                 <a href="{{ route('logout') }}"
+                                     onclick="event.preventDefault(); if(confirm('Bạn có chắc chắn muốn đăng xuất không?')) { document.getElementById('logout-form').submit(); }">
+                                     <i class="zmdi zmdi-power"></i> Đăng xuất
+                                 </a>
+
+                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                     style="display: none;">
+                                     @csrf
+                                 </form>
+
                              </div>
                          </div>
                      @endauth

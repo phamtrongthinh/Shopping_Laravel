@@ -51,19 +51,23 @@ Route::get('/tao-phieu-xuat', function () {
 })->name('create_product_receipt');
 
 
-
-
 // HomeController
-Route::get('/', [HomeController::class, 'index']);
-
+Route::get('/', [HomeController::class, 'index']) -> name('home');
 Route::get('/san-pham/{id}', [HomeController::class, 'getProductDetails']);
 require __DIR__ . '/admin.php';
 
 
+//  controller su ly tai khoan 
 
 Route::get('/login', [FrontendAccountController::class, 'showLoginForm'])->name('show_login');
 Route::post('/login', [FrontendAccountController::class, 'login'])-> name('login'); // Đăng nhập
 Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [FrontendAccountController::class, 'register'])-> name('register'); // Đăng ký
-Route::get('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
+Route::post('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/sua-ho-so', [FrontendAccountController::class, 'edit'])->name('profile.edit');
+    Route::put('/sua-ho-so', [FrontendAccountController::class, 'update'])->name('profile.update');
+});
+
 

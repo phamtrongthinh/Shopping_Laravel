@@ -153,6 +153,10 @@
                 return false;
             }
 
+
+
+
+
             if (nameVal === '') {
                 Swal.fire({
                     position: 'center',

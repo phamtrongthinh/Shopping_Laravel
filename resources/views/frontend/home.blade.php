@@ -1,15 +1,7 @@
 @extends('frontend.partial.main')
+@include('frontend.partial.alert')
 @section('content')
-    {{-- @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Thông báo',
-                text: '{{ session('success') }}',
-                confirmButtonText: 'OK'
-            });
-        </script>
-    @endif --}}
+  
 
     <!-- Slider -->
     <section class="section-slide">
