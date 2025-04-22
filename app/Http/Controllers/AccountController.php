@@ -43,6 +43,7 @@ class AccountController extends Controller
 
     public function register(Request $request)
     {
+       
 
         // 1. Validate dữ liệu
         $request->validate([
@@ -79,7 +80,10 @@ class AccountController extends Controller
         Auth::login($user);
 
         // 4. Chuyển hướng về trang chủ hoặc nơi bạn muốn
-        return redirect('/login')->with('success', 'Đăng ký thành công!');
+       
+        return redirect('/')->with('success', 'Đăng ký tài khoản thành công!');
+       
+
     }
 
     public function logout()

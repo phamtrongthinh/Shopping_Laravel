@@ -1,4 +1,11 @@
 @extends('frontend.partial.main')
+<style>  
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari, Opera */
+    }
+</style>
 @section('content')
     <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('template/images/bg-01.jpg');">
         <h2 class="ltext-105 cl0 txt-center">
@@ -22,7 +29,7 @@
         <div class="container">
             <div class="flex-w flex-tr">
                 <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form action="{{-- route('contact.storeAjax') --}}" data-url="{{-- route('contact.storeAjax') --}}" data-ajax="submit02"
+                    <form action="{{route('contact.storeAjax')}}" data-url="{{ route('contact.storeAjax') }}" data-ajax="submit02"
                         data-target="alert" data-href="#modalAjax" data-content="#content" data-method="POST" method="POST"
                         name="frm" id="frm">
                         <input type="hidden" name="title" value="THÔNG TIN LIÊN HỆ">
@@ -141,6 +148,7 @@
             let isEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
             let isPhone = /^(0[2-9]{1}[0-9]{8})$/;
             let robotCheckVal = myThis.find('[name="robot_check"]').val().trim();
+
 
             if (robotCheckVal !== '') {
                 Swal.fire({

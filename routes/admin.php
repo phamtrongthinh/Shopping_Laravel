@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailController;
+use App\Http\Controllers\ContactController;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -94,5 +96,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/{detail}/edit', [ProductDetailController::class, 'edit'])->name('admin.product_details.edit');
         Route::put('/{detail}', [ProductDetailController::class, 'update'])->name('admin.product_details.update');
         Route::delete('/{detail}', [ProductDetailController::class, 'destroy'])->name('admin.product_details.destroy');
+    });
+
+     // Quản lý liên hệ
+
+     Route::prefix('admin/contacts')->group(function () {
+        Route::get('/index', [ContactController::class, 'index'])->name('admin.contacts.index');
+        // Route::get('/create',[ContactController::class, 'create'])->name('admin.product_details.create');
+        // Route::post('/', [ContactController::class, 'store'])->name('admin.product_details.store');
+        // Route::get('/{detail}/edit',[ContactController::class, 'edit'])->name('admin.product_details.edit');
+        // Route::put('/{detail}',[ContactController::class, 'update'])->name('admin.product_details.update');
+        // Route::delete('/{detail}',[ContactController::class, 'destroy'])->name('admin.product_details.destroy');
     });
 });

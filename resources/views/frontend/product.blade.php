@@ -265,6 +265,7 @@
             </div>
 
             <div class="row isotope-grid" style="position: relative; height: 1721.6px;">
+                {{-- @foreach ($products as $product) --}}
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women"
                     style="position: absolute; left: 0%; top: 0px;">
                     <!-- Block2 -->
@@ -277,6 +278,7 @@
                                 Quick View
                             </a>
                         </div>
+                      
 
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
@@ -300,6 +302,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- @endforeach --}}
 
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women"
                     style="position: absolute; left: 25%; top: 0px;">

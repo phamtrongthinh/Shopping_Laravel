@@ -35,18 +35,25 @@ class HomeController extends Controller
 
     public function getProductDetails($id)
     {
-        $product = Product::with('productDetails')->find($id);
+        $product = Product::with(['productDetails'])->find($id);
 
-        if ($product) {
-            return response()->json([
-                'id' => $product->id,
-                'name' => $product->name,
-                'price' => $product->price,
-                'description' => $product->description,
-                'product_details' => $product->productDetails,
-            ]);
-        } else {
+        if (!$product) {
             return response()->json(['error' => 'Không tìm thấy chi tiết sản phẩm'], 404);
         }
+
+        return response()->json([
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'description' => $product->description ?? '',
+            'product_details' => $product->productDetails->map(function ($detail) {
+                return [
+                    'id' => $detail->id,
+                    'color' => $detail->color ?? null,
+                    'size' => $detail->size ?? null,
+                    'image_path' => $detail->image_path ? asset($detail->image_path) : null,
+                ];
+            }),
+        ]);
     }
 }

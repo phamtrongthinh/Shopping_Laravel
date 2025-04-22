@@ -8,6 +8,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\AccountController as FrontendAccountController;
 use App\Http\Controllers\MainController as FrontendMainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,6 @@ Route::get('/signup', [FrontendMainController::class, 'signup'])->name('signup')
 Route::get('/forget-password', [FrontendMainController::class, 'forgetpasswword'])->name('forgetpasswword');
 
 
-Route::get('/lien-he', [FrontendMainController::class, 'contact'])->name('contact');
 Route::get('/ve-chung-toi', [FrontendMainController::class, 'about'])->name('about');
 Route::get('/san-pham', function () {
     return view('frontend.product');
@@ -57,11 +57,11 @@ Route::get('/san-pham/{id}', [HomeController::class, 'getProductDetails']);
 require __DIR__ . '/admin.php';
 
 
-//  controller su ly tai khoan 
+// tai khoan 
 
 Route::get('/login', [FrontendAccountController::class, 'showLoginForm'])->name('show_login');
 Route::post('/login', [FrontendAccountController::class, 'login'])-> name('login'); // Đăng nhập
-Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('register');
+Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('show_register');
 Route::post('/register', [FrontendAccountController::class, 'register'])-> name('register'); // Đăng ký
 Route::post('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
 
@@ -69,5 +69,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sua-ho-so', [FrontendAccountController::class, 'edit'])->name('profile.edit');
     Route::put('/sua-ho-so', [FrontendAccountController::class, 'update'])->name('profile.update');
 });
+
+
+//-----------------------Lien he-------------------
+Route::get('/lien-he', [ContactController::class, 'showForm'])->name('contact');
+Route::post('/lien-he', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/lien-he', [ContactController::class, 'storeAjax'])->name('contact.storeAjax');
+
 
 

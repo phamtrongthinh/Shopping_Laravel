@@ -176,22 +176,20 @@
                         <div class="wrap-slick3 flex-sb flex-w">
                             <div class="wrap-slick3-dots"></div>
                             <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-                            <div class="slick3 gallery-lb js-gallery-modal">
-                                <!-- Ảnh sản phẩm sẽ được thêm bằng JavaScript -->
+                            <div class="item-slick3" data-thumb="template/images/product-detail-02.jpg">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                        href="template/images/product-detail-02.jpg">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
                             </div>
                             
 
                             {{--
-                                 <div class="item-slick3" data-thumb="template/images/product-detail-02.jpg">
-                                    <div class="wrap-pic-w pos-relative">
-                                        <img src="template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                            href="template/images/product-detail-02.jpg">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                                 
 
                                 <div class="item-slick3" data-thumb="/template/images/product-detail-03.jpg">
                                     <div class="wrap-pic-w pos-relative">
@@ -350,18 +348,7 @@
 </script>
 <!--===============================================================================================-->
 <script src="/template/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-<script>
-    $('.gallery-lb').each(function() { // the containers for all your galleries
-        $(this).magnificPopup({
-            delegate: 'a', // the selector for gallery item
-            type: 'image',
-            gallery: {
-                enabled: true
-            },
-            mainClass: 'mfp-fade'
-        });
-    });
-</script>
+
 <!--===============================================================================================-->
 <script src="/template/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
@@ -426,7 +413,20 @@
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
 
+    //Mỗi lần click vào một <a> bên trong .gallery-lb, sẽ mở ảnh đó trong lightbox.
+    $('.gallery-lb').each(function() { // the containers for all your galleries
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+                enabled: true
+            },
+            mainClass: 'mfp-fade'
+        });
+    });
+</script>
 <script>
     function formatCurrency(value) {
         return new Intl.NumberFormat('vi-VN', {
@@ -439,9 +439,10 @@
         $('.js-show-modal1').on('click', function (e) {
             e.preventDefault();
 
+            // Hiện modal
             $('.js-modal1').addClass('show-modal1');
 
-            var productId = $(this).closest('.block2').data('id');
+            const productId = $(this).closest('.block2').data('id');
 
             $.ajax({
                 url: '/san-pham/' + productId,
@@ -454,16 +455,18 @@
                     $('.price').text(formatCurrency(product.price));
 
                     // Mô tả sản phẩm
-                    $('.description').text(product.description);
+                    $('.description').text(product.description || 'Chưa có mô tả cho sản phẩm này.');
 
-                    // Gán ảnh sản phẩm
+                    // Gán hình ảnh
+                    const $gallery = $('.js-gallery-modal');
                     let imageHtml = '';
-                    product.product_details.forEach(function (detail) {
+
+                    product.product_details?.forEach(detail => {
                         if (detail.image_path) {
                             imageHtml += `
                                 <div class="item-slick3" data-thumb="${detail.image_path}">
                                     <div class="wrap-pic-w pos-relative">
-                                        <img src="${detail.image_path}" alt="IMG-PRODUCT">
+                                        <img src="${detail.image_path}" alt="${product.name}">
                                         <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
                                             href="${detail.image_path}">
                                             <i class="fa fa-expand"></i>
@@ -473,10 +476,9 @@
                             `;
                         }
                     });
+                    
 
-                    // Cập nhật vào slick slider
-                    const $gallery = $('.js-gallery-modal');
-
+                    // Cập nhật slider
                     if ($gallery.hasClass('slick-initialized')) {
                         $gallery.slick('unslick');
                     }
@@ -490,14 +492,16 @@
                         fade: true,
                         dots: true
                     });
+                    
                 },
-                error: function (error) {
-                    console.error('Lỗi AJAX:', error);
-                    alert('Có lỗi xảy ra khi tải dữ liệu sản phẩm.');
+                error: function (err) {
+                    console.error('AJAX Error:', err);
+                    alert('Không thể tải dữ liệu sản phẩm. Vui lòng thử lại sau.');
                 }
             });
         });
 
+        // Đóng modal
         $('.js-hide-modal1').on('click', function () {
             $('.js-modal1').removeClass('show-modal1');
         });

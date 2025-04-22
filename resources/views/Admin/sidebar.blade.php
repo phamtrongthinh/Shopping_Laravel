@@ -249,45 +249,13 @@
 
                 <!-- Phần quản lý liên hệ -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('admin.contacts.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Quản Lý Liên Hệ
-                            <i class="right fas fa-angle-left"></i>
+                          
                         </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tất Cả Liên Hệ</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Liên Hệ Chưa Xử Lý</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Liên Hệ Đang Xử Lý</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Liên Hệ Đã Xử Lý</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Liên Hệ Bị Từ Chối</p>
-                            </a>
-                        </li> --}}
-                    </ul>
+                    </a>                   
                 </li>
             </ul>
         </nav>
