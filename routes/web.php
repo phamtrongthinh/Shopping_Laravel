@@ -64,11 +64,10 @@ Route::post('/login', [FrontendAccountController::class, 'login'])-> name('login
 Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('show_register');
 Route::post('/register', [FrontendAccountController::class, 'register'])-> name('register'); // Đăng ký
 Route::post('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
-
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     Route::get('/sua-ho-so', [FrontendAccountController::class, 'edit'])->name('profile.edit');
     Route::put('/sua-ho-so', [FrontendAccountController::class, 'update'])->name('profile.update');
-});
+// });
 
 
 //-----------------------Lien he-------------------

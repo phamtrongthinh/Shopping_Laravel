@@ -72,7 +72,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-bars"></i>
                         <p>
-                            Danh Mục
+                           Quản Lý Danh Mục
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -80,16 +80,30 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.categorys.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm Danh Mục</p>
+                                <p>Thêm Loại Sản Phẩm</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.categorys.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Danh Sách Danh Mục</p>
+                                <p>Danh Sách Loại Sản Phẩm</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.products.colors.add') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mã màu sản phẩm </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.products.colors.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách mã màu sản phẩm</p>
                             </a>
                         </li>
                     </ul>
+                    
 
                 </li>
 
@@ -115,19 +129,7 @@
                                 <p>Danh sách sản phẩm </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.products.colors.add') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm mã màu sản phẩm </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('admin.products.colors.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh sách mã màu sản phẩm</p>
-                            </a>
-                        </li>
+                       
                     </ul>
                 </li>
                 <!-- Nhập kho -->

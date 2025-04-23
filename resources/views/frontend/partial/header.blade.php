@@ -1,4 +1,10 @@
  <style>
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari, Opera */
+    }
+    
      .user-dropdown {
          position: relative;
      }

@@ -1,10 +1,17 @@
 @extends('frontend.partial.main')
-<style>  
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar {
+<style>
+    /* .dropdown-menu {
         display: none;
-        /* Chrome, Safari, Opera */
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        z-index: 999;
     }
+
+    .dropdown-menu.show {
+        display: block;
+    } */
 </style>
 @section('content')
     <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('template/images/bg-01.jpg');">
@@ -29,9 +36,9 @@
         <div class="container">
             <div class="flex-w flex-tr">
                 <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                    <form action="{{route('contact.storeAjax')}}" data-url="{{ route('contact.storeAjax') }}" data-ajax="submit02"
-                        data-target="alert" data-href="#modalAjax" data-content="#content" data-method="POST" method="POST"
-                        name="frm" id="frm">
+                    <form action="{{ route('contact.storeAjax') }}" data-url="{{ route('contact.storeAjax') }}"
+                        data-ajax="submit02" data-target="alert" data-href="#modalAjax" data-content="#content"
+                        data-method="POST" method="POST" name="frm" id="frm">
                         <input type="hidden" name="title" value="THÔNG TIN LIÊN HỆ">
                         <input type="hidden" name="robot_check" value="" id="robot_check">
                         @csrf
@@ -131,6 +138,25 @@
             referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdownWrapper = document.querySelector('.user-dropdown');
+        const toggle = dropdownWrapper?.querySelector('.user-toggle');
+
+        toggle?.addEventListener('click', function (e) {
+            e.preventDefault();
+            dropdownWrapper.classList.toggle('active');
+        });
+
+        // Bấm ra ngoài thì ẩn dropdown
+        document.addEventListener('click', function (e) {
+            if (!dropdownWrapper.contains(e.target)) {
+                dropdownWrapper.classList.remove('active');
+            }
+        });
+    });
+</script>
+
 
 @section('js')
     <script>

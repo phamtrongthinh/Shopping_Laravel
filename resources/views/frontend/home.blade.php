@@ -1,6 +1,7 @@
 @extends('frontend.partial.main')
 @include('frontend.partial.alert')
 @section('content')
+
   
 
     <!-- Slider -->
@@ -396,10 +397,10 @@
                                 <img src="{{ asset($item->image) }}" alt="{{ $item->name }}"
                                     style="height: 334px; width: 270px;  object-fit: cover; display: block;">
 
-                                <a href="#"
+                                {{-- <a href="#"
                                     class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                     Xem nhanh
-                                </a>
+                                </a> --}}
                             </div>
 
                             <div class="block2-txt flex-w flex-t p-t-14">
