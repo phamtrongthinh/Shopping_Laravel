@@ -30,14 +30,15 @@
 
     <!-- Kiểm tra nếu không có kết quả tìm kiếm -->
     @if ($categories->count() > 0)
-        <table class="table table-bordered">
+        <table class="table table-bordered" >
             <thead>
                 <tr>
                     <th style="width: 5%;">STT</th>
                     <th style="width: 20%;">Tên Danh Mục</th>
                     <th style="width: 25%;">Mô Tả</th>
-                    <th style="width: 10%;">Phân loại</th> <!-- Thêm cột Giới Tính -->
+                  
                     <th style="width: 10%;">Trạng Thái</th>
+                    <th style="width: 8%;">Sản phẩm</th>
                     <th style="width: 15%;">Ngày Tạo</th>
                     <th style="width: 15%;">Hành Động</th>
                 </tr>
@@ -48,15 +49,16 @@
                         <td>{{ $STT+1 }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ Str::limit($category->description ?? 'Không có mô tả', 80, '...') }}</td>
-                        <td>{{ $category->gender ?? 'Không xác định' }}</td> <!-- Hiển thị giới tính -->
-                        <td>
+                        {{-- <td>{{ $category->gender ?? 'Không xác định' }}</td> <!-- Hiển thị giới tính --> --}}
+                        <td style="text-align: center;">
                             <span class="badge badge-{{ $category->active ? 'success' : 'secondary' }}">
                                 {{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}
                             </span>
-                        </td>
+                        </td >
+                           <td style="text-align: center;">{{$category->products->count()}}</td>
                         {{-- <td>{{ $category->active ? 'Hoạt động' : 'Không hoạt động' }}</td> --}}
                         <td>{{ $category->created_at }}</td>
-                        <td>
+                        <td >
                             <a href="{{ route('admin.categorys.edit', $category->id) }}" class="btn btn-warning">Sửa</a>
                             <form action="{{ route('admin.categorys.delete', $category->id) }}" method="POST"
                                 style="display:inline-block;"

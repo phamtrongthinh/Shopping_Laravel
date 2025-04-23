@@ -27,8 +27,8 @@
                         </div>
 
                         <!-- Danh mục -->
-                        <div class="form-group" style="display: flex; justify-content: space-between;">
-                            <div style="flex: 1; margin-right: 10px;">
+                        <div class="form-group" style="display: flex; justify-content: space-between; gap: 10px;">
+                            <div style="flex: 1;">
                                 <label for="category_id">Danh Mục</label>
                                 <select name="category_id" class="form-control" id="category_id">
                                     @foreach ($categories as $category)
@@ -47,10 +47,23 @@
                                     </option>
                                     <option value="1" {{ old('hot', $product->hot) == 1 ? 'selected' : '' }}>Có
                                     </option>
+                                </select>
+                            </div>
 
+                            <div style="flex: 1;">
+                                <label for="gender">Giới tính</label>
+                                <select name="gender" class="form-control" id="gender">
+                                    <option value="unisex"
+                                        {{ old('gender', $product->gender) == 'unisex' ? 'selected' : '' }}>Unisex</option>
+                                    <option value="men" {{ old('gender', $product->gender) == 'men' ? 'selected' : '' }}>
+                                        Nam</option>
+                                    <option value="women"
+                                        {{ old('gender', $product->gender) == 'women' ? 'selected' : '' }}>Nữ</option>
+                                    
                                 </select>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- Bên phải -->

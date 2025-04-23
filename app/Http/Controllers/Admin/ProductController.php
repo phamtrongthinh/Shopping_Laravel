@@ -43,6 +43,8 @@ class ProductController extends Controller
                 $image->move(public_path('uploads/products'), $imageName);
                 // Tạo đường dẫn tuyệt đối
                 $absoluteImagePath = 'uploads/products/' . $imageName;
+            }else{
+                $absoluteImagePath = null;
             }
             // Lưu sản phẩm mới
             $product = Product::create([
@@ -53,6 +55,7 @@ class ProductController extends Controller
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request -> input('hot'),
+                'gender' => $request -> input('gender') ??'unisex',
                 'status' => $validatedData['status'],
             ]);
 
@@ -97,6 +100,7 @@ class ProductController extends Controller
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request->input('hot'),
+                'gender' => $request->input('gender') ??'unisex',
                 'status' => $validatedData['status'],
                 'image' => $imageName, // Sử dụng $imageName, đường dẫn mới hoặc cũ.
             ]);

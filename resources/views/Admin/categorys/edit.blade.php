@@ -21,7 +21,7 @@
                     <textarea name="description" class="form-control" id="description" rows="4">{{ $category->description }}</textarea>
                 </div>
 
-                <!-- Thêm trường Gender -->
+                {{-- <!-- Thêm trường Gender -->
                 <div class="form-group">
                     <label for="gender">Phân loại</label>
                     <select name="gender" class="form-control" id="gender">
@@ -29,7 +29,7 @@
                         <option value="Nam" {{ $category->gender == 'Nam' ? 'selected' : '' }}>Nam</option>
                         <option value="Nữ" {{ $category->gender == 'Nữ' ? 'selected' : '' }}>Nữ</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="active">Trạng Thái</label>

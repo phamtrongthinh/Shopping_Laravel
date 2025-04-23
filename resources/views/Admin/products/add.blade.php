@@ -25,9 +25,8 @@
                             <textarea name="description" class="form-control" id="description" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
                         </div>
 
-                        <!-- Danh Mục, hot -->
-                        <div class="form-group" style="display: flex; justify-content: space-between;">
-                            <div style="flex: 1; margin-right: 10px;"> 
+                        <div class="form-group" style="display: flex; justify-content: space-between; gap: 10px;">
+                            <div style="flex: 1;">
                                 <label for="category_id">Danh Mục</label>
                                 <select name="category_id" class="form-control" id="category_id">
                                     <option value="">Chọn danh mục</option>
@@ -38,14 +37,24 @@
                             </div>
                             <div style="flex: 1;">
                                 <label for="Hot">Nổi bật</label>
-                                <select name="hot" class="form-control" id="hot">                                    
+                                <select name="hot" class="form-control" id="hot">
                                     <option value="0">Không</option>
                                     <option value="1">Có</option>
                                 </select>
                             </div>
+                            <div style="flex: 1;">
+                                <label for="gender">Phân loại</label>
+                                <select name="gender" class="form-control" id="gender">
+                                    <option value="unisex">Unisex</option>
+                                    <option value="men">Nam</option>
+                                    <option value="women">Nữ</option>
+                                    
+                                </select>
+                            </div>
                         </div>
 
-                        
+
+
                     </div>
 
                     <!--------------------------------------- Bên phải (1 phần)-------------------------------------- -->
@@ -92,109 +101,6 @@
 
                     </div>
                 </div>
-
-
-                <!----------------------------------------- Biến thể sản phẩm --------------------------------------------------------->
-
-                {{-- 
-
-                <div class="form-group">
-                    <label>Chi Tiết Sản Phẩm</label>
-                    <div id="product-details">
-                        <!-- Các biến thể sản phẩm sẽ được thêm vào đây -->
-                        <div class="row product-detail-item align-items-center mb-2">
-                            <!-- Màu -->
-                            <div class="col-md-2">
-                                <select name="colorselect" class="form-control" id="colorSelect">
-                                    <option value="">Chọn màu</option>
-                                    @foreach ($colors as $otherColor)
-                                        <option value="{{ $otherColor->code }}" data-name="{{ $otherColor->name }}">
-                                            {{ $otherColor->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-1">
-                                <input type="color" name="colorInput" class="form-control" id="colorInput" value=""
-                                    readonly>
-                            </div>
-
-                            <!-- Size -->
-                            <div class="col-md-2">
-                                <select name="sizes[]" class="form-control" required>
-                                    <option value="">Chọn kích thước</option>
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
-                                </select>
-                            </div>
-
-                            <!-- Số lượng -->
-                            <div class="col-md-2">
-                                <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng"
-                                    required min="1">
-                            </div>
-
-                            <!-- Ảnh -->
-                            <div class="col-md-3">
-                                <input type="file" name="images[]" class="form-control" required>
-                            </div>
-
-                            <!-- Nút xóa -->
-                            <div class="col-md-1">
-                                <button type="button" class="btn btn-danger remove-detail">X</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Nút thêm biến thể -->
-                    <button type="button" class="btn btn-success mt-2" id="add-detail">Thêm biến thể</button>
-                </div>
-
-
-
-                <!------------Tạo template ẩn để khi ấn thêm khói tạo biến thể nó sẽ đảm bảo copy khối template này ko sợ bị xoá khối template này-->
-
-                <template id="product-detail-template">
-                    <div class="row product-detail-item" style="margin-top: 15px;">
-                        <div class="col-md-2">
-                            <select name="colorselect" class="form-control" id="colorSelect2">
-                                <option value="">Chọn màu</option>
-                                @foreach ($colors as $otherColor)
-                                    <option value="{{ $otherColor->code }}" data-name="{{ $otherColor->name }}">
-                                        {{ $otherColor->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-1">
-                            <input type="color" name="colorInput" class="form-control" id="colorInput2"
-                                value="" readonly>
-                        </div>
-
-                        <div class="col-md-2">
-                            <select name="sizes[]" class="form-control">
-                                <option value="">Chọn kích thước</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="number" name="quantities[]" class="form-control" placeholder="Số lượng">
-                        </div>
-                        <div class="col-md-3">
-                            <input type="file" name="images[]" class="form-control">
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-danger remove-detail">X</button>
-                        </div>
-                    </div>
-                </template> --}}
 
             </div>
 

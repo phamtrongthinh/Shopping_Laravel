@@ -18,7 +18,7 @@
                     <label for="description">Mô Tả</label>
                     <textarea name="description" class="form-control" id="description" rows="4" placeholder="Nhập mô tả danh mục"></textarea>
                 </div>
-                <!-- Thêm trường Gender -->
+                {{-- <!-- Thêm trường Gender -->
                 <div class="form-group">
                     <label for="gender">Phân loại</label>
                     <select name="gender" class="form-control" id="gender">
@@ -27,7 +27,7 @@
                         <option value="Nữ">Nữ</option>
 
                     </select>
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="active">Trạng Thái</label>

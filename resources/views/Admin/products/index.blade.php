@@ -21,6 +21,7 @@
                         <th>Giảm giá</th>
                         <th> Nổi bật </th>
                         <th>Trạng thái</th>
+                        <th>Phân loại</th>
                         <th>Ảnh</th>
                         <th>Số lượng tồn</th>
                         <th>Hành động</th>
@@ -45,10 +46,15 @@
                                     {{ $item->status ? 'Hoạt động' : 'Không hoạt động' }}
                                 </span>
                             </td>
+
+                            <td>
+                                {{ $item->gender == 'men' ? 'Nam' : ($item->gender == 'women' ? 'Nữ' : 'Unisex') }}
+                            </td>
+
                             <td>
                                 @if ($item->image)
                                     <img src="{{ asset($item->image) }}" alt="Ảnh" width="100" height="100"
-                                        class="img-thumbnail">
+                                        class="img-thumbnail" style="object-fit: cover;">
                                 @endif
 
                             </td>
