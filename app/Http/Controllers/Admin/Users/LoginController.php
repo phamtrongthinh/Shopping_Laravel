@@ -29,9 +29,7 @@ class LoginController extends Controller
             // Kiểm tra role và điều hướng
             switch ($user->role) {
                 case 'chu_cua_hang':
-                    return redirect()->route('admin.main');
-                case 'khach_hang':
-                    return redirect('/custom/dashboard');
+                    return redirect()->route('admin.main');              
                 default:
                     Auth::logout(); // Nếu role không hợp lệ, logout luôn
                     return redirect()->route('admin.login')->withErrors(['error' => 'Tài khoản không hợp lệ']);

@@ -20,16 +20,17 @@ class AccountController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember');
         if (Auth::attempt($credentials, $remember)) {
-            $user = Auth::user();
+            return redirect('/'); // Đổi URL nếu cần
+            // $user = Auth::user();
 
-            // Kiểm tra role phải là 'khach_hang' mới cho phép đăng nhập
-            if ($user->role === 'khach_hang') {
-                return redirect('/'); // Đổi URL nếu cần
-            }
+            // // Kiểm tra role phải là 'khach_hang' mới cho phép đăng nhập
+            // if ($user->role === 'khach_hang') {
+            //     return redirect('/'); // Đổi URL nếu cần
+            // }
 
-            // Nếu không phải khách hàng, đăng xuất và báo lỗi
-            Auth::logout();
-            return back()->withErrors(['email' => 'Chỉ khách hàng mới được phép đăng nhập.']);
+            // // Nếu không phải khách hàng, đăng xuất và báo lỗi
+            // Auth::logout();
+            // return back()->withErrors(['email' => 'Chỉ khách hàng mới được phép đăng nhập.']);
         }
 
         // Sai email hoặc mật khẩu
