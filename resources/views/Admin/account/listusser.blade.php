@@ -28,13 +28,13 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Họ Tên</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Created At</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Địa Chỉ</th>
+                            <th>Vai Trò</th>
+                            <th>Trạng Thái</th>
+                            <th>Ngày Tạo</th>
                             <th>Hành Động</th>
                         </tr>
                     </thead>
@@ -46,14 +46,21 @@
                                 <td>{{ $user->email ?? 'Chưa cập nhật' }}</td>
                                 <td>{{ $user->phone ?? 'Chưa cập nhật' }}</td>
                                 <td>{{ $user->address ?? 'Chưa cập nhật' }}</td>
-                                <td>{{ $user->role ?? 'Chưa cập nhật' }}</td>
                                 <td>
-                                    <span class="badge badge-{{ $user->status ? 'success' : 'secondary' }}">
-                                        {{ $user->status ? 'Hoạt động' : 'Không hoạt động' }}
+                                    @switch($user->role)
+                                        @case('khach_hang') Khách Hàng @break
+                                        @case('nhan_vien_ban_hang') Nhân Viên Bán Hàng @break
+                                        @case('nhan_vien_kho') Nhân Viên Kho @break
+                                        @case('chu_cua_hang') Chủ Cửa Hàng @break
+                                        @default {{ $user->role }}
+                                    @endswitch
+                                </td>
+                                <td>
+                                    <span class="badge badge-{{ $user->status === 'Active' ? 'success' : 'secondary' }}">
+                                        {{ $user->status === 'Active' ? 'Hoạt động' : 'Không hoạt động' }}
                                     </span>
                                 </td>
-                                {{-- <td>{{ $user->status ?? 'Chưa cập nhật' }}</td> --}}
-                                <td>{{ $user->created_at ?? 'Chưa cập nhật' }}</td>
+                                <td>{{ $user->created_at ? $user->created_at->format('d/m/Y') : 'Chưa cập nhật' }}</td>
                                 <td>
                                     <a href="{{ route('admin.account.edit', $user->id) }}"
                                         class="btn btn-warning btn-sm">Sửa</a>
@@ -69,13 +76,17 @@
                         @endforeach
                     </tbody>
                 </table>
+            @else
+                <div class="alert alert-warning">
+                    Không có kết quả tìm kiếm nào phù hợp với từ khóa: <strong>{{ request('search_user') }}</strong>
+                    <a href="{{ route('admin.account.listusser') }}" class="btn btn-sm btn-primary ml-2">Quay lại</a>
+                </div>
+            @endif
         </div>
-        {{ $users->appends(['search_user' => request('search_user')])->links() }}
-    @else
-        <div class="alert alert-warning">
-            Không có kết quả tìm kiếm nào phù hợp với từ khóa: <strong>{{ request('search_user') }}</strong>
-            <a href="{{ route('admin.account.listusser') }}" class="btn btn-sm btn-primary ml-2">Quay lại</a>
+
+        <!-- Hiển thị phân trang -->
+        <div class="mt-3">
+            {{ $users->appends(['search_user' => request('search_user')])->links() }}
         </div>
-        @endif
     </div>
 @endsection

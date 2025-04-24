@@ -8,7 +8,7 @@
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Danh Sách Danh Mục</h2>
+        <h2>Danh Sách Loại Sản Phẩm</h2>
         <div class="d-flex">
             <!-- Ô tìm kiếm -->
             <form action="{{ route('admin.categorys.index') }}" method="GET" class="d-flex">

@@ -22,7 +22,7 @@ class ProductDetailController extends Controller
 
 
         return view('admin.product_details.index', [
-            'title' => 'Quản lý chi tiết sản phẩm'
+            'title' => 'Quản lý sản phẩm'
         ], compact('product', 'details'));
     }
 
@@ -31,7 +31,7 @@ class ProductDetailController extends Controller
         // Truyền thông tin sản phẩm đến view
         $colors = Color::all(); // Lấy tất cả các màu sắc từ cơ sở dữ liệu
         return view('admin.product_details.create', [
-            'title' => 'Quản lý chi tiết sản phẩm'
+            'title' => 'Quản lý sản phẩm'
         ], compact('product', 'colors'));
     }
 
@@ -83,7 +83,7 @@ class ProductDetailController extends Controller
 
         // Trả về view sửa chi tiết sản phẩm
         return view('admin.product_details.edit', [
-            'title' => 'Quản lý chi tiết sản phẩm'
+            'title' => 'Quản lý sản phẩm'
         ], compact('product', 'detail', 'colors'));
     }
     public function update(StoreProductDetailRequest $request, $productId, $detailId)

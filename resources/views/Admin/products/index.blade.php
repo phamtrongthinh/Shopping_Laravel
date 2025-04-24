@@ -69,10 +69,12 @@
                             <td>
                                 <a href="{{ route('admin.product_details.index', ['product' => $item->id]) }}"
                                     class="btn btn-info btn-sm">Xem</a>
-                                <a href="{{ route('admin.products.edit', $item->id) }}"
+                                <a href="{{ route('admin.products.edit', ['id' => $item->id, 'page' => request('page')]) }}"
                                     class="btn btn-warning btn-sm">Sửa</a>
-                                <form action="{{ route('admin.products.delete', $item->id) }}" method="POST"
-                                    style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xoá?')">
+                                <form
+                                    action="{{ route('admin.products.delete', ['id' => $item->id, 'page' => request('page')]) }}"
+                                    method="POST" style="display:inline-block;"
+                                    onsubmit="return confirm('Bạn có chắc muốn xoá?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">Xoá</button>
@@ -85,7 +87,7 @@
 
             <!-- Phân trang -->
             <div class="mt-3">
-                {{ $product->links() }}
+                {{ $product->appends(['page' => $page])->links() }}
             </div>
         </div>
     </div>

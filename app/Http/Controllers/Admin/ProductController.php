@@ -14,15 +14,15 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $product = Product::orderBy('id', 'desc')->paginate(5);
-
+        $product = Product::orderBy('id', 'desc')->paginate(8);
 
         return view('admin.products.index', [
             'title' => 'Quản lý sản phẩm',
             'product' => $product,
-
+            'page' => $request->query('page') // truyền page xuống view
         ]);
     }
+
 
     public function add()
     {
@@ -43,7 +43,7 @@ class ProductController extends Controller
                 $image->move(public_path('uploads/products'), $imageName);
                 // Tạo đường dẫn tuyệt đối
                 $absoluteImagePath = 'uploads/products/' . $imageName;
-            }else{
+            } else {
                 $absoluteImagePath = null;
             }
             // Lưu sản phẩm mới
@@ -54,8 +54,8 @@ class ProductController extends Controller
                 'price' => $validatedData['price'],
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
-                'hot' => $request -> input('hot'),
-                'gender' => $request -> input('gender') ??'unisex',
+                'hot' => $request->input('hot'),
+                'gender' => $request->input('gender') ?? 'unisex',
                 'status' => $validatedData['status'],
             ]);
 
@@ -65,26 +65,28 @@ class ProductController extends Controller
         }
     }
 
-
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $categories = Category::all(); // Hoặc có thể sử dụng logic lọc danh mục
+        $categories = Category::all();
+    
         return view('admin.products.edit', [
             'title' => 'Quản lý sản phẩm',
             'product' => $product,
             'categories' => $categories,
+           'page' => $request->page
         ]);
     }
+    
     public function update(ProductStoreRequest $request, $id)
     {
         $validatedData = $request->validated();
-    
+
         try {
             $product = Product::findOrFail($id);
-    
+
             $imageName = $product->image; // Giữ ảnh cũ nếu không chọn ảnh mới
-    
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
@@ -92,7 +94,7 @@ class ProductController extends Controller
                 // Tạo đường dẫn tuyệt đối
                 $imageName = 'uploads/products/' . $imageName;
             }
-    
+
             $product->update([
                 'name' => $validatedData['name'],
                 'description' => $validatedData['description'],
@@ -100,12 +102,15 @@ class ProductController extends Controller
                 'sale' => $validatedData['sale'] ?? 0,
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request->input('hot'),
-                'gender' => $request->input('gender') ??'unisex',
+                'gender' => $request->input('gender') ?? 'unisex',
                 'status' => $validatedData['status'],
                 'image' => $imageName, // Sử dụng $imageName, đường dẫn mới hoặc cũ.
             ]);
-    
-            return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
+
+            return redirect()->route('admin.products.index', [
+               'page' => $request->page
+            ])->with('success', 'Cập nhật sản phẩm thành công!');           
+          
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Lỗi khi cập nhật sản phẩm: ' . $e->getMessage());
         }
@@ -113,11 +118,11 @@ class ProductController extends Controller
 
 
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('admin.products.index')->with('success', 'Xóa sản phẩm thành công');
+        return redirect()->route('admin.products.index', ['page' => $request->page])->with('success', 'Xóa sản phẩm thành công');
     }
 }

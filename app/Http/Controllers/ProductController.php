@@ -31,6 +31,7 @@ class ProductController extends Controller
     {
         $dataproduct = $this->product->all();
         return view('frontend.product', compact('dataproduct'));
+        
     }
     public function getProductDetails($id)
     {

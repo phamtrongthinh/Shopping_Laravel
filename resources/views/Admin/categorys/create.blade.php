@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Tạo Danh Mục Mới</h3>
+            <h3 class="card-title">Tạo Loại Sản phẩm Mới</h3>
         </div>
         <form action="{{ route('admin.categorys.store') }}" method="POST">
             @csrf

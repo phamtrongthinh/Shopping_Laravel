@@ -37,7 +37,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     })->name('logout');
 });
 
-Route::middleware(['auth', 'role:chu_cua_hang'])->group(function () {
+Route::middleware(['auth', 'role'])->group(function () {
     // Trang chủ  admin
     Route::get('admin', [MainController::class, 'index'])->name('admin');
     Route::get('admin/main', [MainController::class, 'index'])->name('admin.main');

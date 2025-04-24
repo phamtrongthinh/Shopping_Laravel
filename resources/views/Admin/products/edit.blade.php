@@ -7,6 +7,7 @@
         </div>
 
         <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="page" value="{{ $page }}">
             @csrf
             @method('PUT')
 
@@ -116,7 +117,7 @@
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Cập Nhật</button>
-                <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Quay Lại</a>
+                <a href="{{ route('admin.products.index',['page'=>$page]) }}" class="btn btn-secondary">Quay Lại</a>
             </div>
         </form>
     </div>
