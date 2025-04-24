@@ -15,6 +15,8 @@ class ProductDetail extends Model
         'product_id',
         'color_id',
         'size',
+        'price',
+        'sale',
         'quantity',
         'image'
     ];

@@ -59,19 +59,7 @@
 
                     <!--------------------------------------- Bên phải (1 phần)-------------------------------------- -->
                     <div class="col-md-4">
-                        <!-- Giá Sản Phẩm -->
-                        <div class="form-group">
-                            <label for="price">Giá Sản Phẩm</label>
-                            <input type="number" name="price" class="form-control" id="price"
-                                placeholder="Nhập giá sản phẩm">
-                        </div>
-
-                        <!-- Giảm Giá -->
-                        <div class="form-group">
-                            <label for="sale">Giảm Giá (%)</label>
-                            <input type="number" name="sale" class="form-control" id="sale"
-                                value="{{ old('sale') }}" placeholder="Nhập giảm giá (nếu có)">
-                        </div>
+                       
 
                         <!-- Trạng Thái -->
                         <div class="form-group">

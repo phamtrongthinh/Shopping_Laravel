@@ -14,7 +14,15 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $product = Product::orderBy('id', 'desc')->paginate(8);
+        $query = Product::query();
+
+        $search = $request->search; // Lấy từ khóa tìm kiếm từ request
+
+        if (!empty($search)) {
+            $query->whereRaw("name REGEXP '[[:<:]]" . $search . "[[:>:]]'");
+        }
+
+        $product= $query->orderBy('id', 'desc')->paginate(8);       
 
         return view('admin.products.index', [
             'title' => 'Quản lý sản phẩm',
@@ -50,9 +58,7 @@ class ProductController extends Controller
             $product = Product::create([
                 'name' => $validatedData['name'],
                 'image' => $absoluteImagePath,
-                'description' => $validatedData['description'],
-                'price' => $validatedData['price'],
-                'sale' => $validatedData['sale'] ?? 0,
+                'description' => $validatedData['description'],               
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request->input('hot'),
                 'gender' => $request->input('gender') ?? 'unisex',
@@ -97,9 +103,7 @@ class ProductController extends Controller
 
             $product->update([
                 'name' => $validatedData['name'],
-                'description' => $validatedData['description'],
-                'price' => $validatedData['price'],
-                'sale' => $validatedData['sale'] ?? 0,
+                'description' => $validatedData['description'],                
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request->input('hot'),
                 'gender' => $request->input('gender') ?? 'unisex',

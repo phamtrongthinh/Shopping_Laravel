@@ -1,11 +1,9 @@
-{{-- resources/views/admin/product_details/index.blade.php --}}
-
 @extends('Admin.main')
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Chi Tiết Sản Phẩm: {{ $product->name }}</h3>
+            <h3 class="card-title">Chi Tiết Sản Phẩm: {{ $product->name }}</h3>            
         </div>
 
         <div class="card-body">
@@ -14,11 +12,13 @@
 
             <h5><strong>Danh sách Chi Tiết Sản Phẩm:</strong></h5>
             @if ($details->count() > 0)
-                <table class="table table-bordered">
-                    <thead>
+                <table class="table table-bordered text-center align-middle">
+                    <thead class="thead-light">
                         <tr>
                             <th>Màu</th>
                             <th>Kích Thước</th>
+                            <th class="text-center">Giá</th>
+                            <th class="text-center">Giảm giá</th>
                             <th>Số Lượng</th>
                             <th>Ảnh</th>
                             <th>Hành Động</th>
@@ -27,19 +27,23 @@
                     <tbody>
                         @foreach ($details as $detail)
                             <tr>
-                                <td>{{ $detail->color->name ?? 'd' }}</td>
+                                <td>{{ $detail->color->name ?? '-' }}</td>
                                 <td>{{ $detail->size }}</td>
+                                <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
+                                <td>{{ $detail->sale ?? 0 }}%</td>
                                 <td>{{ $detail->quantity }}</td>
                                 <td>
                                     @if ($detail->image)
-                                        <img src="{{ asset($detail->image) }}" alt="Ảnh chi tiết" style="max-width: 100px;">
+                                        <img src="{{ asset($detail->image) }}" alt="Ảnh chi tiết"
+                                            style="max-width: 100px;">
+                                    @else
+                                        <span class="text-muted">Không có ảnh</span>
                                     @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.product_details.edit', ['product' => $product->id, 'detail' => $detail->id]) }}"
                                         class="btn btn-warning btn-sm">Sửa</a>
-                                    <form
-                                        action="{{ route('admin.product_details.destroy', ['product' => $product->id, 'detail' => $detail->id]) }}"
+                                    <form action="{{ route('admin.product_details.destroy', ['product' => $product->id, 'detail' => $detail->id]) }}"
                                         method="POST" style="display:inline;" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
@@ -59,13 +63,11 @@
             <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Quay lại danh sách sản phẩm</a>
             <a href="{{ route('admin.product_details.create', ['product' => $product->id]) }}"
                 class="btn btn-primary ml-2">Thêm chi tiết sản phẩm</a>
-
         </div>
     </div>
 @endsection
 
 <script>
-    // Hàm cảnh báo khi nhấn nút Xóa
     function confirmDelete() {
         return confirm('Bạn có chắc chắn muốn xóa chi tiết sản phẩm này không?');
     }

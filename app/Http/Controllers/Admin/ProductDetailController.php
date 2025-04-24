@@ -65,6 +65,8 @@ class ProductDetailController extends Controller
             'product_id' => $productId,
             'color_id' => $validated['colorselect'],
             'size' => $validated['size'],
+            'price' => $validated['price'],
+            'sale' => $validated['sale'] ?? 0,
             'quantity' => $validated['quantities'],
             'image' => $imagePath,
         ]);
@@ -110,6 +112,8 @@ class ProductDetailController extends Controller
         // Cập nhật thông tin
         $detail->color_id = $validated['colorselect'];
         $detail->size = $validated['size'];
+        $detail->price = $validated['price'];
+        $detail->sale = $validated['sale'] ?? 0;
         $detail->quantity = $validated['quantities'];
     
         // Nếu có ảnh mới

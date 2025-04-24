@@ -68,18 +68,7 @@
                     </div>
 
                     <!-- Bên phải -->
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="price">Giá</label>
-                            <input type="number" name="price" value="{{ old('price', $product->price) }}"
-                                class="form-control" id="price">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sale">Giảm giá (%)</label>
-                            <input type="number" name="sale" value="{{ old('sale', $product->sale) }}"
-                                class="form-control" id="sale" min="0" max="100">
-                        </div>
+                    <div class="col-md-4">                       
 
                         <div class="form-group">
                             <label for="status">Trạng thái</label>
