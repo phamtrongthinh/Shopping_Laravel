@@ -1,3 +1,77 @@
+<!-- jQuery (nên để trước plugin) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Magnific Popup JS -->
+<script src="../template/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<style>
+    /* Đảm bảo các ảnh đều nhau */
+    .slick3 .item-slick3 {
+        width: 100%;
+        /* Chiều rộng của từng item chiếm 100% */
+        height: 600px;
+        /* Đặt chiều cao cố định cho mỗi ảnh */
+        overflow: hidden;
+        /* Đảm bảo ảnh không bị tràn ra ngoài */
+        display: flex;
+        justify-content: center;
+        /* Căn giữa ảnh theo chiều ngang */
+        align-items: center;
+        /* Căn giữa ảnh theo chiều dọc */
+    }
+
+    /* Căn chỉnh ảnh trong wrap-pic-w */
+    .slick3 .wrap-pic-w {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        /* Căn giữa ảnh trong vùng chứa */
+        align-items: center;
+    }
+
+    /* Đảm bảo ảnh không bị méo và phủ kín phần chứa */
+    .slick3 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Đảm bảo ảnh phủ toàn bộ mà không bị biến dạng */
+    }
+
+
+
+    .select-color,
+    .select-size {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid #ccc;
+        border-radius: 0;
+        /* Không bo góc */
+        background-color: #fff;
+        font-size: 16px;
+        color: #333;
+        appearance: none;
+        /* Ẩn mũi tên mặc định */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2210%22%20height%3D%225%22%20viewBox%3D%220%200%2010%205%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%205%205-5z%22%20fill%3D%22%23333%22/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+    }
+
+    .select-color:focus,
+    .select-size:focus {
+        border-color: #7f56d9;
+        outline: none;
+    }
+
+    .select-color option,
+    .select-size option {
+        font-weight: normal;
+    }
+</style>
+
 @extends('frontend.partial.main')
 @section('content')
     <!-- breadcrumb -->
@@ -9,12 +83,12 @@
             </a>
 
             <a href="/san-pham" class="stext-109 cl8 hov-cl1 trans-04">
-                {{$product->category->name }}
+                {{ $product->category->name }}
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
             <span class="stext-109 cl4">
-                {{ $product->name}}
+                {{ $product->name }}
             </span>
         </div>
     </div>
@@ -25,125 +99,51 @@
                 <div class="col-md-6 col-lg-7 p-b-30">
                     <div class="p-l-25 p-r-30 p-lr-0-lg">
                         <div class="wrap-slick3 flex-sb flex-w">
-                            <div class="wrap-slick3-dots">
-                                <ul class="slick3-dots" role="tablist" style="">
-                                    <li class="slick-active" role="presentation"><img
-                                            src=" ../template/images/product-detail-01.jpg ">
-                                        <div class="slick3-dot-overlay"></div>
-                                    </li>
-                                    <li role="presentation"><img src=" ../template/images/product-detail-02.jpg ">
-                                        <div class="slick3-dot-overlay"></div>
-                                    </li>
-                                    <li role="presentation"><img src=" ../template/images/product-detail-03.jpg ">
-                                        <div class="slick3-dot-overlay"></div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="wrap-slick3-arrows flex-sb-m flex-w"><button
-                                    class="arrow-slick3 prev-slick3 slick-arrow" style=""><i class="fa fa-angle-left"
-                                        aria-hidden="true"></i></button><button class="arrow-slick3 next-slick3 slick-arrow"
-                                    style=""><i class="fa fa-angle-right" aria-hidden="true"></i></button></div>
+                            <div class="wrap-slick3-dots"></div>
+                            <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-                            <div class="slick3 gallery-lb slick-initialized slick-slider slick-dotted">
-                                <div class="slick-list draggable">
-                                    <div class="slick-track" style="opacity: 1; width: 1539px;">
-                                        <div class="item-slick3 slick-slide slick-current slick-active"
-                                            data-thumb="../template/images/product-detail-01.jpg" data-slick-index="0"
-                                            aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide10"
-                                            aria-describedby="slick-slide-control10"
-                                            style="width: 513px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+                            <div class="slick3 gallery-lb">
+                                @if (!empty($imagesByColor))
+                                    @foreach ($imagesByColor as $color => $image)
+                                        <div class="item-slick3" data-thumb="{{ asset($image) }}">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="../template/images/product-detail-01.jpg" alt="IMG-PRODUCT">
-
+                                                <img src="{{ asset($image) }}" alt="IMG-PRODUCT">
                                                 <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                    href="../template/images/product-detail-01.jpg" tabindex="0">
+                                                    href="{{ asset($image) }}">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="item-slick3 slick-slide"
-                                            data-thumb="../template/images/product-detail-02.jpg" data-slick-index="1"
-                                            aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide11"
-                                            aria-describedby="slick-slide-control11"
-                                            style="width: 513px; position: relative; left: -513px; top: 0px; z-index: 998; opacity: 0;">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="../template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                    href="../template/images/product-detail-02.jpg" tabindex="-1">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="item-slick3 slick-slide"
-                                            data-thumb="../template/images/product-detail-03.jpg" data-slick-index="2"
-                                            aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide12"
-                                            aria-describedby="slick-slide-control12"
-                                            style="width: 513px; position: relative; left: -1026px; top: 0px; z-index: 998; opacity: 0;">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="../template/images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                    href="../template/images/product-detail-03.jpg" tabindex="-1">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
-                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="alert mt-3 text-center" style="background-color:#717fe0; color: white;">
+                                        <strong>Chưa cập nhật ảnh sản phẩm.</strong>
                                     </div>
-                                </div>
-
-
-
-
+                                @endif
                             </div>
+
+
                         </div>
+
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-5 p-b-30">
                     <div class="p-r-50 p-t-5 p-lr-0-lg">
                         <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                            {{ $product->name}}
+                            {{ $product->name }}
                         </h4>
 
                         <span class="mtext-106 cl2">
-                            $58.79
+                            {{ $product->price_range }}
                         </span>
 
                         <p class="stext-102 cl3 p-t-23">
-                            {{ $product->description}}
+                            {{ $product->description }}
                         </p>
 
                         <!--  -->
                         <div class="p-t-33">
-                            <div class="flex-w flex-r-m p-b-10">
-                                <div class="size-203 flex-c-m respon6">
-                                    Size
-                                </div>
-
-                                <div class="size-204 respon6-next">
-                                    <div class="rs1-select2 bor8 bg0">
-                                        <select class="js-select2 select2-hidden-accessible" name="time"
-                                            tabindex="-1" aria-hidden="true">
-                                            <option>Choose an option</option>
-                                            <option>Size S</option>
-                                            <option>Size M</option>
-                                            <option>Size L</option>
-                                            <option>Size XL</option>
-                                        </select><span class="select2 select2-container select2-container--default"
-                                            dir="ltr" style="width: 139.2px;"><span class="selection"><span
-                                                    class="select2-selection select2-selection--single" role="combobox"
-                                                    aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                                    aria-labelledby="select2-time-0w-container"><span
-                                                        class="select2-selection__rendered" id="select2-time-0w-container"
-                                                        title="Choose an option">Choose an option</span><span
-                                                        class="select2-selection__arrow" role="presentation"><b
-                                                            role="presentation"></b></span></span></span><span
-                                                class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-203 flex-c-m respon6">
@@ -152,27 +152,37 @@
 
                                 <div class="size-204 respon6-next">
                                     <div class="rs1-select2 bor8 bg0">
-                                        <select class="js-select2 select2-hidden-accessible" name="time"
-                                            tabindex="-1" aria-hidden="true">
-                                            <option>Choose an option</option>
-                                            <option>Red</option>
-                                            <option>Blue</option>
-                                            <option>White</option>
-                                            <option>Grey</option>
-                                        </select><span class="select2 select2-container select2-container--default"
-                                            dir="ltr" style="width: 139.2px;"><span class="selection"><span
-                                                    class="select2-selection select2-selection--single" role="combobox"
-                                                    aria-haspopup="true" aria-expanded="false" tabindex="0"
-                                                    aria-labelledby="select2-time-jt-container"><span
-                                                        class="select2-selection__rendered" id="select2-time-jt-container"
-                                                        title="Choose an option">Choose an option</span><span
-                                                        class="select2-selection__arrow" role="presentation"><b
-                                                            role="presentation"></b></span></span></span><span
-                                                class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                        <div class="dropDownSelect2"></div>
+                                        <select class="select-color" name="color">
+                                            <option value="">Choose an option</option>
+                                            <!-- Chỉ giữ 1 "Choose an option" tại đây -->
+                                            {{-- @foreach ($colors as $color)
+                                                <option value="{{$color}}"> {{$color}}</option>
+                                            @endforeach --}}
+
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-203 flex-c-m respon6">
+                                    Size
+                                </div>
+
+                                <div class="size-204 respon6-next">
+                                    <div class="rs1-select2 bor8 bg0">
+                                        <select class="select-size" name="size">
+                                            <option value="">Choose an option</option>
+                                            <!-- Chỉ giữ 1 "Choose an option" tại đây -->
+                                            <option value="S">Size S</option>
+                                            <option value="M">Size M</option>
+                                            <option value="L">Size L</option>
+                                            <option value="XL">Size XL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-204 flex-w flex-m respon6-next">
@@ -224,6 +234,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
 
             <div class="bor10 m-t-50 p-t-43 p-b-40">
@@ -232,8 +244,7 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item p-b-10">
-                            <a class="nav-link active" data-toggle="tab" href="#description"
-                                role="tab">Description</a>
+                            <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
                         </li>
 
                         {{-- <li class="nav-item p-b-10">
@@ -766,4 +777,6 @@
             </div>
         </div>
     </section> --}}
+
+    <script></script>
 @endsection

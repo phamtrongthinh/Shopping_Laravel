@@ -33,12 +33,7 @@ class ProductController extends Controller
         return view('frontend.product', compact('dataproduct'));
     }
 
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
 
-        return view('frontend.productdetail', compact('product'));
-    }
     public function getProductDetails($id)
     {
         $product = Product::find($id);
@@ -48,4 +43,36 @@ class ProductController extends Controller
             return response()->json(['error' => 'Product not found'], 404);
         }
     }
+
+
+
+    //----------------------------------Chi tiet san pham-----------------------------------------------
+    public function show($id)
+    {
+        $product = Product::with('productDetails')->findOrFail($id);
+    
+        // Lọc ra các màu duy nhất ( thong qua tham chieu goi ra ban ghi cua mau sac), nếu trùng thì lấy ban ghi đầu tiên
+        $colors = [];
+        foreach ($product->productDetails as $detail) {
+            $color = (string) $detail->color;  // Đảm bảo màu là chuỗi
+            if (!in_array($color, $colors)) {
+                $colors[] = $color;
+            }
+        }
+        
+    
+        // Tạo mảng chứa ảnh theo màu (chỉ lấy ảnh của chi tiết đầu tiên theo màu)
+        $imagesByColor = [];
+        foreach ($colors as $color) {
+            // Lấy chi tiết đầu tiên có màu này
+            $firstDetailWithColor = $product->productDetails->firstWhere('color', $color);
+            if ($firstDetailWithColor) {
+                $imagesByColor[$color] = $firstDetailWithColor->image;
+            }
+        }
+        ///
+    
+        return view('frontend.productdetail', compact('product', 'imagesByColor','colors'));
+    }
+    
 }

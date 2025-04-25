@@ -410,7 +410,7 @@
                                     </a>
 
                                     <span class="stext-105 cl3">
-                                        {{ number_format($item->price, 0, ',', '.') }}₫
+                                     {{ $item ->price_range }}
                                     </span>
 
                                 </div>

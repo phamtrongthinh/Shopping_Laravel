@@ -80,7 +80,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('admin.product_details.index', ['product' => $item->id, 'page' => request('page')]) }}"
+                                    <a href="{{ route('admin.product_details.index', ['product' => $item->id]) }}"
                                         class="btn btn-info btn-sm">Xem</a>
 
                                     <a href="{{ route('admin.products.edit', ['id' => $item->id, 'page' => request('page')]) }}"

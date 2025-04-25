@@ -14,6 +14,11 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+
+        // Lưu trang hiện tại vào session
+        if ($request->has('page')) {
+            session(['page' => $request->get('page')]);
+        }
         $query = Product::query();
 
         $search = $request->search; // Lấy từ khóa tìm kiếm từ request
@@ -22,7 +27,7 @@ class ProductController extends Controller
             $query->whereRaw("name REGEXP '[[:<:]]" . $search . "[[:>:]]'");
         }
 
-        $product= $query->orderBy('id', 'desc')->paginate(8);       
+        $product = $query->orderBy('id', 'desc')->paginate(8);
 
         return view('admin.products.index', [
             'title' => 'Quản lý sản phẩm',
@@ -58,7 +63,7 @@ class ProductController extends Controller
             $product = Product::create([
                 'name' => $validatedData['name'],
                 'image' => $absoluteImagePath,
-                'description' => $validatedData['description'],               
+                'description' => $validatedData['description'],
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request->input('hot'),
                 'gender' => $request->input('gender') ?? 'unisex',
@@ -75,15 +80,15 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
-    
+
         return view('admin.products.edit', [
             'title' => 'Quản lý sản phẩm',
             'product' => $product,
             'categories' => $categories,
-           'page' => $request->page
+            'page' => $request->page
         ]);
     }
-    
+
     public function update(ProductStoreRequest $request, $id)
     {
         $validatedData = $request->validated();
@@ -103,7 +108,7 @@ class ProductController extends Controller
 
             $product->update([
                 'name' => $validatedData['name'],
-                'description' => $validatedData['description'],                
+                'description' => $validatedData['description'],
                 'category_id' => $validatedData['category_id'],
                 'hot' => $request->input('hot'),
                 'gender' => $request->input('gender') ?? 'unisex',
@@ -112,9 +117,8 @@ class ProductController extends Controller
             ]);
 
             return redirect()->route('admin.products.index', [
-               'page' => $request->page
-            ])->with('success', 'Cập nhật sản phẩm thành công!');           
-          
+                'page' => $request->page
+            ])->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Lỗi khi cập nhật sản phẩm: ' . $e->getMessage());
         }

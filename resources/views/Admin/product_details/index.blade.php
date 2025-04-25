@@ -67,10 +67,10 @@
         </div>
 
         <div class="card-footer">
-            <a href="{{ route('admin.products.index', ['page' => $paginate]) }}" class="btn btn-secondary">Quay lại danh sách sản phẩm</a>
-            <a href="{{ route('admin.product_details.create', ['product' => $product->id]) }}"
-                class="btn btn-primary ml-2">Thêm chi tiết sản phẩm</a>
+            <a href="{{ route('admin.products.index', ['page' => session('page')]) }}" class="btn btn-secondary">Quay lại danh sách sản phẩm</a>
+            <a href="{{ route('admin.product_details.create', ['product' => $product->id]) }}" class="btn btn-primary ml-2">Thêm chi tiết sản phẩm</a>
         </div>
+        
     </div>
 @endsection
 

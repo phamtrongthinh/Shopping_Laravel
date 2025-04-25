@@ -413,7 +413,7 @@
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+{{-- <script>
 
     //Mỗi lần click vào một <a> bên trong .gallery-lb, sẽ mở ảnh đó trong lightbox.
     $('.gallery-lb').each(function() { // the containers for all your galleries
@@ -426,7 +426,9 @@
             mainClass: 'mfp-fade'
         });
     });
-</script>
+</script> --}}
+
+{{-- 
 <script>
     function formatCurrency(value) {
         return new Intl.NumberFormat('vi-VN', {
@@ -507,7 +509,7 @@
         });
     });
 </script>
-
+ --}}
 
 
 @yield('js')
