@@ -167,7 +167,7 @@
     <div class="container">
         <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
             <button class="how-pos3 hov3 trans-04 js-hide-modal1">
-                <img src="template/images/icons/icon-close.png" alt="CLOSE">
+                <img src="../template/images/icons/icon-close.png" alt="CLOSE">
             </button>
 
             <div class="row">
@@ -176,12 +176,12 @@
                         <div class="wrap-slick3 flex-sb flex-w">
                             <div class="wrap-slick3-dots"></div>
                             <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-                            <div class="item-slick3" data-thumb="template/images/product-detail-02.jpg">
+                            <div class="item-slick3" data-thumb="../template/images/product-detail-02.jpg">
                                 <div class="wrap-pic-w pos-relative">
-                                    <img src="template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+                                    <img src="../template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
 
                                     <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                        href="template/images/product-detail-02.jpg">
+                                        href="../template/images/product-detail-02.jpg">
                                         <i class="fa fa-expand"></i>
                                     </a>
                                 </div>
@@ -318,14 +318,14 @@
 
 
 <!--===============================================================================================-->
-<script src="/template/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../template/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="/template/vendor/animsition/js/animsition.min.js"></script>
+<script src="../template/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="/template/vendor/bootstrap/js/popper.js"></script>
-<script src="/template/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../template/vendor/bootstrap/js/popper.js"></script>
+<script src="../template/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="/template/vendor/select2/select2.min.js"></script>
+<script src="../template/vendor/select2/select2.min.js"></script>
 <script>
     $(".js-select2").each(function() {
         $(this).select2({
@@ -336,23 +336,23 @@
 </script>
 
 <!--===============================================================================================-->
-<script src="/template/vendor/daterangepicker/moment.min.js"></script>
-<script src="/template/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../template/vendor/daterangepicker/moment.min.js"></script>
+<script src="../template/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="/template/vendor/slick/slick.min.js"></script>
-<script src="/template/js/slick-custom.js"></script>
+<script src="../template/vendor/slick/slick.min.js"></script>
+<script src="../template/js/slick-custom.js"></script>
 <!--===============================================================================================-->
-<script src="/template/vendor/parallax100/parallax100.js"></script>
+<script src="../template/vendor/parallax100/parallax100.js"></script>
 <script>
     $('.parallax100').parallax100();
 </script>
 <!--===============================================================================================-->
-<script src="/template/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<script src="../template/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 
 <!--===============================================================================================-->
-<script src="/template/vendor/isotope/isotope.pkgd.min.js"></script>
+<script src="../template/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
-<script src="/template/vendor/sweetalert/sweetalert.min.js"></script>
+<script src="../template/vendor/sweetalert/sweetalert.min.js"></script>
 <script>
     $('.js-addwish-b2').on('click', function(e) {
         e.preventDefault();
@@ -389,7 +389,7 @@
     });
 </script>
 <!--===============================================================================================-->
-<script src="/template/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="../template/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script>
     $('.js-pscroll').each(function() {
         $(this).css('position', 'relative');
@@ -406,7 +406,7 @@
     });
 </script>
 <!--===============================================================================================-->
-<script src="/template/js/main.js"></script>
+<script src="../template/js/main.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

@@ -31,7 +31,13 @@ class ProductController extends Controller
     {
         $dataproduct = $this->product->all();
         return view('frontend.product', compact('dataproduct'));
-        
+    }
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+
+        return view('frontend.productdetail', compact('product'));
     }
     public function getProductDetails($id)
     {

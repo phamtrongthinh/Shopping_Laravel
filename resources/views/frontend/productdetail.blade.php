@@ -9,12 +9,12 @@
             </a>
 
             <a href="/san-pham" class="stext-109 cl8 hov-cl1 trans-04">
-                Men
+                {{$product->category->name }}
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
             <span class="stext-109 cl4">
-                Lightweight Jacket
+                {{ $product->name}}
             </span>
         </div>
     </div>
@@ -28,13 +28,13 @@
                             <div class="wrap-slick3-dots">
                                 <ul class="slick3-dots" role="tablist" style="">
                                     <li class="slick-active" role="presentation"><img
-                                            src=" template/images/product-detail-01.jpg ">
+                                            src=" ../template/images/product-detail-01.jpg ">
                                         <div class="slick3-dot-overlay"></div>
                                     </li>
-                                    <li role="presentation"><img src=" template/images/product-detail-02.jpg ">
+                                    <li role="presentation"><img src=" ../template/images/product-detail-02.jpg ">
                                         <div class="slick3-dot-overlay"></div>
                                     </li>
-                                    <li role="presentation"><img src=" template/images/product-detail-03.jpg ">
+                                    <li role="presentation"><img src=" ../template/images/product-detail-03.jpg ">
                                         <div class="slick3-dot-overlay"></div>
                                     </li>
                                 </ul>
@@ -48,43 +48,43 @@
                                 <div class="slick-list draggable">
                                     <div class="slick-track" style="opacity: 1; width: 1539px;">
                                         <div class="item-slick3 slick-slide slick-current slick-active"
-                                            data-thumb="template/images/product-detail-01.jpg" data-slick-index="0"
+                                            data-thumb="../template/images/product-detail-01.jpg" data-slick-index="0"
                                             aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide10"
                                             aria-describedby="slick-slide-control10"
                                             style="width: 513px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="template/images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                                <img src="../template/images/product-detail-01.jpg" alt="IMG-PRODUCT">
 
                                                 <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                    href="template/images/product-detail-01.jpg" tabindex="0">
+                                                    href="../template/images/product-detail-01.jpg" tabindex="0">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="item-slick3 slick-slide"
-                                            data-thumb="template/images/product-detail-02.jpg" data-slick-index="1"
+                                            data-thumb="../template/images/product-detail-02.jpg" data-slick-index="1"
                                             aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide11"
                                             aria-describedby="slick-slide-control11"
                                             style="width: 513px; position: relative; left: -513px; top: 0px; z-index: 998; opacity: 0;">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+                                                <img src="../template/images/product-detail-02.jpg" alt="IMG-PRODUCT">
 
                                                 <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                    href="template/images/product-detail-02.jpg" tabindex="-1">
+                                                    href="../template/images/product-detail-02.jpg" tabindex="-1">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="item-slick3 slick-slide"
-                                            data-thumb="template/images/product-detail-03.jpg" data-slick-index="2"
+                                            data-thumb="../template/images/product-detail-03.jpg" data-slick-index="2"
                                             aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide12"
                                             aria-describedby="slick-slide-control12"
                                             style="width: 513px; position: relative; left: -1026px; top: 0px; z-index: 998; opacity: 0;">
                                             <div class="wrap-pic-w pos-relative">
-                                                <img src="template/images/product-detail-03.jpg" alt="IMG-PRODUCT">
+                                                <img src="../template/images/product-detail-03.jpg" alt="IMG-PRODUCT">
 
                                                 <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                    href="template/images/product-detail-03.jpg" tabindex="-1">
+                                                    href="../template/images/product-detail-03.jpg" tabindex="-1">
                                                     <i class="fa fa-expand"></i>
                                                 </a>
                                             </div>
@@ -103,7 +103,7 @@
                 <div class="col-md-6 col-lg-5 p-b-30">
                     <div class="p-r-50 p-t-5 p-lr-0-lg">
                         <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                            Lightweight Jacket
+                            {{ $product->name}}
                         </h4>
 
                         <span class="mtext-106 cl2">
@@ -111,8 +111,7 @@
                         </span>
 
                         <p class="stext-102 cl3 p-t-23">
-                            Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare
-                            feugiat.
+                            {{ $product->description}}
                         </p>
 
                         <!--  -->
@@ -332,7 +331,7 @@
                                         <!-- Review -->
                                         <div class="flex-w flex-t p-b-68">
                                             <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                <img src="template/images/avatar-01.jpg" alt="AVATAR">
+                                                <img src="../template/images/avatar-01.jpg" alt="AVATAR">
                                             </div>
 
                                             <div class="size-207">

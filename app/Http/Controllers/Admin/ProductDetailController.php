@@ -17,12 +17,12 @@ class ProductDetailController extends Controller
         $product = Product::findOrFail($productId);
 
         // Lấy các chi tiết của sản phẩm
-        $details = ProductDetail::where('product_id', $productId)->get();
+        $details = ProductDetail::where('product_id', $productId)-> paginate(4);
         // $productDetailscolor = $product->productDetails()->with('color')->get();
 
 
         return view('admin.product_details.index', [
-            'title' => 'Quản lý sản phẩm'
+            'title' => 'Quản lý sản phẩm','paginate' => request()->query('page')
         ], compact('product', 'details'));
     }
 

@@ -26,13 +26,38 @@ use Illuminate\Support\Facades\Auth;
 
 
 
+//-----------------------Trang login-------------------
+Route::get('/login', [FrontendAccountController::class, 'showLoginForm'])->name('show_login');
+Route::post('/login', [FrontendAccountController::class, 'login'])->name('login'); // Đăng nhập
+Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('show_register');
+Route::post('/register', [FrontendAccountController::class, 'register'])->name('register'); // Đăng ký
+Route::post('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
+Route::get('/sua-ho-so', [FrontendAccountController::class, 'edit'])->name('profile.edit');
+Route::put('/sua-ho-so', [FrontendAccountController::class, 'update'])->name('profile.update');
 
-Route::get('/login', [FrontendMainController::class, 'login'])->name('login');
-Route::get('/signup', [FrontendMainController::class, 'signup'])->name('signup');
-Route::get('/forget-password', [FrontendMainController::class, 'forgetpasswword'])->name('forgetpasswword');
 
-
+//-----------------------Trang về chúng tôi-------------------
 Route::get('/ve-chung-toi', [FrontendMainController::class, 'about'])->name('about');
+
+//-----------------------Trang lien he-------------------
+Route::get('/lien-he', [ContactController::class, 'showForm'])->name('contact');
+Route::post('/lien-he', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/lien-he', [ContactController::class, 'storeAjax'])->name('contact.storeAjax');
+
+
+
+//-----------------------Trang chủ-------------------
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+
+
+
+//------------------------Trang chi tiết sản phẩm-------------------
+Route::get('/san-pham/{id}', [ProductController::class, 'show'])->name('product.detail');
+
+
+
 Route::get('/san-pham', function () {
     return view('frontend.product');
 })->name('product');
@@ -51,29 +76,8 @@ Route::get('/tao-phieu-xuat', function () {
 })->name('create_product_receipt');
 
 
-// HomeController
-Route::get('/', [HomeController::class, 'index']) -> name('home');
-Route::get('/san-pham/{id}', [HomeController::class, 'getProductDetails']);
 require __DIR__ . '/admin.php';
 
-
-// tai khoan 
-
-Route::get('/login', [FrontendAccountController::class, 'showLoginForm'])->name('show_login');
-Route::post('/login', [FrontendAccountController::class, 'login'])-> name('login'); // Đăng nhập
-Route::get('/register', [FrontendAccountController::class, 'showRegisterForm'])->name('show_register');
-Route::post('/register', [FrontendAccountController::class, 'register'])-> name('register'); // Đăng ký
-Route::post('/logout', [FrontendAccountController::class, 'logout'])->name('logout');
-// Route::middleware(['auth'])->group(function () {
-    Route::get('/sua-ho-so', [FrontendAccountController::class, 'edit'])->name('profile.edit');
-    Route::put('/sua-ho-so', [FrontendAccountController::class, 'update'])->name('profile.update');
-// });
-
-
-//-----------------------Lien he-------------------
-Route::get('/lien-he', [ContactController::class, 'showForm'])->name('contact');
-Route::post('/lien-he', [ContactController::class, 'store'])->name('contact.store');
-Route::post('/lien-he', [ContactController::class, 'storeAjax'])->name('contact.storeAjax');
 
 
 

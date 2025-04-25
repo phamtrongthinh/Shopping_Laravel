@@ -80,8 +80,9 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('admin.product_details.index', ['product' => $item->id]) }}"
+                                    <a href="{{ route('admin.product_details.index', ['product' => $item->id, 'page' => request('page')]) }}"
                                         class="btn btn-info btn-sm">Xem</a>
+
                                     <a href="{{ route('admin.products.edit', ['id' => $item->id, 'page' => request('page')]) }}"
                                         class="btn btn-warning btn-sm">Sửa</a>
                                     <form
