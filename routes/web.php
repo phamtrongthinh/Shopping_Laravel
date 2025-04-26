@@ -52,6 +52,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 //------------------------Trang danh sách sản phẩm-------------------
+Route::get('/san-pham', [ProductController::class, 'index'])->name('product');
 
 //------------------------Trang yeu thich sản phẩm-------------------
 Route::post('/like-product', [LikeController::class, 'store'])->name('product.like')->middleware('auth');
@@ -67,9 +68,6 @@ Route::get('/get-price', [ProductController::class, 'getPrice']);
 
 
 
-Route::get('/san-pham', function () {
-    return view('frontend.product');
-})->name('product');
 Route::get('/gio-hang', function () {
     return view('frontend.cart');
 })->name('cart');

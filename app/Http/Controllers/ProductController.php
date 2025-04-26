@@ -29,8 +29,21 @@ class ProductController extends Controller
 
     public function index()
     {
-        $dataproduct = $this->product->all();
-        return view('frontend.product', compact('dataproduct'));
+
+        $query = $this->product->where('status', 1);
+
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $query = $query->with(['likes' => function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            }]);
+        }
+        $categorys = $this->category->where('active', 1)->get();
+
+        // Phân trang, 20 sản phẩm mỗi trang
+        $dataproduct = $query->paginate(20);
+
+        return view('frontend.product', compact('dataproduct', 'categorys'));
     }
 
 
@@ -112,13 +125,13 @@ class ProductController extends Controller
         $colorId = $request->input('color_id');
         $sizeId = $request->input('size_id');
         // Kiểm tra đầu vào
-       
+
 
         $variant = ProductDetail::where('product_id', $productId)
             ->where('color_id', $colorId)
             ->where('size', $sizeId)
             ->first();
-           
+
         if ($variant) {
             return response()->json(['price' => (float) $variant->price]);
         }
