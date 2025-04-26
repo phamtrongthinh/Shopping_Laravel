@@ -353,34 +353,86 @@
 <script src="../template/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 <script src="../template/vendor/sweetalert/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    var isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+
+    // Ngăn chặn sự kiện mặc định khi click vào nút yêu thích
     $('.js-addwish-b2').on('click', function(e) {
         e.preventDefault();
     });
 
+    // Thêm sự kiện cho từng nút yêu thích trong danh sách
     $('.js-addwish-b2').each(function() {
         var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
         $(this).on('click', function() {
-            swal(nameProduct, "is added to wishlist !", "success");
+            if (!isLoggedIn) {
+                Swal.fire({
+                    title: 'Bạn chưa đăng nhập!',
+                    text: "Vui lòng đăng nhập để thêm vào yêu thích.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đăng nhập',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('login') }}";
+                    }
+                });
+                return; // Dừng lại
+            }
+
+            Swal.fire({
+                title: nameProduct,
+                text: "Đã thêm vào danh sách yêu thích!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
 
             $(this).addClass('js-addedwish-b2');
             $(this).off('click');
         });
     });
 
+    // Thêm sự kiện cho nút yêu thích trong chi tiết sản phẩm
     $('.js-addwish-detail').each(function() {
         var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
         $(this).on('click', function() {
-            swal(nameProduct, "is added to wishlist !", "success");
+            if (!isLoggedIn) {
+                Swal.fire({
+                    title: 'Bạn chưa đăng nhập!',
+                    text: "Vui lòng đăng nhập để thêm vào yêu thích.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đăng nhập',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('login') }}";
+                    }
+                });
+                return; // Dừng lại
+            }
+
+            Swal.fire({
+                title: nameProduct,
+                text: "Đã thêm vào danh sách yêu thích :>",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
 
             $(this).addClass('js-addedwish-detail');
             $(this).off('click');
         });
     });
+</script>
+
+
 
     /*---------------------------------------------*/
-
+    <script>
     $('.js-addcart-detail').each(function() {
         var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
         $(this).on('click', function() {
@@ -412,7 +464,7 @@
 
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{-- <script>
 
     //Mỗi lần click vào một <a> bên trong .gallery-lb, sẽ mở ảnh đó trong lightbox.
