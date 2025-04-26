@@ -67,13 +67,15 @@ Route::get('/get-sizes-by-color', [ProductController::class, 'getSizesByColor'])
 Route::get('/get-price', [ProductController::class, 'getPrice']);
 
 
+//------------------------Trang giỏ hàng-------------------
+// Route::get('/gio-hang', [MainController::class, 'cart'])->name('cart');
+
+
 
 Route::get('/gio-hang', function () {
     return view('frontend.cart');
 })->name('cart');
-Route::get('/chi-tiet', function () {
-    return view('frontend.productdetail');
-})->name('cart');
+
 
 Route::get('/tao-phieu-nhap', function () {
     return view('admin.product_receipts.add');

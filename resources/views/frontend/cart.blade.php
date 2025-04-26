@@ -17,104 +17,101 @@
     <form class="bg0 p-t-75 p-b-85">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-12 col-xl-12 mb-5">
-
+                <div class="col-12 mb-5">
                     <div class="mx-auto px-3 px-lg-4">
                         <div class="wrap-table-shopping-cart">
-                            <table class="table-shopping-cart">
+                            <table class="table table-bordered text-center align-middle" style="width: 100%;">
+                                <thead style="background-color: white; color: black; font-weight: bold;">
+                                    <tr>
+                                        <th style="width: 25%; text-align: center;">Sản phẩm</th>
+                                        <th style="width: 15%; text-align: center;">Tên</th>
+                                        <th style="width: 10%; text-align: center;">Màu sắc</th>
+                                        <th style="width: 10%; text-align: center;">Kích thước</th>
+                                        <th style="width: 15%; text-align: center;">Giá</th>
+                                        <th style="width: 15%; text-align: center;">Số lượng</th>
+                                        <th style="width: 10%; text-align: center;">Tổng</th>
+                                        <th style="width: 10%; text-align: center;">Xóa</th>
+                                    </tr>
+                                </thead>
+            
                                 <tbody>
-                                    <tr class="table_head">
-                                        <th class="column-1">Sản phẩm</th>
-                                        <th class="column-2"></th>
-                                        <th class="column-3">Giá</th>
-                                        <th class="column-4">Số lượng</th>
-                                        <th class="column-5">Tổng</th>
-                                    </tr>
-
-                                    <tr class="table_row">
-                                        <td class="column-1">
-                                            <div class="how-itemcart1">
-                                                <img src="template/images/item-cart-04.jpg" alt="IMG">
-                                            </div>
+                                    <!-- Sản phẩm 1 -->
+                                    <tr>
+                                        <td style="vertical-align:middle">
+                                            <img src="template/images/item-cart-04.jpg" alt="IMG"
+                                                style="width: 120px; height: 150px; object-fit: cover; border-radius: 8px;">
                                         </td>
-                                        <td class="column-2">Dâu tây tươi</td>
-                                        <td class="column-3">$ 36.00</td>
-
-                                        <td class="column-4">
-                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                        <td style="vertical-align:middle">Dâu tây tươi</td>
+                                        <td style="vertical-align:middle"><span class="badge bg-danger">Đỏ</span></td>
+                                        <td style="vertical-align:middle">-</td>
+                                        <td style="vertical-align:middle">₫870,000</td>
+                                        <td style="vertical-align:middle">
+                                            <div class="wrap-num-product flex-w justify-content-center">
                                                 <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
-
+            
                                                 <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                    name="num-product1" value="1">
-
+                                                    name="num-product" value="1">
+            
                                                 <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="column-5">$ 36.00</td>
-                                    </tr>
-
-
-                                    <tr class="table_row">
-                                        <td class="column-1">
-                                            <div class="how-itemcart1">
-                                                <img src="template/images/item-cart-05.jpg" alt="IMG">
-                                            </div>
+                                        <td style="vertical-align:middle">₫870,000</td>
+                                        <td style="vertical-align:middle">
+                                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
+                                                <i class="fa fa-trash"></i> Xóa
+                                            </button>
                                         </td>
-                                        <td class="column-2">Áo khoác nhẹ</td>
-                                        <td class="column-3">₫ 384,000</td>
-                                        <td class="column-4">
-                                            <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                    </tr>
+            
+                                    <!-- Sản phẩm 2 -->
+                                    <tr>
+                                        <td style="vertical-align:middle">
+                                            <img src="template/images/item-cart-05.jpg" alt="IMG"
+                                                style="width: 120px; height: 150px; object-fit: cover; border-radius: 8px;">
+                                        </td>
+                                        <td style="vertical-align:middle">Áo khoác nhẹ</td>
+                                        <td style="vertical-align:middle"><span class="badge bg-secondary">Xám</span></td>
+                                        <td style="vertical-align:middle">M</td>
+                                        <td style="vertical-align:middle">₫384,000</td>
+                                        <td style="vertical-align:middle">
+                                            <div class="wrap-num-product flex-w justify-content-center">
                                                 <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
-
+            
                                                 <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                    name="num-product2" value="1">
-
+                                                    name="num-product" value="1">
+            
                                                 <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="column-5">₫ 384,000</td>
-                                    </tr>
-                                    <!-- Dòng hiển thị tổng tiền -->
-                                    <tr class="table_row" style="height: 40px;">
-                                        <td colspan="5"
-                                            style="text-align: right; font-weight: bold; font-size: 14px; padding: 5px 40px;">
-                                            Tổng tiền: ₫ 420,000
+                                        <td style="vertical-align:middle">₫384,000</td>
+                                        <td style="vertical-align:middle">
+                                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
+                                                <i class="fa fa-trash"></i> Xóa
+                                            </button>
                                         </td>
                                     </tr>
-
-
+            
+                                    <!-- Tổng tiền -->
+                                    <tr>
+                                        <td colspan="7" class="text-end" style="padding-right: 30px;">
+                                            <span style="font-size: 18px; font-weight: bold;">Tổng tiền: 1,254,000đ</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-
-                        {{-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                            <div class="flex-w flex-m m-r-20 m-tb-5">
-                                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
-                                    name="coupon" placeholder="Mã giảm giá">
-                        
-                                <div
-                                    class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                    Áp dụng mã
-                                </div>
-                            </div>
-                        
-                            <div
-                                class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                                Cập nhật giỏ hàng
-                            </div>
-                        </div> --}}
-
                     </div>
                 </div>
             </div>
+            
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
                     <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
@@ -151,8 +148,7 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="district">Quận / Huyện</label>
-                                    <input type="text" id="district" class="form-control"
-                                        placeholder="VD: Thanh Trì">
+                                    <input type="text" id="district" class="form-control" placeholder="VD: Thanh Trì">
                                 </div>
                             </div>
 
@@ -171,4 +167,18 @@
             </div>
         </div>
     </form>
+
+    <script>
+        // Hàm xác nhận xóa sản phẩm
+        function confirmDelete(event) {
+            // Hiển thị hộp thoại xác nhận
+            var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+            
+            // Nếu người dùng nhấn "OK", tiến hành xóa sản phẩm
+            if (!confirmation) {
+                // Ngừng hành động xóa nếu người dùng chọn "Cancel"
+                event.preventDefault();
+            }
+        }
+    </script>
 @endsection

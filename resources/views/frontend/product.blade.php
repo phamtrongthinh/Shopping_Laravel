@@ -309,9 +309,8 @@
             </div>
             {{-- Pagination --}}
            
-            <div class="d-flex justify-content-end mt-4">
-                {{-- $dataproduct->links('vendor.pagination.custom') --}}
-                {{$dataproduct ->links()}}
+            <div class="d-flex justify-content-end mt-4">          
+                {{$dataproduct ->links('frontend.partial.my_paginate')}}
             </div>
         </div>
     @endsection

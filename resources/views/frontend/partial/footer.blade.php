@@ -418,17 +418,53 @@
         });
     });
 </script>
-
-
-
 <script>
     $('.js-addcart-detail').each(function() {
-        var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+        var nameProduct = $(this).closest('.product-detail').find('.js-name-detail').html();
         $(this).on('click', function() {
-            swal(nameProduct, "is added to cart !", "success");
+            Swal.fire({
+                title: nameProduct,
+                text: "Đã thêm vào giỏ hàng!",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Đi đến giỏ hàng",
+                cancelButtonText: "Tiếp tục mua sắm",
+                customClass: {
+                    confirmButton: 'btn-confirm',  // Lớp CSS cho nút "Đi đến giỏ hàng"
+                    cancelButton: 'btn-cancel'     // Lớp CSS cho nút "Mua hàng tiếp"
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu bấm "Đi đến giỏ hàng"
+                    window.location.href = "/gio-hang"; // Link tới trang giỏ hàng
+                }   // else if (result.dismiss === Swal.DismissReason.cancel) {
+                //     // Nếu bấm "Mua hàng tiếp"
+                //     window.location.href = "/products"; // Link tới trang sản phẩm
+                // }
+            });
         });
     });
 </script>
+
+<style>
+    /* Tùy chỉnh màu sắc nút "Đi đến giỏ hàng" */
+    .btn-confirm {
+        background-color: #717fe0 !important; /* Màu xanh lá */
+        color: white !important;
+        border: none !important;
+    }
+
+    /* Tùy chỉnh màu sắc nút "Mua hàng tiếp" */
+    .btn-cancel {
+        background-color: #717fe0 !important; /* Màu vàng */
+        color: white !important;
+        border: none !important;
+    }
+</style>
+
+
+
+
 <!--===============================================================================================-->
 <script src="../template/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script>
