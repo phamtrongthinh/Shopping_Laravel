@@ -35,4 +35,9 @@ class Product extends Model
 
         return number_format($min, 0, ',', '.') . ' đ - ' . number_format($max, 0, ',', '.') . ' đ';
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

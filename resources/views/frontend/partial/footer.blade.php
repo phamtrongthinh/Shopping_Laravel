@@ -186,7 +186,7 @@
                                     </a>
                                 </div>
                             </div>
-                            
+
 
                             {{--
                                  
@@ -357,15 +357,10 @@
 <script>
     var isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
 
-    // Ngăn chặn sự kiện mặc định khi click vào nút yêu thích
-    $('.js-addwish-b2').on('click', function(e) {
-        e.preventDefault();
-    });
+    $(document).ready(function() {
+        $(document).on('click', '.js-addwish-b2', function(e) {
+            e.preventDefault();
 
-    // Thêm sự kiện cho từng nút yêu thích trong danh sách
-    $('.js-addwish-b2').each(function() {
-        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-        $(this).on('click', function() {
             if (!isLoggedIn) {
                 Swal.fire({
                     title: 'Bạn chưa đăng nhập!',
@@ -379,60 +374,54 @@
                         window.location.href = "{{ route('login') }}";
                     }
                 });
-                return; // Dừng lại
+                return;
             }
 
-            Swal.fire({
-                title: nameProduct,
-                text: "Đã thêm vào danh sách yêu thích!",
-                icon: "success",
-                timer: 1500,
-                showConfirmButton: false
-            });
+            var $this = $(this);
+            var productId = $this.data('id');
 
-            $(this).addClass('js-addedwish-b2');
-            $(this).off('click');
-        });
-    });
-
-    // Thêm sự kiện cho nút yêu thích trong chi tiết sản phẩm
-    $('.js-addwish-detail').each(function() {
-        var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-        $(this).on('click', function() {
-            if (!isLoggedIn) {
-                Swal.fire({
-                    title: 'Bạn chưa đăng nhập!',
-                    text: "Vui lòng đăng nhập để thêm vào yêu thích.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Đăng nhập',
-                    cancelButtonText: 'Hủy'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "{{ route('login') }}";
+            $.ajax({
+                url: "{{ route('product.like') }}",
+                method: 'POST',
+                data: {
+                    product_id: productId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.status === 'liked') {
+                        $this.addClass('js-addedwish-b2');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã thêm vào yêu thích!',
+                            timer: 1000,
+                            showConfirmButton: false
+                        });
+                    } else if (response.status === 'unliked') {
+                        $this.removeClass('js-addedwish-b2');
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Đã bỏ yêu thích!',
+                            timer: 1000,
+                            showConfirmButton: false
+                        });
                     }
-                });
-                return; // Dừng lại
-            }
-
-            Swal.fire({
-                title: nameProduct,
-                text: "Đã thêm vào danh sách yêu thích :>",
-                icon: "success",
-                timer: 1500,
-                showConfirmButton: false
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Có lỗi xảy ra!',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                }
             });
-
-            $(this).addClass('js-addedwish-detail');
-            $(this).off('click');
         });
     });
 </script>
 
 
 
-    /*---------------------------------------------*/
-    <script>
+<script>
     $('.js-addcart-detail').each(function() {
         var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
         $(this).on('click', function() {

@@ -1,10 +1,10 @@
  <style>
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar {
-        display: none;
-        /* Chrome, Safari, Opera */
-    }
-    
+     html::-webkit-scrollbar,
+     body::-webkit-scrollbar {
+         display: none;
+         /* Chrome, Safari, Opera */
+     }
+
      .user-dropdown {
          position: relative;
      }
@@ -135,11 +135,19 @@
                          <i class="zmdi zmdi-shopping-cart"></i>
                      </div>
 
-                     <a href="#"
+                     <a @auth href="{{ route('favorites.index') }}" @endauth
                          class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                         data-notify="0">
+                         id="like-notification"
+                         data-notify="{{ auth()->check() ? auth()->user()->likes()->count() : 0 }}">
                          <i class="zmdi zmdi-favorite-outline"></i>
+                         <span id="like-count"
+                             style="position: absolute; top: 0; right: 0; color: white; border-radius: 50%; font-size: 0px;">
+                             {{ auth()->check() ? auth()->user()->likes()->count() : 0 }}
+                         </span>
                      </a>
+
+
+
                      @guest
                          <!-- Hiển thị nút Đăng nhập nếu chưa đăng nhập -->
                          <a href="{{ route('show_login') }}"
@@ -162,7 +170,7 @@
                                      <p><i class="zmdi zmdi-pin"></i> {{ Auth::user()->address ?? 'Chưa cập nhật' }}</p>
                                  </div>
                                  <hr>
-                                 <a href="{{ route('profile.edit')}}"><i class="zmdi zmdi-face"></i> Trang cá nhân</a>
+                                 <a href="{{ route('profile.edit') }}"><i class="zmdi zmdi-face"></i> Trang cá nhân</a>
                                  <a href="{{ route('logout') }}"
                                      onclick="event.preventDefault(); if(confirm('Bạn có chắc chắn muốn đăng xuất không?')) { document.getElementById('logout-form').submit(); }">
                                      <i class="zmdi zmdi-power"></i> Đăng xuất
@@ -308,6 +316,24 @@
              if (!dropdown.contains(e.target)) {
                  dropdown.classList.remove('active');
              }
+         });
+     </script>
+
+     <script>
+         function updateLikesCount() {
+             // Gọi API để lấy số lượng like
+             $.get('{{ route('likes.count') }}', function(data) {
+                 // Cập nhật lại số lượng likes và giá trị data-notify mà không làm thay đổi CSS hay vị trí
+                 $('#like-count').text(data.count); // Cập nhật số lượng likes
+                 $('#like-notification').attr('data-notify', data.count); // Cập nhật giá trị data-notify
+             });
+         }
+
+         // Gọi hàm update khi nhấn vào nút like (hoặc khi có thay đổi về likes)
+         $(document).on('click', '.js-addwish-b2', function() {
+             setTimeout(function() {
+                 updateLikesCount(); // Cập nhật lại sau khi thực hiện thao tác like/unlike
+             }, 300); // Delay một chút nếu cần xử lý animation
          });
      </script>
  @endsection

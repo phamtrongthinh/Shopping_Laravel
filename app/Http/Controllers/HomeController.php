@@ -29,9 +29,20 @@ class HomeController extends Controller
 
     public function index()
     {
-        $dataproduct = $this->product->where('hot', 1)->where('status', 1)->get();
+        $query = $this->product->where('hot', 1)->where('status', 1);
+
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $query = $query->with(['likes' => function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            }]);
+        }
+
+        $dataproduct = $query->get();
+
         return view('frontend.home', compact('dataproduct'));
     }
+
 
     public function getProductDetails($id)
     {

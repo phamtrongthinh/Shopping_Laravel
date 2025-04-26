@@ -9,7 +9,7 @@ use App\Http\Controllers\AccountController as FrontendAccountController;
 use App\Http\Controllers\MainController as FrontendMainController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\LikeController;
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,14 +51,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
+//------------------------Trang danh sách sản phẩm-------------------
+
+//------------------------Trang yeu thich sản phẩm-------------------
+Route::post('/like-product', [LikeController::class, 'store'])->name('product.like')->middleware('auth');
+Route::get('/user/likes/count', [LikeController::class, 'count'])->name('likes.count')->middleware('auth');
+Route::get('/san-pham-yeu-thich', [LikeController::class, 'favorites'])->name('favorites.index')->middleware('auth');
+
 
 
 //------------------------Trang chi tiết sản phẩm-------------------
 Route::get('/san-pham/{id}', [ProductController::class, 'show'])->name('product.detail');
 Route::get('/get-sizes-by-color', [ProductController::class, 'getSizesByColor'])->name('getSizesByColor');
 Route::get('/get-price', [ProductController::class, 'getPrice']);
-
-
 
 
 
