@@ -134,9 +134,13 @@
                             {{ $product->name }}
                         </h4>
 
-                        <span class="mtext-106 cl2">
+                        <span class="mtext-106 cl2" id="productPrice">
                             {{ $product->price_range }}
                         </span>
+
+                        <!-- Thêm ở đâu đó, hoặc đưa sẵn product_id vào JS ( lưu product_id vào HTML,)-->
+                        <input type="hidden" id="productId" value="{{ $product->id }}">
+
 
                         <p class="stext-102 cl3 p-t-23">
                             {{ $product->description }}
@@ -145,43 +149,47 @@
                         <!--  -->
                         <div class="p-t-33">
 
+                            <!-- Thông báo chưa chọn màu -->
+                            <div class="flex-w flex-r-m p-b-10" id="colorWarning" style="color: red; display: none;">Vui
+                                lòng chọn màu sắc trước khi chọn
+                                kích thước!</div>
+
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-203 flex-c-m respon6">
                                     Color
                                 </div>
-
                                 <div class="size-204 respon6-next">
                                     <div class="rs1-select2 bor8 bg0">
-                                        <select class="select-color" name="color">
-                                            <option value="">Choose an option</option>
-                                            <!-- Chỉ giữ 1 "Choose an option" tại đây -->
-                                            {{-- @foreach ($colors as $color)
-                                                <option value="{{$color}}"> {{$color}}</option>
-                                            @endforeach --}}
-
+                                        <select class="select-color" name="color" id="colorSelect">
+                                            <option value="">Lựa chọn màu sắc</option>
+                                            @foreach ($colornameids as $colornameid)
+                                                <option value="{{ $colornameid['id'] }}"> {{ $colornameid['name'] }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-203 flex-c-m respon6">
                                     Size
                                 </div>
-
                                 <div class="size-204 respon6-next">
                                     <div class="rs1-select2 bor8 bg0">
-                                        <select class="select-size" name="size">
-                                            <option value="">Choose an option</option>
-                                            <!-- Chỉ giữ 1 "Choose an option" tại đây -->
-                                            <option value="S">Size S</option>
-                                            <option value="M">Size M</option>
-                                            <option value="L">Size L</option>
-                                            <option value="XL">Size XL</option>
+                                        <select class="select-size" name="size" id="sizeSelect" disabled>
+                                            <option value="">Lựa chọn kích thước</option>
+                                            <!-- Các size sẽ được điền qua AJAX -->
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Thông báo yêu cầu chọn màu sắc trước -->
+                            <div
+                                style="margin: 10px 0px; margin-left: 70px; font-size: 14px;  font-family: 'Roboto', 'Segoe UI', 'Arial', 'Tahoma', sans-serif;">
+                                <p><strong>Vui lòng chọn màu sắc trước khi chọn kích thước.</strong></p>
+                            </div>
 
 
                             <div class="flex-w flex-r-m p-b-10">
@@ -778,5 +786,98 @@
         </div>
     </section> --}}
 
-    <script></script>
+
+
+    <script>
+        // Lắng nghe sự kiện thay đổi màu sắc
+        $('#colorSelect').change(function() {
+            var colorId = $(this).val(); // Lấy id màu sắc đã chọn
+
+            // Kiểm tra nếu đã chọn màu sắc
+            if (colorId) {
+                // Kích hoạt dropdown size nếu đã chọn màu
+                $('#sizeSelect').prop('disabled', false);
+                $('#colorWarning').hide(); // Ẩn thông báo
+
+                // Gửi yêu cầu AJAX để lấy các kích thước của màu sắc đã chọn
+                $.ajax({
+                    url: '{{ route('getSizesByColor') }}', // Đảm bảo đường dẫn đúng
+                    method: 'GET',
+                    data: {
+                        color_id: colorId,
+                        product_id: '{{ $product->id }}' // ID sản phẩm
+                    },
+                    success: function(sizes) {
+                        // Xóa các kích thước hiện có trong select size
+                        $('#sizeSelect').empty();
+                        $('#sizeSelect').append('<option value="">Lựa chọn kích thước</option>');
+
+                        // Thêm các size vào dropdown
+                        sizes.forEach(function(size) {
+                            $('#sizeSelect').append('<option value="' + size + '">' + size +
+                                '</option>');
+                        });
+                    }
+                });
+            } else {
+                // Nếu chưa chọn màu, tắt dropdown size và hiển thị thông báo
+                $('#sizeSelect').prop('disabled', true);
+                $('#sizeSelect').empty();
+                $('#sizeSelect').append('<option value="">Lựa chọn kích thước</option>');
+
+                // Hiển thị thông báo yêu cầu chọn màu
+                $('#colorWarning').show();
+            }
+        });
+
+        // Kiểm tra nếu người dùng cố gắng click vào dropdown size mà chưa chọn màu
+        $('#sizeSelect').click(function() {
+            if ($('#colorSelect').val() == '') {
+                $('#colorWarning').show(); // Hiển thị thông báo nếu chưa chọn màu
+            }
+        });
+    </script>
+
+    
+    <script>
+        //lay gia tien cua chi tiet san pham 
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorSelect = document.getElementById('colorSelect');
+            const sizeSelect = document.getElementById('sizeSelect');
+            const productId = document.getElementById('productId').value;
+            const priceDisplay = document.getElementById('productPrice');
+
+            function fetchPrice() {
+                const colorId = colorSelect.value;
+                const sizeId = sizeSelect.value;
+
+                if (colorId && sizeId) {
+                    fetch(`/get-price?product_id=${productId}&color_id=${colorId}&size_id=${sizeId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.price) {
+                                priceDisplay.textContent = data.price.toLocaleString('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                });
+                            } else {
+                                priceDisplay.textContent = 'Không xác định';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi khi lấy giá:', error);
+                            priceDisplay.textContent = 'Lỗi';
+                        });
+                }
+            }
+
+            colorSelect.addEventListener('change', function() {
+                sizeSelect.disabled = !this.value;
+                fetchPrice();
+            });
+
+            sizeSelect.addEventListener('change', fetchPrice);
+        });
+    </script>
+
 @endsection

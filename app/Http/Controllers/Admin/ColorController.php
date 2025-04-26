@@ -53,12 +53,13 @@ class ColorController extends Controller
 
 
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $color = Color::findOrFail($id);
+        $page = $request->get('page');
         return view('admin.colors.edit', [
             'title' => 'Quản lý mã màu sản phẩm',
-            'color' => $color,
+            'color' => $color,'page' => $page
         ]);
     }
     public function update(ColorRequest $request, $id)

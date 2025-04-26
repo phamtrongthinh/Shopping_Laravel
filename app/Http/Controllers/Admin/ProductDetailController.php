@@ -17,7 +17,14 @@ class ProductDetailController extends Controller
         $product = Product::findOrFail($productId);
 
         // Lấy các chi tiết của sản phẩm
-        $details = ProductDetail::where('product_id', $productId)-> paginate(4);
+        $details = ProductDetail::where('product_id', $productId)-> orderBy('color_id') 
+        ->orderByRaw("CASE 
+        WHEN size = 'S' THEN 1
+        WHEN size = 'M' THEN 2
+        WHEN size = 'L' THEN 3
+        WHEN size = 'XL' THEN 4
+        ELSE 5
+      END") -> paginate(4);
         // $productDetailscolor = $product->productDetails()->with('color')->get();
 
 

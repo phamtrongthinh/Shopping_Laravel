@@ -55,6 +55,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 //------------------------Trang chi tiết sản phẩm-------------------
 Route::get('/san-pham/{id}', [ProductController::class, 'show'])->name('product.detail');
+Route::get('/get-sizes-by-color', [ProductController::class, 'getSizesByColor'])->name('getSizesByColor');
+Route::get('/get-price', [ProductController::class, 'getPrice']);
+
+
 
 
 

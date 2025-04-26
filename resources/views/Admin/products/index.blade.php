@@ -27,6 +27,8 @@
 
         @if ($product->count() > 0)
             <div class="card-body">
+                <!-- Đảm bảo bảng có thể cuộn khi màn hình nhỏ -->
+                <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr style="text-align: center">
@@ -98,6 +100,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
 
                 <!-- Phân trang -->
                 <div class="mt-3">

@@ -21,7 +21,7 @@
                             value="{{ old('code', $color->code) }}" >
                     </div>
                     <button type="submit" class="btn btn-success">Cập Nhật</button>
-                    <a href="{{ route('admin.products.colors.index') }}" class="btn btn-secondary">Hủy</a>
+                    <a href="{{ route('admin.products.colors.index', ['page' => $page]) }}" class="btn btn-secondary">Hủy</a>
                 </form>
             </div>
         </div>
