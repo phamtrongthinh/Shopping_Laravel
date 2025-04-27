@@ -8,6 +8,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\AccountController as FrontendAccountController;
 use App\Http\Controllers\MainController as FrontendMainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LikeController;
 use App\Models\Color;
@@ -68,7 +69,8 @@ Route::get('/get-price', [ProductController::class, 'getPrice']);
 
 
 //------------------------Trang giỏ hàng-------------------
-// Route::get('/gio-hang', [MainController::class, 'cart'])->name('cart');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCart');
+
 
 
 

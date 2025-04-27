@@ -303,6 +303,12 @@
  </header>
  @section('js')
      <script>
+         // Kiểm tra xem người dùng đã đăng nhập chưa
+         @auth
+         console.log('Đã đăng nhập'); // Người dùng đã đăng nhập
+         @else
+             console.log('Chưa đăng nhập'); // Người dùng chưa đăng nhập
+         @endauth        
          const userToggle = document.querySelector('.user-toggle');
          const dropdown = document.querySelector('.user-dropdown');
 

@@ -209,7 +209,7 @@
             <div class="col-md-6 col-lg-5 p-b-30">
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                        Lightweight Jacket
+                        qq
                     </h4>
 
                     <span class="mtext-106 cl2 price">
@@ -356,7 +356,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
-
     $(document).ready(function() {
         $(document).on('click', '.js-addwish-b2', function(e) {
             e.preventDefault();
@@ -418,45 +417,136 @@
         });
     });
 </script>
+
+
+{{-- xu ly gio hang --}}
 <script>
     $('.js-addcart-detail').each(function() {
-        var nameProduct = $(this).closest('.product-detail').find('.js-name-detail').html();
         $(this).on('click', function() {
-            Swal.fire({
-                title: nameProduct,
-                text: "Đã thêm vào giỏ hàng!",
-                icon: "success",
-                showCancelButton: true,
-                confirmButtonText: "Đi đến giỏ hàng",
-                cancelButtonText: "Tiếp tục mua sắm",
-                customClass: {
-                    confirmButton: 'btn-confirm',  // Lớp CSS cho nút "Đi đến giỏ hàng"
-                    cancelButton: 'btn-cancel'     // Lớp CSS cho nút "Mua hàng tiếp"
+            var productId = $('#productId').val();
+            var productName = $('#productName').text().trim();
+
+            var colorId = $('#colorSelect').val();
+            var size = $('#sizeSelect').val();
+            var quantity = $('.num-product').val(); // Đúng: vì input quantity nằm ngoài product-detail
+
+            var price = $('#productPrice').text().replace(/[^\d.]/g, '').trim();
+            // Lấy giá mỗi lần click
+
+            console.log("Tên sản phẩm: " + productName);
+            console.log("Màu: " + colorId);
+            console.log("Size: " + size);
+            console.log("Số lượng: " + quantity);
+            console.log("ID sản phẩm: " + productId);
+            console.log("Giá: " + price);
+
+            // Kiểm tra đăng nhập
+            var isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+            if (!isLoggedIn) {
+                showLoginNotification();
+            } else {
+                if (colorId && size && quantity > 0) {
+                    $.ajax({
+                        url: '/add-to-cart',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            product_id: productId,
+                            colorid: colorId,
+                            size: size,
+                            quantity: quantity,
+                            price: price,
+                            product_name: productName, // ✨ Thêm tên sản phẩm                          
+                           
+                        },
+                        success: function(response) {
+                            showSuccessNotification(
+                                productName); // Truyền đúng tên sản phẩm
+                        },
+                        error: function(error) {
+                            console.error("Lỗi khi thêm vào giỏ hàng:", error);
+                            showErrorNotification();
+                        }
+                    });
+                } else {
+                    showIncompleteInfoNotification();
                 }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Nếu bấm "Đi đến giỏ hàng"
-                    window.location.href = "/gio-hang"; // Link tới trang giỏ hàng
-                }   // else if (result.dismiss === Swal.DismissReason.cancel) {
-                //     // Nếu bấm "Mua hàng tiếp"
-                //     window.location.href = "/products"; // Link tới trang sản phẩm
-                // }
-            });
+            }
         });
     });
+
+
+    // Hàm hiển thị thông báo yêu cầu đăng nhập
+    function showLoginNotification() {
+        Swal.fire({
+            title: 'Yêu cầu đăng nhập',
+            text: 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Đăng nhập',
+            cancelButtonText: 'Huỷ',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu bấm "Đăng nhập", chuyển hướng đến trang đăng nhập
+                window.location.href =
+                    '{{ route('show_login') }}'; // Đổi link này thành đường dẫn tới trang đăng nhập của bạn
+            }
+        });
+    }
+
+    // Hàm hiển thị thông báo yêu cầu nhập đầy đủ thông tin
+    function showIncompleteInfoNotification() {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Vui lòng chọn đầy đủ màu sắc, kích thước và số lượng.',
+            icon: 'warning',
+        });
+    }
+
+    // Hàm hiển thị thông báo thành công khi thêm sản phẩm vào giỏ hàng
+    function showSuccessNotification(nameProduct) {
+        Swal.fire({
+            title: nameProduct,
+            text: "Đã thêm vào giỏ hàng!",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonText: "Đi đến giỏ hàng",
+            cancelButtonText: "Tiếp tục mua sắm",
+            customClass: {
+                confirmButton: 'btn-confirm', // Lớp CSS cho nút "Đi đến giỏ hàng"
+                cancelButton: 'btn-cancel' // Lớp CSS cho nút "Mua hàng tiếp"
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu bấm "Đi đến giỏ hàng"
+                window.location.href = "/gio-hang"; // Link tới trang giỏ hàng
+            }
+        });
+    }
+
+    // Hàm hiển thị thông báo lỗi khi thêm vào giỏ hàng không thành công
+    function showErrorNotification() {
+        Swal.fire({
+            title: 'Lỗi',
+            text: 'Đã xảy ra lỗi khi thêm vào giỏ hàng.',
+            icon: 'error',
+        });
+    }
 </script>
 
 <style>
     /* Tùy chỉnh màu sắc nút "Đi đến giỏ hàng" */
     .btn-confirm {
-        background-color: #717fe0 !important; /* Màu xanh lá */
+        background-color: #717fe0 !important;
+        /* Màu xanh lá */
         color: white !important;
         border: none !important;
     }
 
     /* Tùy chỉnh màu sắc nút "Mua hàng tiếp" */
     .btn-cancel {
-        background-color: #717fe0 !important; /* Màu vàng */
+        background-color: #717fe0 !important;
+        /* Màu vàng */
         color: white !important;
         border: none !important;
     }

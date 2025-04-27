@@ -15,4 +15,9 @@ class Cart extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // Quan hệ với cart_items
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }
