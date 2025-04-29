@@ -127,35 +127,23 @@
                      <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                          <i class="zmdi zmdi-search"></i>
                      </div>
-
-
-
-                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                         data-notify="2">
-                         <i class="zmdi zmdi-shopping-cart"></i>
-                     </div>
-
-                     <a @auth href="{{ route('favorites.index') }}" @endauth
-                         class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                         id="like-notification"
-                         data-notify="{{ auth()->check() ? auth()->user()->likes()->count() : 0 }}">
-                         <i class="zmdi zmdi-favorite-outline"></i>
-                         <span id="like-count"
-                             style="position: absolute; top: 0; right: 0; color: white; border-radius: 50%; font-size: 0px;">
-                             {{ auth()->check() ? auth()->user()->likes()->count() : 0 }}
-                         </span>
-                     </a>
-
-
-
-                     @guest
-                         <!-- Hiển thị nút Đăng nhập nếu chưa đăng nhập -->
-                         <a href="{{ route('show_login') }}"
-                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-login">
-                             <i class="zmdi zmdi-account"></i>
-                         </a>
-                     @endguest
                      @auth
+                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                             data-notify="2">
+                             <i class="zmdi zmdi-shopping-cart"></i>
+                         </div>
+
+                         <a href="{{ route('favorites.index') }}"
+                             class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                             id="like-notification"
+                             data-notify="{{ auth()->check() ? auth()->user()->likes()->count() : 0 }}">
+                             <i class="zmdi zmdi-favorite-outline"></i>
+                             <span id="like-count"
+                                 style="position: absolute; top: 0; right: 0; color: white; border-radius: 50%; font-size: 0px;">
+                                 {{ auth()->check() ? auth()->user()->likes()->count() : 0 }}
+                             </span>
+                         </a>
+
                          <div class="user-dropdown">
                              <a href="#" class="user-toggle icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11"
                                  style="display: flex; align-items: center; gap: 10px;">
@@ -184,6 +172,20 @@
                              </div>
                          </div>
                      @endauth
+                     @guest
+                         <!-- Hiển thị nút Đăng nhập nếu chưa đăng nhập -->
+                         <div class="flex items-center space-x-2 p-l-22 p-r-11">
+                             <a href="{{ route('show_login') }}" class="cl2 hov-cl1 trans-04 js-show-modal-login">
+                                 Đăng nhập
+                             </a>
+                             <span class="cl2">|</span>
+                             <a href="{{ route('show_register') }}" class="cl2 hov-cl1 trans-04 js-show-modal-login">
+                                 Đăng ký
+                             </a>
+                         </div>
+
+                     @endguest
+
                  </div>
              </nav>
          </div>
@@ -290,7 +292,7 @@
                  <img src="../template/images/icons/icon-close2.png" alt="CLOSE">
              </button>
 
-             <form class="wrap-search-header flex-w p-l-15">
+             <form action="{{ route('search') }}" method="GET" class="wrap-search-header flex-w p-l-15">
                  <button class="flex-c-m trans-04">
                      <i class="zmdi zmdi-search"></i>
                  </button>
@@ -308,7 +310,7 @@
          console.log('Đã đăng nhập'); // Người dùng đã đăng nhập
          @else
              console.log('Chưa đăng nhập'); // Người dùng chưa đăng nhập
-         @endauth        
+         @endauth
          const userToggle = document.querySelector('.user-toggle');
          const dropdown = document.querySelector('.user-dropdown');
 

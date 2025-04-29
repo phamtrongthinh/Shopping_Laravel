@@ -42,6 +42,14 @@ class HomeController extends Controller
 
         return view('frontend.home', compact('dataproduct'));
     }
+    public function search (Request $request)
+    {
+        $keyword = $request->input('search');
+
+        $products = Product::where('name', 'LIKE', '%' . $keyword . '%')->get();
+
+        return view('frontend.search_results', compact('products', 'keyword'));
+    }
 
 
     public function getProductDetails($id)

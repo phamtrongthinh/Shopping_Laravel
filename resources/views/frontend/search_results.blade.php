@@ -9,19 +9,21 @@
             </a>
 
             <span class="stext-109 cl4">
-                Danh sách yêu thích
+                Kết quả tìm kiếm
             </span>
         </div>
     </div>
 
     <div class="container mt-5">
-        @if ($dataproduct->isEmpty())
+        <h4 class="mb-4">Kết quả tìm kiếm cho: "<strong>{{ $keyword }}</strong>"</h4>
+
+        @if ($products->isEmpty())
             <div class="alert alert-warning" role="alert">
-                Bạn chưa có sản phẩm yêu thích nào.
+                Không tìm thấy sản phẩm nào phù hợp với từ khóa "{{ $keyword }}".
             </div>
         @else
             <div class="row isotope-grid">
-                @foreach ($dataproduct as $item)
+                @foreach ($products as $item)
                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ $item->gender ?? '' }}">
                         <div class="block2" data-id="{{ $item->id }}"
                              style="padding: 15px; background-color: #fff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">

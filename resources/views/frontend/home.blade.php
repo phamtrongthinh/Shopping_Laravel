@@ -387,42 +387,38 @@
 
             <div class="row isotope-grid">
                 @foreach ($dataproduct as $item)
-                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ $item->gender ?? '' }}">
-                        <!-- Block2 -->
-                        <div class="block2" data-id="{{ $item->id }}">
-                            <div class="block2-pic hov-img0">
-                                 <a href="{{ route('product.detail', ['id' => $item->id]) }}">
-                                <img src="{{ asset($item->image) }}" alt="{{ $item->name }}"
-                                    style="height: 334px; width: 270px; object-fit: cover; display: block;">
-                                </a>
-                            </div>
-            
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l">
-                                    <a href="{{ route('product.detail', ['id' => $item->id]) }}"
-                                        class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                        {{ $item->name }}
-                                    </a>
-            
-                                    <span class="stext-105 cl3">
-                                        {{ $item->price_range }}
-                                    </span>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4 isotope-item {{ $item->gender ?? '' }}">
+                        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden position-relative">
+                            <a href="{{ route('product.detail', ['id' => $item->id]) }}">
+                                <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" class="card-img-top"
+                                    style="height: 334px; object-fit: cover;">
+                            </a>
+
+                            <div class="card-body d-flex justify-content-between flex-column p-3">
+                                <div class="mb-2">
+                                    <h6 class="card-title mb-1">
+                                        <a href="{{ route('product.detail', ['id' => $item->id]) }}"
+                                            class="text-dark text-decoration-none fw-semibold d-block text-truncate"
+                                            title="{{ $item->name }}">
+                                            {{ $item->name }}
+                                        </a>
+                                    </h6>
+                                    <p class="fw-bold mb-0">{{ $item->price_range }}</p>
                                 </div>
-            
+
                                 @php
-                                    $isLiked = auth()->check() &&
-                                               $item->likes &&
-                                               $item->likes->contains('user_id', auth()->id());
+                                    $isLiked =
+                                        auth()->check() &&
+                                        $item->likes &&
+                                        $item->likes->contains('user_id', auth()->id());
                                 @endphp
-            
-                                <div class="block2-txt-child2 flex-r p-t-3">
+
+                                <div class="text-end">
                                     <a href="#"
-                                        class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 {{ $isLiked ? 'js-addedwish-b2' : '' }}"
-                                        data-id="{{ $item->id }}">
-                                        <img class="icon-heart1 dis-block trans-04"
-                                            src="template/images/icons/icon-heart-01.png" alt="ICON">
-                                        <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                            src="template/images/icons/icon-heart-02.png" alt="ICON">
+                                        class="btn-addwish-b2 js-addwish-b2 {{ $isLiked ? 'js-addedwish-b2' : '' }}"
+                                        data-id="{{ $item->id }}" style="position: relative;">
+                                        <img src="{{ $isLiked ? 'template/images/icons/icon-heart-02.png' : 'template/images/icons/icon-heart-01.png' }}"
+                                            alt="ICON" style="width: 24px; height: 24px;">
                                     </a>
                                 </div>
                             </div>
@@ -430,7 +426,7 @@
                     </div>
                 @endforeach
             </div>
-            
+
 
             <!-- Load more -->
             <div class="flex-c-m flex-w w-full p-t-45">

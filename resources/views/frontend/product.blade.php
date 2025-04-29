@@ -1,18 +1,60 @@
 @extends('frontend.partial.main')
+<style>
+    .block2-txt-child2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-left: auto;
+        /* Đảm bảo căn phải */
+    }
+
+    .btn-addwish-b2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .icon-heart1,
+    .icon-heart2 {
+        width: 20px;
+        /* Điều chỉnh kích thước icon */
+        height: 20px;
+    }
+
+    /* Responsive media query */
+    @media (max-width: 767px) {
+        .block2-txt-child2 {
+            justify-content: flex-end;
+            /* Căn phải cho icon ở màn hình nhỏ */
+            margin-left: 0;
+            /* Reset left margin */
+        }
+
+        .icon-heart1,
+        .icon-heart2 {
+            width: 18px;
+            /* Giảm kích thước icon cho màn hình nhỏ */
+            height: 18px;
+        }
+    }
+</style>
 @section('content')
     {{-- bread crumb --}}
-    <div style="margin-left:145px">
-        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+    <div class="container">
+        <div class="bread-crumb flex-w  p-r-15 p-t-30 p-lr-0-lg">
             <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
                 Trang chủ
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
-
+    
             <span class="stext-109 cl4">
                 Cửa hàng
             </span>
         </div>
     </div>
+    
     <!--product-->
     <div class="bg0 m-t-23 p-b-140">
         <div class="container">
@@ -22,8 +64,9 @@
                         Tất cả sản phẩm
                     </button>
                     @foreach ($categorys as $category)
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".{{ Str::slug($category->name) }}">
-                            {{ $category->name }}                          
+                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
+                            data-filter=".{{ Str::slug($category->name) }}">
+                            {{ $category->name }}
                         </button>
                     @endforeach
 
@@ -258,59 +301,52 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row isotope-grid" style="position: relative; height: 1721.6px;">
-                @foreach ($dataproduct as $product)
-                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ Str::slug($product->category->name) ?? '' }}">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
+            <div class="container mt-5">
+                <div class="row isotope-grid g-4">
+                    @foreach ($dataproduct as $product)
+                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4 isotope-item {{ Str::slug($product->category->name) ?? '' }}">
+                            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
                                 <a href="{{ route('product.detail', ['id' => $product->id]) }}">
                                     <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
-                                        style="height: 334px; width: 270px; object-fit: cover; display: block; border-radius: 10px;">
+                                        class="card-img-top" style="height: 334px; object-fit: cover;">
                                 </a>
-                            </div>
-
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l">
-                                    <a href="{{ route('product.detail', ['id' => $product->id]) }}"
-                                        class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-                                        style="word-wrap: break-word; white-space: normal;">
-                                        {{ $product->name }}
-                                    </a>
-
-                                    <span class="stext-105 cl3" style="display: block; margin-top: 5px;">
-                                        {{ $product->price_range }}
-                                    </span>
-                                </div>
-
-                                @php
-                                    // Kiểm tra xem sản phẩm đã được like chưa
-                                    $isLiked =
-                                        auth()->check() &&
-                                        $product->likes &&
-                                        $product->likes->contains('user_id', auth()->id());
-                                @endphp
-
-                                <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="#"
-                                        class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 {{ $isLiked ? 'js-addedwish-b2' : '' }}"
-                                        data-id="{{ $product->id }}">
-                                        <img class="icon-heart1 dis-block trans-04"
-                                            src="template/images/icons/icon-heart-01.png" alt="ICON">
-                                        <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                            src="template/images/icons/icon-heart-02.png" alt="ICON">
-                                    </a>
+            
+                                <div class="card-body d-flex justify-content-between p-3">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="text-dark text-decoration-none fw-semibold">
+                                                {{ $product->name }}
+                                            </a>
+                                        </h6>
+                                        <p class=" fw-bold mb-0">
+                                            {{ $product->price_range }}
+                                        </p>
+                                    </div>
+            
+                                    @php
+                                        $isLiked = auth()->check() && $product->likes && $product->likes->contains('user_id', auth()->id());
+                                    @endphp
+            
+                                    <div class="mt-3 text-end">
+                                        <a href="#"
+                                            class="btn-addwish-b2 js-addwish-b2 {{ $isLiked ? 'js-addedwish-b2' : '' }}"
+                                            data-id="{{ $product->id }}" style="position: relative;">
+                                            <img src="{{ $isLiked ? 'template/images/icons/icon-heart-02.png' : 'template/images/icons/icon-heart-01.png' }}"
+                                                alt="ICON" style="width: 24px; height: 24px;">
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
+            
+
             {{-- Pagination --}}
-           
-            <div class="d-flex justify-content-end mt-4">          
-                {{$dataproduct ->links('frontend.partial.my_paginate')}}
+
+            <div class="d-flex justify-content-end mt-4">
+                {{ $dataproduct->links('frontend.partial.my_paginate') }}
             </div>
         </div>
     @endsection

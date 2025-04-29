@@ -49,6 +49,8 @@ Route::post('/lien-he', [ContactController::class, 'storeAjax'])->name('contact.
 
 //-----------------------Trang chủ-------------------
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/tim-kiem', [HomeController::class, 'search'])->name('search');
+
 
 
 
