@@ -394,7 +394,7 @@
                                     style="height: 334px; object-fit: cover;">
                             </a>
 
-                            <div class="card-body d-flex justify-content-between flex-column p-3">
+                            <div class="card-body d-flex justify-content-between p-3">
                                 <div class="mb-2">
                                     <h6 class="card-title mb-1">
                                         <a href="{{ route('product.detail', ['id' => $item->id]) }}"
