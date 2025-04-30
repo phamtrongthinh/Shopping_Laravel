@@ -1,4 +1,5 @@
 @extends('frontend.partial.main')
+
 @section('content')
     {{-- bread crumb --}}
     <div class="container">
@@ -13,8 +14,10 @@
             </span>
         </div>
     </div>
+
     {{-- shoping cart --}}
-    <form class="bg0 p-t-75 p-b-85">
+    <div class="bg0 p-t-75 p-b-85"> <!-- ĐÚNG -->
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 mb-5">
@@ -33,76 +36,59 @@
                                         <th style="width: 10%; text-align: center;">Xóa</th>
                                     </tr>
                                 </thead>
-            
+
                                 <tbody>
-                                    <!-- Sản phẩm 1 -->
-                                    <tr>
-                                        <td style="vertical-align:middle">
-                                            <img src="template/images/item-cart-04.jpg" alt="IMG"
-                                                style="width: 120px; height: 150px; object-fit: cover; border-radius: 8px;">
-                                        </td>
-                                        <td style="vertical-align:middle">Dâu tây tươi</td>
-                                        <td style="vertical-align:middle"><span class="badge bg-danger">Đỏ</span></td>
-                                        <td style="vertical-align:middle">-</td>
-                                        <td style="vertical-align:middle">₫870,000</td>
-                                        <td style="vertical-align:middle">
-                                            <div class="wrap-num-product flex-w justify-content-center">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-minus"></i>
-                                                </div>
-            
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                    name="num-product" value="1">
-            
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="vertical-align:middle">₫870,000</td>
-                                        <td style="vertical-align:middle">
-                                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
-                                                <i class="fa fa-trash"></i> Xóa
-                                            </button>
-                                        </td>
-                                    </tr>
-            
-                                    <!-- Sản phẩm 2 -->
-                                    <tr>
-                                        <td style="vertical-align:middle">
-                                            <img src="template/images/item-cart-05.jpg" alt="IMG"
-                                                style="width: 120px; height: 150px; object-fit: cover; border-radius: 8px;">
-                                        </td>
-                                        <td style="vertical-align:middle">Áo khoác nhẹ</td>
-                                        <td style="vertical-align:middle"><span class="badge bg-secondary">Xám</span></td>
-                                        <td style="vertical-align:middle">M</td>
-                                        <td style="vertical-align:middle">₫384,000</td>
-                                        <td style="vertical-align:middle">
-                                            <div class="wrap-num-product flex-w justify-content-center">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-minus"></i>
-                                                </div>
-            
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                    name="num-product" value="1">
-            
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i class="fs-16 zmdi zmdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="vertical-align:middle">₫384,000</td>
-                                        <td style="vertical-align:middle">
-                                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
-                                                <i class="fa fa-trash"></i> Xóa
-                                            </button>
-                                        </td>
-                                    </tr>
-            
+                                    @if ($cartItems->isEmpty())
+                                        <tr>
+                                            <td colspan="8" class="text-center" style="padding: 50px;">
+                                                <span class="stext-109 cl4" style="font-size: 18px; font-weight: bold;">
+                                                    Giỏ hàng của bạn hiện tại chưa có sản phẩm nào.
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($cartItems as $item)
+                                            {{-- @dd($item->id) --}}
+                                            <tr>
+                                                <td style="vertical-align:middle">
+                                                    <img src="{{ $item->productDetail->image }}" alt="IMG"
+                                                        style="width: 120px; height: 150px; object-fit: cover; border-radius: 8px;">
+                                                </td>
+                                                <td style="vertical-align:middle">{{ $item->product->name }}</td>
+                                                <td style="vertical-align:middle">{{ $item->color->name ?? 'Không có' }}
+                                                </td>
+
+                                                <td style="vertical-align:middle">{{ $item->size }}</td>
+                                                <td style="vertical-align:middle">{{ number_format($item->price) }}₫
+                                                </td>
+                                                <td style="vertical-align:middle">{{ $item->quantity }}</td>
+                                                <td style="vertical-align:middle">
+                                                    {{ number_format($item->price * $item->quantity) }}₫</td>
+                                                    <td style="vertical-align:middle">
+                                                        <form action="{{ route('cart.remove', $item->id) }}" method="POST"
+                                                              onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger btn-sm">
+                                                                <i class="fa fa-trash"></i> Xóa
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                     <!-- Tổng tiền -->
                                     <tr>
                                         <td colspan="7" class="text-end" style="padding-right: 30px;">
-                                            <span style="font-size: 18px; font-weight: bold;">Tổng tiền: 1,254,000đ</span>
+                                            <span style="font-size: 18px; font-weight: bold;">Tổng tiền:
+                                                {{ number_format(
+                                                    $cartItems->sum(function ($item) {
+                                                        return $item->price * $item->quantity;
+                                                    }),
+                                                ) }}₫
+                                            </span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -111,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
                     <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
@@ -166,14 +152,14 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
     <script>
         // Hàm xác nhận xóa sản phẩm
         function confirmDelete(event) {
             // Hiển thị hộp thoại xác nhận
             var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-            
+
             // Nếu người dùng nhấn "OK", tiến hành xóa sản phẩm
             if (!confirmation) {
                 // Ngừng hành động xóa nếu người dùng chọn "Cancel"

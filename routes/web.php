@@ -72,13 +72,19 @@ Route::get('/get-price', [ProductController::class, 'getPrice']);
 
 //------------------------Trang giỏ hàng-------------------
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCart');
+Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
+Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
 
 
 
-Route::get('/gio-hang', function () {
-    return view('frontend.cart');
-})->name('cart');
+
+
+
+// Route::get('/gio-hang', function () {
+//     return view('frontend.cart');
+// })->name('cart');
 
 
 Route::get('/tao-phieu-nhap', function () {

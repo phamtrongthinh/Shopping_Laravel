@@ -6,11 +6,13 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\ProductDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
+        // dd($request->all());
         // Validate dữ liệu đầu vào
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -19,8 +21,8 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
             'price' => 'required|numeric',
             'product_name' => 'required|string',
-           
-           
+
+
         ]);
 
         // Tìm product_detail_id dựa vào product_id + color_id + size_id
@@ -47,6 +49,7 @@ class CartController extends Controller
             $cartItem->save();
         } else {
             // Nếu chưa có thì tạo mới
+            $price = str_replace('.', '', $request->price); // xử lý trước
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $request->product_id,
@@ -54,12 +57,58 @@ class CartController extends Controller
                 'product_name' => $request->product_name,
                 'colorid' => $request->colorid, // Lưu tên màu
                 'size' => $request->size,      // Lưu tên size
-                'price' => $request->price,
+                'price' => $price,              // dùng biến đã xử lý // "349.000" => "349000"
                 'quantity' => $request->quantity,
-                
             ]);
         }
 
         return response()->json(['message' => 'Sản phẩm đã được thêm vào giỏ hàng.'], 200);
+    }
+
+    public function index()
+    {
+        // Lấy giỏ hàng của người dùng đang đăng nhập
+        $userId = auth()->id();
+        $cart = Cart::where('user_id', $userId)->first(); // Lấy giỏ hàng của người dùng
+
+        // Nếu giỏ hàng không tồn tại, tạo một giỏ hàng mới
+        if (!$cart) {
+            $cart = Cart::create(['user_id' => $userId]);
+        }
+
+        // Lấy các sản phẩm trong giỏ hàng
+        $cartItems = $cart->cartItems; // Giả sử bạn đã định nghĩa mối quan hệ trong model Cart
+
+        return view('frontend.cart', compact('cartItems'));
+    }
+    public function remove($id)
+    {
+       
+        $cartItem = CartItem::find($id);
+
+        if ($cartItem) {
+            $cartItem->delete();
+        }
+
+        return redirect()->back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng.');
+    }
+
+
+
+    public function count()
+    {
+        if (!auth()->check()) {
+            return response()->json(['count' => 0]);
+        }
+
+        $userId = auth()->id();
+
+        // Truy vấn để lấy tổng quantity từ bảng cart_items
+        $count = DB::table('cart_items')
+            ->join('carts', 'cart_items.cart_id', '=', 'carts.id')
+            ->where('carts.user_id', $userId)
+            ->sum('cart_items.quantity');
+
+        return response()->json(['count' => $count]);
     }
 }

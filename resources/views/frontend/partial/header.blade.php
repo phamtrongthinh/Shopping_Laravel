@@ -109,7 +109,7 @@
                          </li>
 
                          <li class="label1 {{ request()->is('gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
-                             <a href="{{ route('cart') }}">Tính năng</a>
+                             <a href="{{ route('cart.index') }}">Tính năng</a>
                          </li>
 
                          <li class="{{ request()->is('ve-chung-toi') ? 'active-menu' : '' }}">
@@ -128,10 +128,13 @@
                          <i class="zmdi zmdi-search"></i>
                      </div>
                      @auth
-                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                             data-notify="2">
+                         <div id="cart-notification"
+                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                             data-notify="0">
                              <i class="zmdi zmdi-shopping-cart"></i>
                          </div>
+
+
 
                          <a href="{{ route('favorites.index') }}"
                              class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
@@ -270,7 +273,7 @@
              </li>
 
              <li>
-                 <a href="{{ route('cart') }}" class="label1 rs1" data-label1="hot">Tính năng</a>
+                 <a href="{{ route('cart.index') }}" class="label1 rs1" data-label1="hot">Tính năng</a>
              </li>
 
              <li>
@@ -342,6 +345,20 @@
              setTimeout(function() {
                  updateLikesCount(); // Cập nhật lại sau khi thực hiện thao tác like/unlike
              }, 300); // Delay một chút nếu cần xử lý animation
+         });
+     </script>
+     <script>
+         function updateCartCount() {
+             // Gọi API để lấy số lượng sản phẩm trong giỏ
+             $.get('{{ route('cart.count') }}', function(data) {
+                 // Cập nhật giá trị data-notify
+                 $('#cart-notification').attr('data-notify', data.count);
+             });
+         }
+
+         // Gọi khi trang tải xong
+         $(document).ready(function() {
+             updateCartCount();
          });
      </script>
  @endsection

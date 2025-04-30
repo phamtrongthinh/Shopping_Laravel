@@ -27,7 +27,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($contacts as $stt => $contact)
+                
+                @foreach ($contacts->sortByDesc('created_at') as $stt => $contact)
                     <tr>
                         <td>{{ $stt + 1 }}</td>
                         <!-- Cột 1: Tên, Email, SĐT -->
