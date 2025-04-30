@@ -75,6 +75,8 @@ Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCa
 Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
 Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
+
 
 
 

@@ -1,4 +1,12 @@
 @extends('frontend.partial.main')
+<style>
+    .custom-qty-up,
+    .custom-qty-down {
+        width: 45px;
+        height: 100%;
+        cursor: pointer;
+    }
+</style>
 
 @section('content')
     {{-- bread crumb --}}
@@ -26,10 +34,10 @@
                             <table class="table table-bordered text-center align-middle" style="width: 100%;">
                                 <thead style="background-color: white; color: black; font-weight: bold;">
                                     <tr>
-                                        <th style="width: 25%; text-align: center;">Sản phẩm</th>
+                                        <th style="width: 20%; text-align: center;">Sản phẩm</th>
                                         <th style="width: 15%; text-align: center;">Tên</th>
                                         <th style="width: 10%; text-align: center;">Màu sắc</th>
-                                        <th style="width: 10%; text-align: center;">Kích thước</th>
+                                        <th style="width: 12%; text-align: center;">Kích thước</th>
                                         <th style="width: 15%; text-align: center;">Giá</th>
                                         <th style="width: 15%; text-align: center;">Số lượng</th>
                                         <th style="width: 10%; text-align: center;">Tổng</th>
@@ -61,20 +69,38 @@
                                                 <td style="vertical-align:middle">{{ $item->size }}</td>
                                                 <td style="vertical-align:middle">{{ number_format($item->price) }}₫
                                                 </td>
-                                                <td style="vertical-align:middle">{{ $item->quantity }}</td>
                                                 <td style="vertical-align:middle">
-                                                    {{ number_format($item->price * $item->quantity) }}₫</td>
-                                                    <td style="vertical-align:middle">
-                                                        <form action="{{ route('cart.remove', $item->id) }}" method="POST"
-                                                              onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?');">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="btn btn-danger btn-sm">
-                                                                <i class="fa fa-trash"></i> Xóa
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                    
+                                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                                        <div class="custom-qty-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                            <i class="fs-16 zmdi zmdi-minus"></i>
+                                                        </div>
+
+                                                        <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                                            name="num-product" value="{{ $item->quantity }}"
+                                                            data-item-id="{{ $item->id }}">
+
+                                                        <div class="custom-qty-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                            <i class="fs-16 zmdi zmdi-plus"></i>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="item-total" data-id="{{ $item->id }}"
+                                                    style="vertical-align:middle">
+                                                    {{ number_format($item->price * $item->quantity) }}₫
+                                                </td>
+
+                                                <td style="vertical-align:middle">
+                                                    <form action="{{ route('cart.remove', $item->id) }}" method="POST"
+                                                        onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </form>
+                                                </td>
+
                                             </tr>
                                         @endforeach
                                     @endif
@@ -82,13 +108,15 @@
                                     <!-- Tổng tiền -->
                                     <tr>
                                         <td colspan="7" class="text-end" style="padding-right: 30px;">
-                                            <span style="font-size: 18px; font-weight: bold;">Tổng tiền:
+                                            Tổng tiền:
+                                            <span id="cart-total" style="font-size: 18px; font-weight: bold;">                                               
                                                 {{ number_format(
                                                     $cartItems->sum(function ($item) {
                                                         return $item->price * $item->quantity;
                                                     }),
                                                 ) }}₫
                                             </span>
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -98,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
+            {{-- <div class="row justify-content-center">
                 <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
                     <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
                         <h4 class="mtext-109 cl2 pb-3">
@@ -134,7 +162,8 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="district">Quận / Huyện</label>
-                                    <input type="text" id="district" class="form-control" placeholder="VD: Thanh Trì">
+                                    <input type="text" id="district" class="form-control"
+                                        placeholder="VD: Thanh Trì">
                                 </div>
                             </div>
 
@@ -150,21 +179,88 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
-
+    <!-- Thêm jQuery vào đầu trang (hoặc trước đoạn script của bạn) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Hàm xác nhận xóa sản phẩm
-        function confirmDelete(event) {
-            // Hiển thị hộp thoại xác nhận
-            var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInputs = document.querySelectorAll('.num-product');
 
-            // Nếu người dùng nhấn "OK", tiến hành xóa sản phẩm
-            if (!confirmation) {
-                // Ngừng hành động xóa nếu người dùng chọn "Cancel"
-                event.preventDefault();
+            // Khi số lượng thay đổi, gửi AJAX
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const itemId = this.dataset.itemId;
+                    const newQuantity = this.value;
+
+                    fetch(`/cart/update/${itemId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: new URLSearchParams({
+                                quantity: newQuantity
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log('Cập nhật giỏ hàng thành công!');
+                                // Cập nhật giao diện nếu muốn
+                                updateTotal?.(data.total);
+                                updateItemTotal?.(itemId, data.itemTotal);
+                            } else {
+                                console.error('Lỗi khi cập nhật:', data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi mạng:', error);
+                        });
+                });
+            });
+
+            // Nút tăng số lượng
+            document.querySelectorAll('.custom-qty-up').forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.num-product');
+                    input.value = parseInt(input.value) + 1;
+                    input.dispatchEvent(new Event('change'));
+                });
+            });
+
+            // Nút giảm số lượng
+            document.querySelectorAll('.custom-qty-down').forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.num-product');
+                    if (parseInt(input.value) > 1) {
+                        input.value = parseInt(input.value) - 1;
+                        input.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+            // Cập nhật tổng tiền của từng sản phẩm
+            function updateItemTotal(itemId, itemTotal) {
+                const itemTotalCell = document.querySelector(`.item-total[data-id="${itemId}"]`);
+                if (itemTotalCell) {
+                    itemTotalCell.textContent = formatCurrency(itemTotal);
+                }
             }
-        }
+
+            // Cập nhật tổng tiền của toàn bộ giỏ hàng
+            function updateTotal(total) {
+                const totalElement = document.getElementById('cart-total');
+                if (totalElement) {
+                    totalElement.textContent = formatCurrency(total);
+                }
+            }
+
+            // Hàm định dạng tiền tệ kiểu Việt Nam
+            function formatCurrency(number) {
+                return new Intl.NumberFormat('vi-VN').format(number) + '₫';
+            }
+        });
     </script>
 @endsection

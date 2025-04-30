@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\ProductDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
@@ -83,7 +84,7 @@ class CartController extends Controller
     }
     public function remove($id)
     {
-       
+
         $cartItem = CartItem::find($id);
 
         if ($cartItem) {
@@ -111,4 +112,38 @@ class CartController extends Controller
 
         return response()->json(['count' => $count]);
     }
+
+
+    public function updateQuantity(Request $request, $id)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+    
+        // Lấy CartItem theo ID
+        $cartItem = CartItem::findOrFail($id);
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+    
+        // Tính tổng tiền toàn bộ giỏ hàng của user hiện tại thông qua Cart
+        $cart = Cart::where('user_id', Auth::id())->first(); // Lấy giỏ hàng của user
+    
+        // Nếu tìm thấy giỏ hàng, tính tổng tiền các item trong giỏ hàng
+        if ($cart) {
+            // Lấy tổng số tiền cho tất cả cartItems của giỏ hàng này
+            $total = $cart->cartItems->sum(function ($item) {
+                return $item->price * $item->quantity;
+            });
+        } else {
+            $total = 0; // Nếu không có giỏ hàng, tổng tiền là 0
+        }
+    
+        // Trả về kết quả
+        return response()->json([
+            'success' => true,
+            'itemTotal' => $cartItem->price * $cartItem->quantity,
+            'total' => $total,
+        ]);
+    }
+    
 }
