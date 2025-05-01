@@ -132,79 +132,93 @@
 
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
-                    <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">                      
-                        <form>
+                    <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
+                        <form data-ajax="submit03" data-target="alert" data-href="#modalAjax" data-content="#content"
+                            data-method="POST" method="POST" name="frm" id="frm">
+                            <input type="hidden" name="title" value="THÔNG TIN ĐẶT HÀNG" id="title">
+                            <input type="hidden" name="robot_check" value="" id="robot_check">
+                            @csrf
                             <!-- Thông tin người đặt hàng -->
                             <div class="mb-4">
                                 <h4 class="mtext-109 cl2 pb-3">Thông tin người đặt hàng</h4>
                             </div>
-                             <!-- Email -->
-                             <div class="mb-3">
+                            <!-- Email -->
+                            <div class="mb-3">
                                 <label class="stext-110 cl2" for="email">Email</label>
-                                <input type="email" id="email" class="form-control" placeholder="Nhập email (nếu có)" value="{{ old('email', $user->email ?? '') }}">
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="Nhập email (nếu có)" value="{{ old('email', $user->email ?? '') }}">
                             </div>
-                        
+
                             <div class="row">
                                 <!-- Họ và tên -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="fullname">Họ và tên</label>
-                                    <input type="text" id="fullname" class="form-control" placeholder="Nhập họ và tên" value="{{ old('name', $user->name ?? '') }}">
+                                    <input type="text" id="fullname" name="fullname" class="form-control"
+                                        placeholder="Nhập họ và tên" value="{{ old('name', $user->name ?? '') }}">
                                 </div>
-                        
+
                                 <!-- Số điện thoại -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="phone">Số điện thoại</label>
-                                    <input type="text" id="phone" class="form-control" placeholder="Nhập số điện thoại" value="{{ old('phone', $user->phone ?? '') }}">
+                                    <input type="text" id="phone" name="phone" class="form-control"
+                                        placeholder="Nhập số điện thoại" value="{{ old('phone', $user->phone ?? '') }}">
                                 </div>
                             </div>
-                        
-                           
-                        
+
+
+
                             <div class="row">
                                 <!-- Tỉnh / Thành phố -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="province">Tỉnh / Thành phố</label>
-                                    <input type="text" id="province" class="form-control" placeholder="VD: Hà Nội">
+                                    <!-- Tỉnh / Thành phố -->
+                                    <select id="province" name="province_id" class="form-control">
+                                        <option value="">-- Chọn tỉnh / thành phố --</option>
+                                        @foreach ($provinces as $province)
+                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                        
+
                                 <!-- Quận / Huyện -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="district">Quận / Huyện</label>
-                                    <input type="text" id="district" class="form-control" placeholder="VD: Thanh Trì">
+                                    <select id="district" name="district_code" class="form-control">
+                                        <option value="">-- Chọn quận / huyện --</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <!-- Xã / Phường -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="ward">Xã / Phường</label>
-                                    <input type="text" id="ward" class="form-control" placeholder="VD: Thượng Cát">
+                                    <select id="ward" name="ward_code" class="form-control">
+                                        <option value="">-- Chọn xã / phường --</option>
+                                    </select>
                                 </div>
-                        
+
                                 <!-- Thị trấn -->
                                 <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="town">Thị trấn</label>
-                                    <input type="text" id="town" class="form-control" placeholder="VD: Đông Anh">
+                                    <label class="stext-110 cl2" for="address">Địa chỉ giao hàng</label>
+                                    <input type="text" id="detail_address" name="address" class="form-control"
+                                        placeholder="Nhập địa chỉ giao hàng"
+                                        value="{{ old('address', $user->address ?? '') }}">
                                 </div>
                             </div>
-                        
-                            <!-- Địa chỉ giao hàng -->
-                            <div class="mb-3">
-                                <label class="stext-110 cl2" for="address">Địa chỉ giao hàng</label>
-                                <textarea id="address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng">{{ old('address', $user->address ?? '') }}</textarea>
-                            </div>
-                        
+
                             <!-- Ghi chú -->
                             <div class="mb-4">
                                 <label class="stext-110 cl2" for="note">Ghi chú (nếu có)</label>
                                 <textarea id="note" class="form-control" rows="2" placeholder="VD: Giao trong giờ hành chính"></textarea>
                             </div>
-                        
+
                             <!-- Nút submit -->
-                            <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
+                            <button type="submit"
+                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
                                 Tiến hành đặt hàng
                             </button>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
@@ -291,4 +305,151 @@
             }
         });
     </script>
+
+    <script>
+        $('#province').on('change', function() {
+            var provinceId = $(this).val();
+            $('#district').html('<option value="">-- Đang tải --</option>');
+            $('#ward').html('<option value="">-- Chọn xã / phường --</option>');
+
+            if (provinceId) {
+                $.get('/get-districts/' + provinceId, function(data) {
+                    let html = '<option value="">-- Chọn quận / huyện --</option>';
+                    data.forEach(function(d) {
+                        html += `<option value="${d.id}">${d.name}</option>`;
+                    });
+                    $('#district').html(html);
+                });
+            }
+        });
+
+        $('#district').on('change', function() {
+            var districtId = $(this).val();
+            $('#ward').html('<option value="">-- Đang tải --</option>');
+
+            if (districtId) {
+                $.get('/get-wards/' + districtId, function(data) {
+                    let html = '<option value="">-- Chọn xã / phường --</option>';
+                    data.forEach(function(w) {
+                        html += `<option value="${w.code}">${w.name}</option>`;
+                    });
+                    $('#ward').html(html);
+                });
+            }
+        });
+    </script>
+    <!-- jQuery CDN (phiên bản mới và phổ biến) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).on('submit', "[data-ajax='submit03']", function(event) {
+            event.preventDefault();
+            let myThis = $(this);
+            let formValues = myThis.serialize();
+            let dataInput = myThis.data();
+
+            // Lấy giá trị các input
+            let nameVal = myThis.find('[name="fullname"]').val().trim();
+            let emailVal = myThis.find('[name="email"]').val().trim();
+            let phoneVal = myThis.find('[name="phone"]').val().trim();
+            let provinceVal = myThis.find('[name="province_id"]').val().trim();
+            let districtVal = myThis.find('[name="district_code"]').val().trim();
+            let wardVal = myThis.find('[name="ward_code"]').val().trim();
+            let addressVal = myThis.find('[name="address"]').val().trim();
+            let robotCheckVal = myThis.find('[name="robot_check"]').val().trim();
+
+            // Regex kiểm tra
+            let isEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            let isPhone = /^(0[2-9]{1}[0-9]{8,9})$/;
+
+            if (robotCheckVal !== '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Yêu cầu không hợp lệ!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+
+            // Validate form
+            if (nameVal === '') {
+                return showError('Vui lòng nhập họ tên!');
+            }
+
+            // if (emailVal === '') {
+            //     return showError('Vui lòng nhập email!');
+            // } else if (!isEmail.test(emailVal)) {
+            //     return showError('Email không hợp lệ!');
+            // }
+
+            if (phoneVal === '') {
+                return showError('Vui lòng nhập số điện thoại!');
+            } else if (!isPhone.test(phoneVal)) {
+                return showError('Số điện thoại không hợp lệ!');
+            }
+
+            if (provinceVal === '') {
+                return showError('Vui lòng chọn Tỉnh / Thành phố!');
+            }
+
+            if (districtVal === '') {
+                return showError('Vui lòng chọn Quận / Huyện!');
+            }
+
+            if (wardVal === '') {
+                return showError('Vui lòng chọn Xã / Phường!');
+            }
+
+            if (addressVal === '') {
+                return showError('Vui lòng nhập địa chỉ cụ thể!');
+            }
+
+            // Gửi ajax
+            $.ajax({
+                type: dataInput.method,
+                url: dataInput.url,
+                data: formValues,
+                dataType: "json",
+                success: function(response) {
+                    if (response.code == 200) {
+                        myThis.find('input:not([type="hidden"]), textarea').val('');
+
+                        if (dataInput.content) {
+                            $(dataInput.content).html(response.html);
+                        }
+
+                        if (dataInput.target === 'modal') {
+                            $(dataInput.href).modal();
+                        } else if (dataInput.target === 'alert') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.html,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    } else {
+                        showError(response.html);
+                    }
+                },
+                error: function() {
+                    showError('Gửi thông tin thất bại');
+                }
+            });
+
+            return false;
+
+            // Hàm hiển thị lỗi
+            function showError(message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return false;
+            }
+        });
+    </script>
+
 @endsection

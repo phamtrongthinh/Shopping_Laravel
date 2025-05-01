@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// routes/api.php
+use App\Http\Controllers\Api\AddressController;
+
+Route::get('/provinces', [AddressController::class, 'getProvinces']);
+Route::get('/districts/{provinceId}', [AddressController::class, 'getDistricts']);
+Route::get('/wards/{districtId}', [AddressController::class, 'getWards']);

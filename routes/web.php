@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AccountController as FrontendAccountController;
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\MainController as FrontendMainController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
@@ -76,6 +77,9 @@ Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
 Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
+Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistricts']);
+Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
+
 
 
 

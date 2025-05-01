@@ -107,10 +107,11 @@
                          <li class="{{ request()->is('san-pham') ? 'active-menu' : '' }}">
                              <a href="{{ route('product') }}">Cửa hàng</a>
                          </li>
-
-                         <li class="label1 {{ request()->is('gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
-                             <a href="{{ route('cart.index') }}">Tính năng</a>
-                         </li>
+                         @auth
+                             <li class="label1 {{ request()->is('gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
+                                 <a href="{{ route('cart.index') }}">Tính năng</a>
+                             </li>
+                         @endauth
 
                          <li class="{{ request()->is('ve-chung-toi') ? 'active-menu' : '' }}">
                              <a href="{{ route('about') }}">Về chúng tôi</a>
@@ -271,10 +272,13 @@
              <li>
                  <a href="{{ route('product') }}">Cửa hàng</a>
              </li>
+             @auth
+                 <li>
+                     <a href="{{ route('cart.index') }}" class="label1 rs1" data-label1="hot">Tính năng</a>
+                 </li>
+             @endauth
 
-             <li>
-                 <a href="{{ route('cart.index') }}" class="label1 rs1" data-label1="hot">Tính năng</a>
-             </li>
+
 
              <li>
                  <a href="{{ route('about') }}">Về chúng tôi</a>
