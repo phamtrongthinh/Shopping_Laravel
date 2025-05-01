@@ -107,18 +107,22 @@
 
                                     <!-- Tổng tiền -->
                                     <tr>
-                                        <td colspan="7" class="text-end" style="padding-right: 30px;">
-                                            Tổng tiền:
-                                            <span id="cart-total" style="font-size: 18px; font-weight: bold;">                                               
-                                                {{ number_format(
-                                                    $cartItems->sum(function ($item) {
-                                                        return $item->price * $item->quantity;
-                                                    }),
-                                                ) }}₫
-                                            </span>
-
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-end w-100 pe-4 pr-2">
+                                                <strong style="font-size: 18px;">
+                                                    Tổng tiền:
+                                                    <span id="cart-total">
+                                                        {{ number_format(
+                                                            $cartItems->sum(function ($item) {
+                                                                return $item->price * $item->quantity;
+                                                            }),
+                                                        ) }}₫
+                                                    </span>
+                                                </strong>
+                                            </div>
                                         </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -126,60 +130,84 @@
                 </div>
             </div>
 
-            {{-- <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
-                    <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
-                        <h4 class="mtext-109 cl2 pb-3">
-                            Thông tin người đặt hàng
-                        </h4>
-
+                    <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">                      
                         <form>
-                            <div class="mb-3">
-                                <label class="stext-110 cl2" for="fullname">Họ và tên</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="Nhập họ và tên">
+                            <!-- Thông tin người đặt hàng -->
+                            <div class="mb-4">
+                                <h4 class="mtext-109 cl2 pb-3">Thông tin người đặt hàng</h4>
                             </div>
-
-                            <div class="mb-3">
-                                <label class="stext-110 cl2" for="phone">Số điện thoại</label>
-                                <input type="text" id="phone" class="form-control" placeholder="Nhập số điện thoại">
-                            </div>
-
-                            <div class="mb-3">
+                             <!-- Email -->
+                             <div class="mb-3">
                                 <label class="stext-110 cl2" for="email">Email</label>
-                                <input type="email" id="email" class="form-control" placeholder="Nhập email (nếu có)">
+                                <input type="email" id="email" class="form-control" placeholder="Nhập email (nếu có)" value="{{ old('email', $user->email ?? '') }}">
                             </div>
-
-                            <div class="mb-3">
-                                <label class="stext-110 cl2" for="address">Địa chỉ giao hàng</label>
-                                <textarea id="address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng"></textarea>
-                            </div>
-
+                        
                             <div class="row">
+                                <!-- Họ và tên -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="stext-110 cl2" for="fullname">Họ và tên</label>
+                                    <input type="text" id="fullname" class="form-control" placeholder="Nhập họ và tên" value="{{ old('name', $user->name ?? '') }}">
+                                </div>
+                        
+                                <!-- Số điện thoại -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="stext-110 cl2" for="phone">Số điện thoại</label>
+                                    <input type="text" id="phone" class="form-control" placeholder="Nhập số điện thoại" value="{{ old('phone', $user->phone ?? '') }}">
+                                </div>
+                            </div>
+                        
+                           
+                        
+                            <div class="row">
+                                <!-- Tỉnh / Thành phố -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="province">Tỉnh / Thành phố</label>
                                     <input type="text" id="province" class="form-control" placeholder="VD: Hà Nội">
                                 </div>
-
+                        
+                                <!-- Quận / Huyện -->
                                 <div class="col-md-6 mb-3">
                                     <label class="stext-110 cl2" for="district">Quận / Huyện</label>
-                                    <input type="text" id="district" class="form-control"
-                                        placeholder="VD: Thanh Trì">
+                                    <input type="text" id="district" class="form-control" placeholder="VD: Thanh Trì">
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <!-- Xã / Phường -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="stext-110 cl2" for="ward">Xã / Phường</label>
+                                    <input type="text" id="ward" class="form-control" placeholder="VD: Thượng Cát">
+                                </div>
+                        
+                                <!-- Thị trấn -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="stext-110 cl2" for="town">Thị trấn</label>
+                                    <input type="text" id="town" class="form-control" placeholder="VD: Đông Anh">
+                                </div>
+                            </div>
+                        
+                            <!-- Địa chỉ giao hàng -->
+                            <div class="mb-3">
+                                <label class="stext-110 cl2" for="address">Địa chỉ giao hàng</label>
+                                <textarea id="address" class="form-control" rows="3" placeholder="Nhập địa chỉ giao hàng">{{ old('address', $user->address ?? '') }}</textarea>
+                            </div>
+                        
+                            <!-- Ghi chú -->
                             <div class="mb-4">
                                 <label class="stext-110 cl2" for="note">Ghi chú (nếu có)</label>
                                 <textarea id="note" class="form-control" rows="2" placeholder="VD: Giao trong giờ hành chính"></textarea>
                             </div>
-
-                            <button type="submit"
-                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
+                        
+                            <!-- Nút submit -->
+                            <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
                                 Tiến hành đặt hàng
                             </button>
                         </form>
+                        
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
     <!-- Thêm jQuery vào đầu trang (hoặc trước đoạn script của bạn) -->
