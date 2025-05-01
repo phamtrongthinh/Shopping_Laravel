@@ -6,6 +6,45 @@
         height: 100%;
         cursor: pointer;
     }
+
+    .btn-order:hover {
+        background-color: #5a4bcf !important;
+        text-decoration: none;
+    }
+
+    .modal-content {
+
+        margin-top: 80px;
+
+    }
+
+    .form-control,
+    .form-select {
+        height: 45px;
+        /* Chiều cao đồng đều */
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        /* Kích thước chữ */
+        line-height: 1.5;
+        color: #333;
+        /* Màu chữ đậm dễ nhìn */
+        width: 100%;
+        /* Đảm bảo chiếm toàn bộ chiều ngang ô */
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        background-color: #fff;
+    }
+
+
+    @media (min-width: 1200px) {
+        .custom-modal {
+            max-width: 60% !important;
+            /* hoặc dùng 1400px nếu muốn cố định */
+            margin-top: 200px;
+
+        }
+
+    }
 </style>
 
 @section('content')
@@ -108,20 +147,32 @@
                                     <!-- Tổng tiền -->
                                     <tr>
                                         <td colspan="8">
-                                            <div class="d-flex justify-content-end w-100 pe-4 pr-2">
-                                                <strong style="font-size: 18px;">
-                                                    Tổng tiền:
-                                                    <span id="cart-total">
-                                                        {{ number_format(
-                                                            $cartItems->sum(function ($item) {
-                                                                return $item->price * $item->quantity;
-                                                            }),
-                                                        ) }}₫
-                                                    </span>
-                                                </strong>
+                                            <div class="d-flex flex-column align-items-end pe-4">
+                                                <div class="mb-2">
+                                                    <strong style="font-size: 18px;">
+                                                        Tổng tiền:
+                                                        <span id="cart-total">
+                                                            {{ number_format(
+                                                                $cartItems->sum(function ($item) {
+                                                                    return $item->price * $item->quantity;
+                                                                }),
+                                                            ) }}₫
+                                                        </span>
+                                                    </strong>
+                                                </div>
+                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                    data-bs-target="#cartSummaryModal"
+                                                    class="btn-order d-flex align-items-center justify-content-center px-4 py-2 rounded gap-2"
+                                                    style="font-size: 16px; background-color: #7066e0; color: white; min-width: 160px; transition: 0.3s; ">
+
+                                                    <span>Đặt hàng</span>
+                                                </a>
+
+
                                             </div>
                                         </td>
                                     </tr>
+
 
                                 </tbody>
                             </table>
@@ -130,100 +181,163 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-12 col-xl-12 mb-5" style="padding: 34px;">
-                    <div class="bor10 px-3 px-lg-4 pt-4 pb-5 mx-auto">
-                        <form data-ajax="submit03" data-target="alert" data-href="#modalAjax" data-content="#content"
-                            data-method="POST" method="POST" name="frm" id="frm">
-                            <input type="hidden" name="title" value="THÔNG TIN ĐẶT HÀNG" id="title">
-                            <input type="hidden" name="robot_check" value="" id="robot_check">
-                            @csrf
-                            <!-- Thông tin người đặt hàng -->
-                            <div class="mb-4">
-                                <h4 class="mtext-109 cl2 pb-3">Thông tin người đặt hàng</h4>
-                            </div>
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label class="stext-110 cl2" for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="Nhập email (nếu có)" value="{{ old('email', $user->email ?? '') }}">
-                            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="cartSummaryModal" tabindex="-1" aria-labelledby="cartSummaryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-white" style="background-color: rgb(113, 127, 224) !important;">
+                    <h5 class="modal-title" id="cartSummaryLabel">Xác nhận đơn hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
 
-                            <div class="row">
-                                <!-- Họ và tên -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="fullname">Họ và tên</label>
-                                    <input type="text" id="fullname" name="fullname" class="form-control"
-                                        placeholder="Nhập họ và tên" value="{{ old('name', $user->name ?? '') }}">
-                                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th style="text-align: center">Ảnh</th>
+                                <th style="text-align: center">Tên</th>
+                                <th style="text-align: center">Màu</th>
+                                <th style="text-align: center">Size</th>
+                                <th style="text-align: center">Giá</th>
+                                <th style="text-align: center">Số lượng</th>
+                                <th style="text-align: center">Tổng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cartItems as $item)
+                                <tr>
+                                    <td><img src="{{ $item->productDetail->image }}" width="80" height="100"
+                                            style="object-fit: cover;"></td>
+                                    <td>{{ $item->product->name ??'sản phẩm này không còn tồn tại'}}</td>
+                                    <td>{{ $item->color->name ?? 'Không có' }}</td>
+                                    <td>{{ $item->size }}</td>
+                                    <td>{{ number_format($item->price) }}₫</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ number_format($item->price * $item->quantity) }}₫</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-                                <!-- Số điện thoại -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="phone">Số điện thoại</label>
-                                    <input type="text" id="phone" name="phone" class="form-control"
-                                        placeholder="Nhập số điện thoại" value="{{ old('phone', $user->phone ?? '') }}">
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <!-- Tỉnh / Thành phố -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="province">Tỉnh / Thành phố</label>
-                                    <!-- Tỉnh / Thành phố -->
-                                    <select id="province" name="province_id" class="form-control">
-                                        <option value="">-- Chọn tỉnh / thành phố --</option>
-                                        @foreach ($provinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <!-- Quận / Huyện -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="district">Quận / Huyện</label>
-                                    <select id="district" name="district_code" class="form-control">
-                                        <option value="">-- Chọn quận / huyện --</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!-- Xã / Phường -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="ward">Xã / Phường</label>
-                                    <select id="ward" name="ward_code" class="form-control">
-                                        <option value="">-- Chọn xã / phường --</option>
-                                    </select>
-                                </div>
-
-                                <!-- Thị trấn -->
-                                <div class="col-md-6 mb-3">
-                                    <label class="stext-110 cl2" for="address">Địa chỉ giao hàng</label>
-                                    <input type="text" id="detail_address" name="address" class="form-control"
-                                        placeholder="Nhập địa chỉ giao hàng"
-                                        value="{{ old('address', $user->address ?? '') }}">
-                                </div>
-                            </div>
-
-                            <!-- Ghi chú -->
-                            <div class="mb-4">
-                                <label class="stext-110 cl2" for="note">Ghi chú (nếu có)</label>
-                                <textarea id="note" class="form-control" rows="2" placeholder="VD: Giao trong giờ hành chính"></textarea>
-                            </div>
-
-                            <!-- Nút submit -->
-                            <button type="submit"
-                                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
-                                Tiến hành đặt hàng
-                            </button>
-                        </form>
-
+                    <div class="text-center mt-3">
+                        <strong>Tổng cộng:
+                            <span
+                                class="text-danger">{{ number_format($cartItems->sum(fn($item) => $item->price * $item->quantity)) }}₫</span>
+                        </strong>
                     </div>
+
+                    <hr>
+
+                    <!-- Form for Order Info -->
+                    <div class="row justify-content-center">
+                        <div class="col-12 mb-4">
+                            <div class="container mt-5">
+                                <div class="col-12 col-lg-12 mb-4">
+                                    <form action="{{ route('contact.storeAjax') }}"
+                                        data-url="{{ route('contact.storeAjax') }}" data-ajax="submit03"
+                                        data-target="alert" data-href="#modalAjax" data-content="#content"
+                                        data-method="POST" method="POST" name="frm" id="frm">
+                                        <input type="hidden" name="title" value="THÔNG TIN LIÊN HỆ">
+                                        <input type="hidden" name="robot_check" value="" id="robot_check">
+                                        @csrf
+                                        <h4 class="mb-4 text-center">Thông tin người đặt hàng</h4>
+                                        <!-- Name & Phone -->
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="fullname" class="form-label">Họ và tên</label>
+                                                <input type="text" id="fullname" name="fullname"
+                                                    class="form-control" placeholder="Nhập họ và tên"
+                                                    value="{{ old('name', $user->name ?? '') }}">
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label for="phone" class="form-label">Số điện thoại</label>
+                                                <input type="text" id="phone" name="phone" class="form-control"
+                                                    placeholder="Nhập số điện thoại"
+                                                    value="{{ old('phone', $user->phone ?? '') }}">
+                                            </div>
+                                            <!-- Email -->
+                                            <div class="col-md-4 mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" id="email" name="email" class="form-control"
+                                                    placeholder="Nhập email (nếu có)"
+                                                    value="{{ old('email', $user->email ?? '') }}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Address -->
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="province" class="form-label">Tỉnh / Thành phố</label>
+                                                <select id="province" name="province_id" class="form-select">
+                                                    <option value="">-- Chọn tỉnh / thành phố --</option>
+                                                    @foreach ($provinces as $province)
+                                                        <option value="{{ $province->id }}">{{ $province->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label for="district" class="form-label">Quận / Huyện</label>
+                                                <select id="district" name="district_code" class="form-select">
+                                                    <option value="">-- Chọn quận / huyện --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label for="ward" class="form-label">Xã / Phường</label>
+                                                <select id="ward" name="ward_code" class="form-select">
+                                                    <option value="">-- Chọn xã / phường --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Detailed Address -->
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label">Địa chỉ giao hàng</label>
+                                            <input type="text" id="detail_address" name="address"
+                                                class="form-control" placeholder="Nhập địa chỉ giao hàng"
+                                                value="{{ old('address', $user->address ?? '') }}">
+                                        </div>
+
+                                        <!-- Note -->
+                                        <div class="mb-3">
+                                            <label for="note" class="form-label">Ghi chú (nếu có)</label>
+                                            <textarea id="note" class="form-control" rows="3" placeholder="VD: Giao trong giờ hành chính"></textarea>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="text-center">
+                                            <!-- Nút submit -->
+                                            <button type="submit"
+                                                class="flex-c-m stext-101 cl0 size-111 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-100">
+                                                Tiến hành đặt hàng
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <!-- Popper.js (Bootstrap dependency) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Thêm jQuery vào đầu trang (hoặc trước đoạn script của bạn) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
