@@ -101,8 +101,8 @@
                                                     <img src="{{ $item->productDetail->image }}" alt="IMG"
                                                         style="width: 120px; height: 150px; object-fit: cover; border-radius: 8px;">
                                                 </td>
-                                                <td style="vertical-align:middle">{{ $item->product->name }}</td>
-                                                <td style="vertical-align:middle">{{ $item->color->name ?? 'Không có' }}
+                                                <td style="vertical-align:middle">{{ $item->product_name }}</td>
+                                                <td style="vertical-align:middle">{{ $item->color_name ?? 'Không có' }}
                                                 </td>
 
                                                 <td style="vertical-align:middle">{{ $item->size }}</td>
@@ -184,7 +184,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="cartSummaryModal" tabindex="-1" aria-labelledby="cartSummaryLabel" aria-hidden="true">
+    <div class="modal fade" id="cartSummaryModal" tabindex="-1" aria-labelledby="cartSummaryLabel">
         <div class="modal-dialog modal-xl custom-modal modal-dialog-scrollable">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -212,10 +212,49 @@
                                 <tr>
                                     <td><img src="{{ $item->productDetail->image }}" width="80" height="100"
                                             style="object-fit: cover;"></td>
-                                    <td>{{ $item->product->name ??'sản phẩm này không còn tồn tại'}}</td>
-                                    <td>{{ $item->color->name ?? 'Không có' }}</td>
-                                    <td>{{ $item->size }}</td>
-                                    <td>{{ number_format($item->price) }}₫</td>
+                                    <td>
+                                        @if ($item->product_name !== $item->product->name)
+                                            <span class="text-warning"
+                                                title="Tên đã thay đổi">{{ $item->product_name }}<br>
+                                                <i>(Cập nhật: {{ $item->product->name }})</i></span>
+                                        @else
+                                            {{ $item->product_name }}
+                                        @endif
+                                    </td>
+                                    @php
+                                        $isColorValid = in_array($item->color_name, $colorNames);
+                                    @endphp <td>
+                                        @if (!$isColorValid)
+                                            <span class="text-danger"
+                                                title="Mã màu không còn tồn tại">{{ $item->color_name }}
+                                                <br> <i>(Mã màu này ko còn tồn tại )</i>
+                                            </span>
+                                        @else
+                                            {{ $item->color_name }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->size !== $item->productDetail->size)
+                                            <span class="text-warning"
+                                                title="Size này không còn tồn tại">{{ $item->size }}
+                                                <br> <i>(Cập nhật: {{ $item->productDetail->size }})</i>
+                                            </span>
+                                        @else
+                                            {{ $item->size }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->price !== $item->productDetail->price)
+                                            <span class="text-warning"
+                                                title="Gía này không còn tồn tại">{{ number_format($item->price) }}₫
+                                                <br> <i>(Cập nhật: {{ number_format($item->productDetail->price) }}₫)</i>
+                                            </span>
+                                        @else
+                                            {{ $item->price }}
+                                        @endif
+                                    </td>
+
+
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ number_format($item->price * $item->quantity) }}₫</td>
                                 </tr>
@@ -237,10 +276,10 @@
                         <div class="col-12 mb-4">
                             <div class="container mt-5">
                                 <div class="col-12 col-lg-12 mb-4">
-                                    <form action="{{ route('contact.storeAjax') }}"
-                                        data-url="{{ route('contact.storeAjax') }}" data-ajax="submit03"
-                                        data-target="alert" data-href="#modalAjax" data-content="#content"
-                                        data-method="POST" method="POST" name="frm" id="frm">
+                                    <form action="{{ route('orders.store') }}" data-url="{{ route('orders.store') }}"
+                                        data-ajax="submit03" data-target="alert" data-href="#modalAjax"
+                                        data-content="#content" data-method="post" method="POST" name="frm"
+                                        id="frm">
                                         <input type="hidden" name="title" value="THÔNG TIN LIÊN HỆ">
                                         <input type="hidden" name="robot_check" value="" id="robot_check">
                                         @csrf
@@ -251,7 +290,7 @@
                                                 <label for="fullname" class="form-label">Họ và tên</label>
                                                 <input type="text" id="fullname" name="fullname"
                                                     class="form-control" placeholder="Nhập họ và tên"
-                                                    value="{{ old('name', $user->name ?? '') }}">
+                                                    value="{{ old('name', $user->name ?? '') }}" autofocus>
                                             </div>
 
                                             <div class="col-md-4 mb-3">
@@ -273,7 +312,7 @@
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
                                                 <label for="province" class="form-label">Tỉnh / Thành phố</label>
-                                                <select id="province" name="province_id" class="form-select">
+                                                <select id="province" name="province" class="form-select">
                                                     <option value="">-- Chọn tỉnh / thành phố --</option>
                                                     @foreach ($provinces as $province)
                                                         <option value="{{ $province->id }}">{{ $province->name }}
@@ -284,14 +323,14 @@
 
                                             <div class="col-md-4 mb-3">
                                                 <label for="district" class="form-label">Quận / Huyện</label>
-                                                <select id="district" name="district_code" class="form-select">
+                                                <select id="district" name="district" class="form-select">
                                                     <option value="">-- Chọn quận / huyện --</option>
                                                 </select>
                                             </div>
 
                                             <div class="col-md-4 mb-3">
                                                 <label for="ward" class="form-label">Xã / Phường</label>
-                                                <select id="ward" name="ward_code" class="form-select">
+                                                <select id="ward" name="ward" class="form-select">
                                                     <option value="">-- Chọn xã / phường --</option>
                                                 </select>
                                             </div>
@@ -308,7 +347,8 @@
                                         <!-- Note -->
                                         <div class="mb-3">
                                             <label for="note" class="form-label">Ghi chú (nếu có)</label>
-                                            <textarea id="note" class="form-control" rows="3" placeholder="VD: Giao trong giờ hành chính"></textarea>
+                                            <textarea id="note" name="note" class="form-control" rows="3"
+                                                placeholder="VD: Giao trong giờ hành chính"></textarea>
                                         </div>
 
                                         <!-- Submit Button -->
@@ -341,6 +381,7 @@
     <!-- Thêm jQuery vào đầu trang (hoặc trước đoạn script của bạn) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        //cap nhap so luong san pham va tong tien
         document.addEventListener('DOMContentLoaded', function() {
             const quantityInputs = document.querySelectorAll('.num-product');
 
@@ -421,6 +462,7 @@
     </script>
 
     <script>
+        // Lắng nghe sự kiện thay đổi tỉnh thành phố
         $('#province').on('change', function() {
             var provinceId = $(this).val();
             $('#district').html('<option value="">-- Đang tải --</option>');
@@ -455,6 +497,7 @@
     <!-- jQuery CDN (phiên bản mới và phổ biến) -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+        //check validate form
         $(document).on('submit', "[data-ajax='submit03']", function(event) {
             event.preventDefault();
             let myThis = $(this);
@@ -465,9 +508,9 @@
             let nameVal = myThis.find('[name="fullname"]').val().trim();
             let emailVal = myThis.find('[name="email"]').val().trim();
             let phoneVal = myThis.find('[name="phone"]').val().trim();
-            let provinceVal = myThis.find('[name="province_id"]').val().trim();
-            let districtVal = myThis.find('[name="district_code"]').val().trim();
-            let wardVal = myThis.find('[name="ward_code"]').val().trim();
+            let provinceVal = myThis.find('[name="province"]').val().trim();
+            let districtVal = myThis.find('[name="district"]').val().trim();
+            let wardVal = myThis.find('[name="ward"]').val().trim();
             let addressVal = myThis.find('[name="address"]').val().trim();
             let robotCheckVal = myThis.find('[name="robot_check"]').val().trim();
 
@@ -524,6 +567,8 @@
                 url: dataInput.url,
                 data: formValues,
                 dataType: "json",
+               
+
                 success: function(response) {
                     if (response.code == 200) {
                         myThis.find('input:not([type="hidden"]), textarea').val('');
@@ -552,6 +597,8 @@
             });
 
             return false;
+            console.log('Sending ajax POST to:', dataInput.url);
+            console.log('Form values:', formValues);
 
             // Hàm hiển thị lỗi
             function showError(message) {

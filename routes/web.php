@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\OrderController;
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,17 +81,13 @@ Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->nam
 Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistricts']);
 Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
 
+//------------------------Trang đơn hàng-------------------
+
+Route::post('/dat-hang', [OrderController::class, 'store'])->name('orders.store')->middleware('auth');
 
 
 
 
-
-
-
-
-// Route::get('/gio-hang', function () {
-//     return view('frontend.cart');
-// })->name('cart');
 
 
 Route::get('/tao-phieu-nhap', function () {

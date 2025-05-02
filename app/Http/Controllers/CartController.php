@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Color;
 use App\Models\ProductDetail;
 use App\Models\Province;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-        // dd($request->all());
+       
         // Validate dữ liệu đầu vào
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -36,6 +37,7 @@ class CartController extends Controller
         if (!$productDetail) {
             return response()->json(['message' => 'Không tìm thấy chi tiết sản phẩm phù hợp.'], 404);
         }
+        $colorname = Color::find($request->colorid);
 
         // Tạo giỏ hàng nếu chưa có
         $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
@@ -57,7 +59,7 @@ class CartController extends Controller
                 'product_id' => $request->product_id,
                 'product_detail_id' => $productDetail->id,
                 'product_name' => $request->product_name,
-                'colorid' => $request->colorid, // Lưu tên màu
+                'color_name' => $colorname->name, // Lưu tên màu
                 'size' => $request->size,      // Lưu tên size
                 'price' => $price,              // dùng biến đã xử lý // "349.000" => "349000"
                 'quantity' => $request->quantity,
@@ -80,9 +82,12 @@ class CartController extends Controller
 
         // Lấy các sản phẩm trong giỏ hàng
         $cartItems = $cart->cartItems; // Giả sử bạn đã định nghĩa mối quan hệ trong model Cart
-        $provinces = Province::orderBy('name')->get(); // Lấy tất cả tỉnh, sắp xếp theo tên         
+        $provinces = Province::orderBy('name')->get(); // Lấy tất cả tỉnh, sắp xếp theo tên     
+        
+        $colorNames = \App\Models\Color::pluck('name')->toArray(); // Mảng tên màu
 
-        return view('frontend.cart', compact('cartItems', 'provinces'));
+
+        return view('frontend.cart', compact('cartItems', 'provinces','colorNames'));
     }
     public function remove($id)
     {

@@ -13,7 +13,7 @@ class CartItem extends Model
         'product_id',
         'product_detail_id',
         'product_name',
-        'colorid',
+        'color_name',
         'size',
         'price',
         'quantity',
@@ -35,6 +35,6 @@ class CartItem extends Model
     }
     public function color()
     {
-        return $this->belongsTo(Color::class, 'colorid');
+        return $this->belongsTo(Color::class, 'color_name', 'name');
     }
 }
