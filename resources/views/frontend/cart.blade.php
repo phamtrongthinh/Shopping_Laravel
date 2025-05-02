@@ -160,13 +160,15 @@
                                                         </span>
                                                     </strong>
                                                 </div>
-                                                <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                    data-bs-target="#cartSummaryModal"
-                                                    class="btn-order d-flex align-items-center justify-content-center px-4 py-2 rounded gap-2"
-                                                    style="font-size: 16px; background-color: #7066e0; color: white; min-width: 160px; transition: 0.3s; ">
+                                                @if (count($cartItems) > 0)
+                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        data-bs-target="#cartSummaryModal"
+                                                        class="btn-order d-flex align-items-center justify-content-center px-4 py-2 rounded gap-2"
+                                                        style="font-size: 16px; background-color: #7066e0; color: white; min-width: 160px; transition: 0.3s; ">
 
-                                                    <span>Đặt hàng</span>
-                                                </a>
+                                                        <span>Đặt hàng</span>
+                                                    </a>
+                                                @endif
 
 
                                             </div>
@@ -567,7 +569,7 @@
                 url: dataInput.url,
                 data: formValues,
                 dataType: "json",
-               
+
 
                 success: function(response) {
                     if (response.code == 200) {
@@ -577,20 +579,15 @@
                             $(dataInput.content).html(response.html);
                         }
 
-                        if (dataInput.target === 'modal') {
-                            $(dataInput.href).modal();
-                        } else if (dataInput.target === 'alert') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: response.html,
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                        // ✅ Chuyển hướng, thông báo sẽ hiển thị ở trang đích
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
                         }
                     } else {
                         showError(response.html);
                     }
                 },
+                ,
                 error: function() {
                     showError('Gửi thông tin thất bại');
                 }

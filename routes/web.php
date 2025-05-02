@@ -82,8 +82,13 @@ Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistri
 Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
 
 //------------------------Trang đơn hàng-------------------
+Route::middleware('auth')->group(function () {
+    Route::post('/dat-hang', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/don-hang', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/don-hang/{id}', [OrderController::class, 'show'])->name('orders.show');
+});
 
-Route::post('/dat-hang', [OrderController::class, 'store'])->name('orders.store')->middleware('auth');
+
 
 
 
@@ -99,7 +104,3 @@ Route::get('/tao-phieu-xuat', function () {
 
 
 require __DIR__ . '/admin.php';
-
-
-
-

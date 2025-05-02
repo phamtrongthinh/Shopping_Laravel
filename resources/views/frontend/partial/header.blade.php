@@ -109,7 +109,10 @@
                          </li>
                          @auth
                              <li class="label1 {{ request()->is('gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
-                                 <a href="{{ route('cart.index') }}">Tính năng</a>
+                                 <a href="{{ route('cart.index') }}">Giỏ hàng</a>
+                             </li>
+                             <li class="{{ request()->is('don-hang') ? 'active-menu' : '' }}">
+                                 <a href="{{ route('orders.index') }}">Đơn hàng</a>
                              </li>
                          @endauth
 

@@ -16,26 +16,24 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
-            // Lấy giỏ hàng của người dùng hiện tại
             $cart = Cart::where('user_id', Auth::id())->with('cartItems.productDetail.product')->first();
 
-            // Kiểm tra giỏ hàng trống
             if (!$cart || $cart->cartItems->isEmpty()) {
-                return back()->with('error', 'Giỏ hàng trống.');
+                return response()->json([
+                    'code' => 400,
+                    'html' => 'Giỏ hàng trống.',
+                ]);
             }
 
-            // Tính tổng giá trị đơn hàng
             $totalAmount = $cart->cartItems->sum(function ($item) {
                 return $item->price * $item->quantity;
             });
 
-            // Xử lý địa chỉ giao hàng
             $shippingAddress = $request->address . ', ' . $request->ward . ', ' . $request->district . ', ' . $request->province;
 
-            // Tạo đơn hàng
             $order = Order::create([
                 'user_id' => Auth::id(),
-                'staff_id' => null, // Nếu có staff_id liên kết
+                'staff_id' => null,
                 'fullname' => $request->fullname,
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -45,11 +43,9 @@ class OrderController extends Controller
                 'ward' => $request->ward,
                 'note' => $request->note ?? null,
                 'total_amount' => $totalAmount,
-                'status' => 'pending', // Trạng thái đơn hàng
+                'status' => 'pending',
             ]);
-           
 
-            // Lưu các sản phẩm trong giỏ hàng vào OrderItems
             foreach ($cart->cartItems as $item) {
                 OrderItem::create([
                     'order_id' => $order->id,
@@ -63,17 +59,44 @@ class OrderController extends Controller
                 ]);
             }
 
-            // Xoá giỏ hàng sau khi đặt hàng
             $cart->cartItems()->delete();
-
-            // Xác nhận giao dịch
             DB::commit();
+
+            // Nếu request là AJAX thì trả JSON
+            if ($request->ajax()) {
+                return response()->json([
+                    'code' => 200,
+                    'redirect' => route('orders.index') . '?success=' . urlencode('Đặt hàng thành công!')
+                ]);
+                
+            }
+
+            // Nếu không phải AJAX thì redirect như bình thường
             return redirect()->route('orders.index')->with('success', 'Đặt hàng thành công!');
         } catch (\Exception $e) {
-            // Nếu có lỗi, rollback giao dịch
             DB::rollBack();
-            dd($e->getMessage()); // Debug lỗi
-            return back()->with('error', 'Lỗi đặt hàng: ' . $e->getMessage());
+            return response()->json([
+                'code' => 500,
+                'html' => 'Lỗi đặt hàng: ' . $e->getMessage(),
+            ]);
         }
+    }
+
+    public function index()
+    {
+        $orders = Order::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('frontend.order', compact('orders'));
+    }
+
+    public function show($id)
+    {
+        $order = Order::with('orderItems')->where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        return view('frontend.order_detail', compact('order'));
     }
 }
