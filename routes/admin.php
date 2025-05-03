@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailController;
+use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Models\Contact;
@@ -98,22 +99,26 @@ Route::middleware(['auth', 'role'])->group(function () {
         Route::delete('/{detail}', [ProductDetailController::class, 'destroy'])->name('admin.product_details.destroy');
     });
 
-     // Quản lý liên hệ
+    // Quản lý liên hệ
 
-     Route::prefix('admin/contacts')->group(function () {
+    Route::prefix('admin/contacts')->group(function () {
         Route::get('/index', [ContactController::class, 'index'])->name('admin.contacts.index');
-        Route::post('update-status/{id}', [ContactController::class, 'updateStatus']); 
+        Route::post('update-status/{id}', [ContactController::class, 'updateStatus']);
         Route::delete('/{id}', [ContactController::class, 'destroy'])->name('admin.contacts.delete');
     });
-    Route::prefix('admin')->name('admin.')->group(function() {
+    Route::prefix('admin')->name('admin.')->group(function () {
         // Route danh sách đơn hàng
-        Route::get('/orders', [OrderController::class, 'Admin_index'])->name('orders.index');    
+        Route::get('/orders', [OrderController::class, 'Admin_index'])->name('orders.index');
         // Route xem chi tiết đơn hàng
-        Route::get('/orders/{id}', [OrderController::class, 'Admin_show'])->name('orders.show');  
-        Route::get('/orders/{id}/edit', [OrderController::class, 'Admin_edit'])->name('orders.edit');  
+        Route::get('/orders/{id}', [OrderController::class, 'Admin_show'])->name('orders.show');
+        Route::get('/orders/{id}/edit', [OrderController::class, 'Admin_edit'])->name('orders.edit');
         // Route cập nhật trạng thái đơn hàng
         Route::put('/orders/{id}/status', [OrderController::class, 'Admin_updateStatus'])->name('orders.updateStatus');
     });
 
-
+    Route::prefix('admin')->group(function () {
+        Route::get('/statistics/revenue', [StatisticsController::class, 'revenue'])->name('admin.statistics.revenue');
+        Route::get('/statistics/products', [StatisticsController::class, 'topProducts'])->name('admin.statistics.products');
+    });
+    
 });

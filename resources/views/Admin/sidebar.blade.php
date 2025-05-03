@@ -163,50 +163,32 @@
                     <a href="{{ route('admin.orders.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
-                            Quản Lý Đơn Hàng                           
+                            Quản Lý Đơn Hàng
                         </p>
-                    </a>                    
+                    </a>
                 </li>
                 <!-- Phần quản doanh thu  -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-line"></i>
                         <p>
-                            Quản Lý Doanh Thu
+                            Quản Lý Thống Kê
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.statistics.revenue') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Tổng Quan Doanh Thu</p>
+                                <p>Thống Kê Doanh Thu</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.statistics.products') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Doanh Thu Theo Ngày</p>
+                                <p>Thống kê sản phẩm</p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Doanh Thu Theo Tháng</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Doanh Thu Theo Năm</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Báo Cáo Chi Tiết</p>
-                            </a>
-                        </li> --}}
+                        </li>                      
                     </ul>
                 </li>
 
