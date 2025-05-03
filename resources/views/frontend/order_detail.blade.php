@@ -192,12 +192,12 @@
     }
 
     .timeline-item.active .timeline-dot {
-        background: #3a86ff;
-        border-color: #3a86ff;
+        background:  #717fe0;
+        /* border-color: #3a86ff; */
     }
 
     .timeline-item.active .timeline-date {
-        color: #3a86ff;
+        
         font-weight: 600;
     }
 
@@ -333,7 +333,7 @@
         </table>
 
         <div class="summary">
-            <div class="summary-row">
+            {{-- <div class="summary-row">
                 <div>Tạm tính</div>
                 <div>19.540.000₫</div>
             </div>
@@ -345,10 +345,10 @@
             <div class="summary-row">
                 <div>Giảm giá</div>
                 <div>-10.000₫</div>
-            </div>
+            </div> --}}
             <div class="summary-row">
                 <div>Tổng cộng</div>
-                <div>19.560.000₫</div>
+                <div>{{ number_format($order->total_amount, 0, ',', '.') }}₫</div>
             </div>
         </div>
         <h2 class="section-title">Trạng thái đơn hàng</h2>
@@ -357,7 +357,7 @@
 
             $statusSteps = [
                 'pending' => [
-                    'title' => 'Đã đặt hàng',
+                    'title' => 'Đang chờ xử lý',
                     'desc' => 'Cảm ơn bạn đã đặt hàng. Chúng tôi đã nhận được đơn hàng của bạn.',
                     'datetime' => $order->created_at->format('d/m/Y - H:i'),
                 ],

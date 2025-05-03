@@ -72,7 +72,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-bars"></i>
                         <p>
-                           Quản Lý Danh Mục
+                            Quản Lý Danh Mục
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -103,7 +103,7 @@
                             </a>
                         </li>
                     </ul>
-                    
+
 
                 </li>
 
@@ -129,7 +129,7 @@
                                 <p>Danh sách sản phẩm </p>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </li>
                 <!-- Nhập kho -->
@@ -143,7 +143,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('create_product_receipt')}}" class="nav-link">
+                            <a href="{{ route('create_product_receipt') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tạo Phiếu Nhập Kho</p>
                             </a>
@@ -160,51 +160,12 @@
                 </li>
                 <!-- Phần quản lý đơn hàng mới -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.orders.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
-                            Quản Lý Đơn Hàng
-                            <i class="right fas fa-angle-left"></i>
+                            Quản Lý Đơn Hàng                           
                         </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tất Cả Đơn Hàng</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Đơn Hàng Chờ Xử Lý</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Đơn Hàng Đang Xử Lý</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Đơn Hàng Đang Giao</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Đơn Hàng Hoàn Thành</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Đơn Hàng Đã Hủy</p>
-                            </a>
-                        </li> --}}
-                    </ul>
+                    </a>                    
                 </li>
                 <!-- Phần quản doanh thu  -->
                 <li class="nav-item">
@@ -251,13 +212,13 @@
 
                 <!-- Phần quản lý liên hệ -->
                 <li class="nav-item">
-                    <a href="{{route('admin.contacts.index')}}" class="nav-link">
+                    <a href="{{ route('admin.contacts.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Quản Lý Liên Hệ
-                          
+
                         </p>
-                    </a>                   
+                    </a>
                 </li>
             </ul>
         </nav>

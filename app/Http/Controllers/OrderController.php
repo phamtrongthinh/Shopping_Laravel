@@ -100,4 +100,90 @@ class OrderController extends Controller
 
         return view('frontend.order_detail', compact('order'));
     }
+
+    //-------------------------------------------------------Admin------------------------------------------------
+    // Hiển thị danh sách đơn hàng
+    public function Admin_index(Request $request)
+    {
+        $query = Order::query();
+
+        // Tìm kiếm theo mã đơn hàng hoặc tên khách hàng
+        if ($request->search) {
+            $query->where('id', 'like', '%' . $request->search . '%')
+                ->orWhere('fullname', 'like', '%' . $request->search . '%');
+        }
+
+        // Lọc theo trạng thái đơn hàng
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $orders = $query->orderBy('created_at', 'desc')->paginate(10);
+
+
+        return view('admin.orders.index', [
+            'orders' => $orders,
+            'title' => 'Quản lý đơn hàng',
+        ]);
+    }
+
+    // Hiển thị chi tiết đơn hàng
+    public function Admin_show($id)
+    {
+        $order = Order::with('orderDetails.product', 'wardRelation', 'districtRelation', 'provinceRelation')->findOrFail($id);
+        return view('admin.orders.show', [
+            'order' => $order,
+            'title' => 'Chi tiết đơn hàng',
+        ]);
+    }
+
+    public function Admin_edit($id)
+    {
+        $order = Order::findOrFail($id);      
+        return view('admin.orders.edit', [
+            'order' => $order,
+            'title' => 'Cập nhật đơn hàng',
+        ]);
+    }
+
+    // Cập nhật trạng thái đơn hàng
+    public function Admin_updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'status' => 'required|in:pending,processing,shipping,completed,cancelled',
+            // thêm các trường khác nếu có
+        ]);
+    
+        $order->status = $validatedData['status'];
+    
+        // Ghi timestamp tương ứng nếu chưa có
+        switch ($order->status) {
+            case 'processing':
+                if (!$order->processing_at) {
+                    $order->processing_at = now();
+                }
+                break;
+            case 'shipping':
+                if (!$order->shipping_at) {
+                    $order->shipping_at = now();
+                }
+                break;
+            case 'completed':
+                if (!$order->completed_at) {
+                    $order->completed_at = now();
+                }
+                break;
+            case 'cancelled':
+                if (!$order->cancelled_at) {
+                    $order->cancelled_at = now();
+                }
+                break;
+        }
+    
+        $order->save();
+
+        return redirect()->route('admin.orders.show', $id)->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
+    }
 }

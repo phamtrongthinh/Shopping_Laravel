@@ -28,7 +28,8 @@
                         @php
                             $statusLabels = [
                                 'pending' => 'Chờ xác nhận',
-                                'processing' => 'Đang xử lý',
+                                'processing' => 'Đang chuân bị',
+                                'shipping' => 'Đang giao',
                                 'completed' => 'Hoàn thành',
                                 'cancelled' => 'Đã hủy',
                             ];

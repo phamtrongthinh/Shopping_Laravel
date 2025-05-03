@@ -21,7 +21,21 @@ class Order extends Model
         'note',
         'total_amount',
         'status',
+        'processing_at',
+        'shipping_at',
+        'completed_at',
+        'cancelled_at',
     ];
+    
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'processing_at' => 'datetime',
+        'shipping_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'cancelled_at' => 'datetime',
+    ];
+    
     // Mỗi đơn hàng thuộc về 1 người dùng
     public function user()
     {
@@ -33,6 +47,12 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+    // app/Models/Order.php
+    public function orderDetails()
+    {
+        return $this->hasMany(orderItem::class, 'order_id');
+    }
+
     public function provinceRelation()
     {
         return $this->belongsTo(Province::class, 'province');
