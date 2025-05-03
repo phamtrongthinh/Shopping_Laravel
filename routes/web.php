@@ -59,11 +59,6 @@ Route::get('/tim-kiem', [HomeController::class, 'search'])->name('search');
 //------------------------Trang danh sách sản phẩm-------------------
 Route::get('/san-pham', [ProductController::class, 'index'])->name('product');
 
-//------------------------Trang yeu thich sản phẩm-------------------
-Route::post('/like-product', [LikeController::class, 'store'])->name('product.like')->middleware('auth');
-Route::get('/user/likes/count', [LikeController::class, 'count'])->name('likes.count')->middleware('auth');
-Route::get('/san-pham-yeu-thich', [LikeController::class, 'favorites'])->name('favorites.index')->middleware('auth');
-
 
 
 //------------------------Trang chi tiết sản phẩm-------------------
@@ -72,14 +67,26 @@ Route::get('/get-sizes-by-color', [ProductController::class, 'getSizesByColor'])
 Route::get('/get-price', [ProductController::class, 'getPrice']);
 
 
+//------------------------Trang yeu thich sản phẩm-------------------
+Route::post('/like-product', [LikeController::class, 'store'])->name('product.like')->middleware('auth');
+Route::get('/user/likes/count', [LikeController::class, 'count'])->name('likes.count')->middleware('auth');
+Route::get('/san-pham-yeu-thich', [LikeController::class, 'favorites'])->name('favorites.index')->middleware('auth');
+
+
 //------------------------Trang giỏ hàng-------------------
-Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCart');
-Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
-Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
-Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
-Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistricts']);
-Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
+Route::middleware('auth')->group(function () {
+    // Giỏ hàng
+    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
+    Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
+
+    // Địa chỉ
+    Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistricts']);
+    Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
+});
+
 
 //------------------------Trang đơn hàng-------------------
 Route::middleware('auth')->group(function () {
@@ -87,12 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/don-hang', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/don-hang/{id}', [OrderController::class, 'show'])->name('orders.show');
 });
-
-
-
-
-
-
 
 
 Route::get('/tao-phieu-nhap', function () {

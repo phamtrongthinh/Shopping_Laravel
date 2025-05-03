@@ -489,7 +489,7 @@
                 $.get('/get-wards/' + districtId, function(data) {
                     let html = '<option value="">-- Chọn xã / phường --</option>';
                     data.forEach(function(w) {
-                        html += `<option value="${w.code}">${w.name}</option>`;
+                        html += `<option value="${w.id}">${w.name}</option>`;
                     });
                     $('#ward').html(html);
                 });

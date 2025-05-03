@@ -10,7 +10,7 @@ class Order extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'staff_id',       
+        'staff_id',
         'fullname',
         'phone',
         'email',
@@ -18,20 +18,31 @@ class Order extends Model
         'province',
         'district',
         'ward',
-        'note',      
+        'note',
         'total_amount',
         'status',
     ];
-     // Mỗi đơn hàng thuộc về 1 người dùng
-     public function user()
-     {
-         return $this->belongsTo(User::class);
-     }
- 
-     // Một đơn hàng có nhiều chi tiết đơn hàng
-     public function orderItems()
-     {
-         return $this->hasMany(OrderItem::class);
-     }
-    
+    // Mỗi đơn hàng thuộc về 1 người dùng
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Một đơn hàng có nhiều chi tiết đơn hàng
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+    public function provinceRelation()
+    {
+        return $this->belongsTo(Province::class, 'province');
+    }
+    public function districtRelation()
+    {
+        return $this->belongsTo(District::class, 'district');
+    }
+    public function wardRelation()
+    {
+        return $this->belongsTo(Ward::class, 'ward');
+    }
 }

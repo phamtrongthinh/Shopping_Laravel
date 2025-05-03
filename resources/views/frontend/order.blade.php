@@ -1,4 +1,3 @@
-
 @extends('frontend.partial.main')
 @include('frontend.partial.alert')
 @section('content')
@@ -26,14 +25,26 @@
                                 class="text-red-500 font-semibold">{{ number_format($order->total_amount) }}₫</span></p>
                     </div>
                     <div class="mt-2 md:mt-0 text-right">
-                        <span
-                            class="inline-block px-3 py-1 rounded-full text-sm
-                        @if ($order->status == 'pending') bg-yellow-100 text-yellow-800
-                        @elseif ($order->status == 'processing') bg-blue-100 text-blue-800
-                        @elseif ($order->status == 'completed') bg-green-100 text-green-800
-                        @elseif ($order->status == 'cancelled') bg-red-100 text-red-800 @endif">
-                            {{ ucfirst($order->status) }}
+                        @php
+                            $statusLabels = [
+                                'pending' => 'Chờ xác nhận',
+                                'processing' => 'Đang xử lý',
+                                'completed' => 'Hoàn thành',
+                                'cancelled' => 'Đã hủy',
+                            ];
+
+                            $statusColors = [
+                                'pending' => 'bg-yellow-100 text-yellow-800',
+                                'processing' => 'bg-blue-100 text-blue-800',
+                                'completed' => 'bg-green-100 text-green-800',
+                                'cancelled' => 'bg-red-100 text-red-800',
+                            ];
+                        @endphp
+
+                        <span class="inline-block px-3 py-1 rounded-full text-sm {{ $statusColors[$order->status] ?? '' }}">
+                            {{ $statusLabels[$order->status] ?? ucfirst($order->status) }}
                         </span>
+
                         <a href="{{ route('orders.show', $order->id) }}"
                             class="ml-4 inline-block text-blue-600 hover:underline">Xem chi tiết</a>
                     </div>

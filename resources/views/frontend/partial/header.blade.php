@@ -107,14 +107,14 @@
                          <li class="{{ request()->is('san-pham') ? 'active-menu' : '' }}">
                              <a href="{{ route('product') }}">Cửa hàng</a>
                          </li>
-                         @auth
+                         {{-- @auth
                              <li class="label1 {{ request()->is('gio-hang') ? 'active-menu' : '' }}" data-label1="hot">
                                  <a href="{{ route('cart.index') }}">Giỏ hàng</a>
                              </li>
                              <li class="{{ request()->is('don-hang') ? 'active-menu' : '' }}">
                                  <a href="{{ route('orders.index') }}">Đơn hàng</a>
                              </li>
-                         @endauth
+                         @endauth --}}
 
                          <li class="{{ request()->is('ve-chung-toi') ? 'active-menu' : '' }}">
                              <a href="{{ route('about') }}">Về chúng tôi</a>
@@ -132,14 +132,19 @@
                          <i class="zmdi zmdi-search"></i>
                      </div>
                      @auth
+                         {{-- Giỏ hàng --}}
                          <div id="cart-notification"
-                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                             data-notify="0">
-                             <i class="zmdi zmdi-shopping-cart"></i>
+                             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                             {{-- js-show-cart --}}
+                             <form action="{{ route('cart.index') }}" method="GET">
+                                 <button type="submit"
+                                     style="background: none; border: none; padding: 0; cursor: pointer;">
+                                     <i class="zmdi zmdi-shopping-cart" style="color: inherit;"></i>
+                                 </button>
+                             </form>
                          </div>
 
-
-
+                         {{-- Yêu thích --}}
                          <a href="{{ route('favorites.index') }}"
                              class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                              id="like-notification"
@@ -151,6 +156,15 @@
                              </span>
                          </a>
 
+
+                         {{-- Đơn hàng --}}
+                         <a href="{{ route('orders.index') }}"
+                             class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " id="order-notification">
+                             <i class="zmdi zmdi-truck"></i>
+                         </a>
+
+
+                         {{-- Tài khoản --}}
                          <div class="user-dropdown">
                              <a href="#" class="user-toggle icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11"
                                  style="display: flex; align-items: center; gap: 10px;">

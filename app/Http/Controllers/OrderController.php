@@ -68,7 +68,6 @@ class OrderController extends Controller
                     'code' => 200,
                     'redirect' => route('orders.index') . '?success=' . urlencode('Đặt hàng thành công!')
                 ]);
-                
             }
 
             // Nếu không phải AJAX thì redirect như bình thường
@@ -93,7 +92,9 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::with('orderItems')->where('id', $id)
+        // Eager load các quan hệ 'orderItems', 'province', 'district', 'ward'
+        $order = Order::with(['orderItems', 'provinceRelation', 'districtRelation', 'wardRelation'])
+            ->where('id', $id)
             ->where('user_id', Auth::id())
             ->firstOrFail();
 
