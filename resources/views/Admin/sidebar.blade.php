@@ -141,19 +141,21 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview">                     
+                       
                         <li class="nav-item">
-                            <a href="{{ route('create_product_receipt') }}" class="nav-link">
+                            <a href="{{ route('admin.inventory.imports.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tạo Phiếu Nhập Kho</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.inventory.imports.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh Sách Phiếu Nhập</p>
                             </a>
                         </li>
+                        
 
 
                     </ul>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\InventoryImportController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailController;
 use App\Http\Controllers\Admin\StatisticsController;
@@ -121,6 +122,18 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/statistics/revenue', [StatisticsController::class, 'revenue'])->name('admin.statistics.revenue');
         Route::get('/statistics/products', [StatisticsController::class, 'topProducts'])->name('admin.statistics.products');
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/inventory/imports', [InventoryImportController::class, 'index'])->name('admin.inventory.imports.index');
+        Route::get('/inventory/imports/create', [InventoryImportController::class, 'create'])->name('admin.inventory.imports.create');
+        Route::post('/inventory/imports', [InventoryImportController::class, 'store'])->name('admin.inventory.imports.store');
+        Route::get('/inventory/imports/{id}', [InventoryImportController::class, 'show'])->name('admin.inventory.imports.show');
+        Route::delete('/inventory/imports/{id}', [InventoryImportController::class, 'destroy'])->name('admin.inventory.imports.destroy');
+        Route::get('/inventory/imports/{id}/edit', [InventoryImportController::class, 'edit'])->name('admin.inventory.imports.edit');
+        Route::put('/inventory/imports/{id}', [InventoryImportController::class, 'update'])->name('admin.inventory.imports.update');
+
+
     });
     
 });
