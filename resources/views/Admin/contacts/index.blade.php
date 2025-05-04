@@ -39,7 +39,7 @@
                         </td>
 
                         <!-- Cột 2: Nội dung -->
-                        <td>{{ Str::limit($contact->content ?? 'Không có nội dung', 80, '...') }}</td>
+                        <td>{{ Str::limit($contact->message ?? 'Không có nội dung', 80, '...') }}</td>
                         <td>
                             @if (in_array($contact->email, $users))
                                 Thành viên
@@ -77,7 +77,8 @@
             </tbody>
         </table>
 
-        {{-- {{ $contacts->links() }} --}}
+        {{ $contacts->links() }}
+
     @else
         <div class="alert alert-warning">
             Chưa có thông tin liên hệ nào được gửi đến.

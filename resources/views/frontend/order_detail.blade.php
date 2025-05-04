@@ -1,4 +1,5 @@
 @extends('frontend.partial.main')
+@include('frontend.partial.alert')
 
 @section('title', 'Chi tiết đơn hàng')
 <style>
@@ -192,12 +193,12 @@
     }
 
     .timeline-item.active .timeline-dot {
-        background:  #717fe0;
+        background: #717fe0;
         /* border-color: #3a86ff; */
     }
 
     .timeline-item.active .timeline-date {
-        
+
         font-weight: 600;
     }
 
@@ -406,13 +407,53 @@
         </div>
 
 
-        <div class="actions">
+        <div class="actions d-flex align-items-center gap-2" style="display: flex; align-items: center; gap: 10px;">
+            {{-- Nút quay lại --}}
             <a href="{{ route('orders.index') }}" class="btn" style="background-color: #6f42c1; color: white;">
                 Quay lại
             </a>
+            @php
+                $cancelledOrders = session('cancel_requested_orders', []);
+            @endphp
+
+            @if ($order->status === 'cancelled' || $order->status === 'completed' )
+                {{-- Không hiển thị gì nếu đơn đã bị huỷ --}}
+            @elseif (in_array($order->id, $cancelledOrders))
+                <button class="btn btn-secondary" disabled>Đã gửi yêu cầu</button>
+            @else
+                <form id="cancel-request-form" action="{{ route('contact.store') }}" method="POST"
+                    onsubmit="return confirmCancelRequest();" style="display: inline-block; margin: 0;">
+                    @csrf
+                    <input type="hidden" name="name" value="{{ auth()->user()->name }}">
+                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                    <input type="hidden" name="phone" value="{{ auth()->user()->phone }}">
+                    <input type="hidden" name="message" value="Tôi muốn huỷ đơn hàng #{{ $order->id }}">
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+
+                    <button type="submit" id="cancel-request-button" class="btn btn-danger">Yêu cầu huỷ</button>
+                </form>
+            @endif
+
+
         </div>
 
 
 
     </div>
+
+    <script>
+        function confirmCancelRequest() {
+            if (confirm('Bạn có chắc muốn gửi yêu cầu huỷ đơn hàng này không?')) {
+                // Đổi nội dung và disable nút
+                const button = document.getElementById('cancel-request-button');
+                button.innerText = 'Đã gửi yêu cầu';
+                button.disabled = true;
+                button.classList.remove('btn-danger');
+                button.classList.add('btn-secondary');
+                return true; // Cho phép gửi form
+            }
+            return false; // Không gửi nếu người dùng từ chối
+        }
+    </script>
+
 @endsection

@@ -8,7 +8,7 @@
 
     .badge.pending {
         background-color: #ffcc00;
-        font-size: 15px;
+
     }
 
     .badge.processing {
@@ -126,6 +126,15 @@
                                 <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info">Xem</a>
                                 <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning">Chỉnh
                                     sửa</a>
+                                @if (in_array($order->status, ['completed', 'cancelled']))
+                                    <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"
+                                        style="display:inline-block;"
+                                        onsubmit="return confirm('Bạn có chắc muốn xóa đơn hàng này không?, xoá lịch sử sẽ không được lưu lai');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

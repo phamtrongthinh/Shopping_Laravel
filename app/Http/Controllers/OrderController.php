@@ -139,7 +139,7 @@ class OrderController extends Controller
 
     public function Admin_edit($id)
     {
-        $order = Order::findOrFail($id);      
+        $order = Order::findOrFail($id);
         return view('admin.orders.edit', [
             'order' => $order,
             'title' => 'Cập nhật đơn hàng',
@@ -155,9 +155,9 @@ class OrderController extends Controller
             'status' => 'required|in:pending,processing,shipping,completed,cancelled',
             // thêm các trường khác nếu có
         ]);
-    
+
         $order->status = $validatedData['status'];
-    
+
         // Ghi timestamp tương ứng nếu chưa có
         switch ($order->status) {
             case 'processing':
@@ -181,9 +181,24 @@ class OrderController extends Controller
                 }
                 break;
         }
-    
+
         $order->save();
 
         return redirect()->route('admin.orders.show', $id)->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Chỉ cho phép xóa nếu trạng thái là completed hoặc cancelled
+        if (!in_array($order->status, ['completed', 'cancelled'])) {
+            return redirect()->route('admin.orders.index')->with('error', 'Chỉ được xóa đơn hàng đã hoàn thành hoặc đã huỷ.');
+        }
+
+        // Xóa mềm nếu có dùng SoftDeletes, hoặc xóa vĩnh viễn
+        $order->delete();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Đơn hàng đã được xóa thành công.');
     }
 }

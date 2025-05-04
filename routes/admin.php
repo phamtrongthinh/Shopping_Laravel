@@ -114,6 +114,8 @@ Route::middleware(['auth', 'role'])->group(function () {
         Route::get('/orders/{id}/edit', [OrderController::class, 'Admin_edit'])->name('orders.edit');
         // Route cập nhật trạng thái đơn hàng
         Route::put('/orders/{id}/status', [OrderController::class, 'Admin_updateStatus'])->name('orders.updateStatus');
+        Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
     });
 
     Route::prefix('admin')->group(function () {

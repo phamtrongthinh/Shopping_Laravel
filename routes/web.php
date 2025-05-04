@@ -44,7 +44,7 @@ Route::get('/ve-chung-toi', [FrontendMainController::class, 'about'])->name('abo
 
 //-----------------------Trang lien he-------------------
 Route::get('/lien-he', [ContactController::class, 'showForm'])->name('contact');
-Route::post('/lien-he', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/lien-he2', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/lien-he', [ContactController::class, 'storeAjax'])->name('contact.storeAjax');
 
 

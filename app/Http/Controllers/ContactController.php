@@ -22,16 +22,22 @@ class ContactController extends Controller
             'phone' => 'nullable|string|max:20',
             'message' => 'required|string',
         ]);
+        // Đánh dấu đơn đã gửi yêu cầu huỷ vào session
+        if ($request->has('order_id')) {
+            $cancelledOrders = session()->get('cancel_requested_orders', []);
+            $cancelledOrders[] = $request->order_id;
+            session()->put('cancel_requested_orders', $cancelledOrders);
+        }
 
         Contact::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'message' => $request->message,
-            'sent_at' => now(),
+
         ]);
 
-        return redirect()->back()->with('success', 'Cảm ơn bạn đã liên hệ!');
+        return redirect()->back()->with('success', 'Yêu cầu của bạn đã được gửi!');
     }
 
     public function storeAjax(Request $request)
@@ -51,7 +57,7 @@ class ContactController extends Controller
                 'name'    => $request->name,
                 'email'   => $request->email,
                 'phone'   => $request->phone,
-                'content' => $request->content ?? "",
+                'message' => $request->content ?? "",
             ]);
 
             // Trả về JSON
@@ -71,9 +77,10 @@ class ContactController extends Controller
     // ----------------------------------------admin-------------------------------------------------
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::paginate(5); // 10 liên hệ mỗi trang
+
         $users = User::pluck('email')->toArray(); // Lấy tất cả email user
-        return view('admin.contacts.index', ['title' => 'Quản lý liên hệ'] + compact('contacts','users'));
+        return view('admin.contacts.index', ['title' => 'Quản lý liên hệ'] + compact('contacts', 'users'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -105,11 +112,10 @@ class ContactController extends Controller
     }
 
     public function destroy($id)
-{
-    $contact = Contact::findOrFail($id); // tìm liên hệ theo ID, nếu không có sẽ báo lỗi 404
-    $contact->delete(); // xóa liên hệ
+    {
+        $contact = Contact::findOrFail($id); // tìm liên hệ theo ID, nếu không có sẽ báo lỗi 404
+        $contact->delete(); // xóa liên hệ
 
-    return redirect()->back()->with('success', 'Xóa liên hệ thành công!');
-}
-
+        return redirect()->back()->with('success', 'Xóa liên hệ thành công!');
+    }
 }
