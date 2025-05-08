@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
 
+   
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -21,8 +22,8 @@ class LikeController extends Controller
 
         // Kiểm tra xem đã like chưa
         $like = Like::where('user_id', $user->id)
-                    ->where('product_id', $productId)
-                    ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if ($like) {
             // Nếu đã like → unlike (xóa like)
@@ -38,6 +39,7 @@ class LikeController extends Controller
         }
     }
 
+
     public function count()
     {
         if (auth()->check()) {
@@ -48,19 +50,5 @@ class LikeController extends Controller
         }
 
         return response()->json(['count' => 0]);
-    }
-    public function favorites()
-    {
-        // Lấy danh sách sản phẩm mà user đã yêu thích
-        $user = auth()->user();
-        if ($user) {
-            $dataproduct = Product::whereHas('likes', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->get();
-        } else {
-            $dataproduct = collect(); // Nếu không đăng nhập, trả về một tập rỗng
-        }
-
-        return view('frontend.list_like', compact('dataproduct'));
     }
 }

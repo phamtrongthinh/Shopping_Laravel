@@ -145,7 +145,7 @@
                          </div>
 
                          {{-- Yêu thích --}}
-                         <a href="{{ route('favorites.index') }}"
+                         <a href="{{ route('favorites.index2') }}"
                              class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                              id="like-notification"
                              data-notify="{{ auth()->check() ? auth()->user()->likes()->count() : 0 }}">

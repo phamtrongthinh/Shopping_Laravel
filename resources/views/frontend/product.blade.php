@@ -48,13 +48,13 @@
                 Trang chủ
                 <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
-    
+
             <span class="stext-109 cl4">
                 Cửa hàng
             </span>
         </div>
     </div>
-    
+
     <!--product-->
     <div class="bg0 m-t-23 p-b-140">
         <div class="container">
@@ -81,7 +81,7 @@
                     </button> --}}
                 </div>
 
-                <div class="flex-w flex-c-m m-tb-10">
+                {{-- <div class="flex-w flex-c-m m-tb-10">
                     <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                         <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
                         <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
@@ -93,7 +93,7 @@
                         <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
                         Search
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Search product -->
                 <div class="dis-none panel-search w-full p-t-10 p-b-15">
@@ -304,17 +304,19 @@
             <div class="container mt-5">
                 <div class="row isotope-grid g-4">
                     @foreach ($dataproduct as $product)
-                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4 isotope-item {{ Str::slug($product->category->name) ?? '' }}">
+                        <div
+                            class="col-sm-6 col-md-4 col-lg-3 mb-4 isotope-item {{ Str::slug($product->category->name) ?? '' }}">
                             <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
                                 <a href="{{ route('product.detail', ['id' => $product->id]) }}">
                                     <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                         class="card-img-top" style="height: 334px; object-fit: cover;">
                                 </a>
-            
+
                                 <div class="card-body d-flex justify-content-between p-3">
                                     <div>
                                         <h6 class="card-title mb-2">
-                                            <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="text-dark text-decoration-none fw-semibold">
+                                            <a href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                                class="text-dark text-decoration-none fw-semibold">
                                                 {{ $product->name }}
                                             </a>
                                         </h6>
@@ -322,18 +324,34 @@
                                             {{ $product->price_range }}
                                         </p>
                                     </div>
-            
+
                                     @php
-                                        $isLiked = auth()->check() && $product->likes && $product->likes->contains('user_id', auth()->id());
+                                        $isLiked =
+                                            auth()->check() &&
+                                            $product->likes &&
+                                            $product->likes->contains('user_id', auth()->id());
                                     @endphp
-            
+
                                     <div class="mt-3 text-end">
                                         <a href="#"
                                             class="btn-addwish-b2 js-addwish-b2 {{ $isLiked ? 'js-addedwish-b2' : '' }}"
-                                            data-id="{{ $product->id }}" style="position: relative;">
-                                            <img src="{{ $isLiked ? 'template/images/icons/icon-heart-02.png' : 'template/images/icons/icon-heart-01.png' }}"
-                                                alt="ICON" style="width: 24px; height: 24px;">
+                                            data-id="{{ $product->id }}"
+                                            style="position: relative; display: inline-block; width: 24px; height: 24px;">
+
+                                            <!-- Icon trái tim rỗng -->
+                                            <img class="icon-heart1 dis-block trans-04"
+                                                src="{{ asset('template/images/icons/icon-heart-01.png') }}"
+                                                alt="ICON"
+                                                style="width: 24px; height: 24px; position: absolute; top: 0; left: 0;">
+
+                                            <!-- Icon trái tim đầy -->
+                                            <img class="icon-heart2 dis-block trans-04"
+                                                src="{{ asset('template/images/icons/icon-heart-02.png') }}"
+                                                alt="ICON"
+                                                style="width: 24px; height: 24px; position: absolute; top: 0; left: 0;">
                                         </a>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -341,7 +359,7 @@
                     @endforeach
                 </div>
             </div>
-            
+
 
             {{-- Pagination --}}
 

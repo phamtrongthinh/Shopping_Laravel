@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\User;
@@ -42,7 +43,7 @@ class HomeController extends Controller
 
         return view('frontend.home', compact('dataproduct'));
     }
-    public function search (Request $request)
+    public function search(Request $request)
     {
         $keyword = $request->input('search');
 
@@ -75,4 +76,62 @@ class HomeController extends Controller
             }),
         ]);
     }
+
+    public function gender($gender)
+    {
+        $genderMap = [
+            'nam' => 'men',
+            'nu' => 'women',
+            'unisex' => 'unisex',
+            'nam-nu' => 'unisex' // phòng trường hợp dùng 'nam-nu' cũng vẫn ra unisex
+        ];
+
+        $dbGender = $genderMap[$gender] ?? null;
+
+        if (!$dbGender) {
+            abort(404); // nếu không đúng gender thì báo lỗi
+        }
+
+        $dataproduct = Product::where('gender', $dbGender)->get();
+
+        return view('frontend.gender_product', compact('dataproduct', 'gender'));
+    }
+
+
+    public function favorites2()   {
+        
+
+        // Lấy danh sách sản phẩm mà user đã yêu thích
+        $user = auth()->user();
+        if ($user) {
+            $dataproduct = Product::whereHas('likes', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->get();
+        } else {
+            $dataproduct = collect(); // Nếu không đăng nhập, trả về một tập rỗng
+        }
+
+        return view('frontend.list_like', compact('dataproduct'));
+    }
+
+    public function index_Admin()
+{
+    $totalOrders = Order::count();
+    $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
+    $totalUsers = User::count();
+    $totalProducts = Product::count();
+
+    $recentOrders = Order::with('user') // nếu có quan hệ user()
+                        ->latest()
+                        ->take(5)
+                        ->get();
+
+    return view('admin.home', [
+        'totalOrders' => $totalOrders,
+        'totalRevenue' => $totalRevenue,
+        'totalUsers' => $totalUsers,
+        'totalProducts' => $totalProducts,
+        'recentOrders' => $recentOrders,
+    ]);
+}
 }

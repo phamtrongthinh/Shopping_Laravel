@@ -52,6 +52,9 @@ Route::post('/lien-he', [ContactController::class, 'storeAjax'])->name('contact.
 //-----------------------Trang chủ-------------------
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tim-kiem', [HomeController::class, 'search'])->name('search');
+Route::get('/san-pham-{gender}', [HomeController::class, 'gender'])->name('home.gender');
+
+
 
 
 
@@ -68,9 +71,9 @@ Route::get('/get-price', [ProductController::class, 'getPrice']);
 
 
 //------------------------Trang yeu thich sản phẩm-------------------
-Route::post('/like-product', [LikeController::class, 'store'])->name('product.like')->middleware('auth');
-Route::get('/user/likes/count', [LikeController::class, 'count'])->name('likes.count')->middleware('auth');
-Route::get('/san-pham-yeu-thich', [LikeController::class, 'favorites'])->name('favorites.index')->middleware('auth');
+Route::post('/like-product', [LikeController::class, 'store'])->name('product.like');
+Route::get('/user/likes/count', [LikeController::class, 'count'])->name('likes.count');
+Route::get('yeu-thich', [HomeController::class, 'favorites2'])->name('favorites.index2');
 
 
 //------------------------Trang giỏ hàng-------------------

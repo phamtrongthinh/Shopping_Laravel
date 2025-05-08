@@ -10,7 +10,7 @@
             <div class="card shadow rounded-4 border-0">
                 <div class="card-body text-center">
                     <h5 class="card-title">Tổng đơn hàng</h5>
-                    <h3 class="text-primary">124</h3>
+                    <h3 class="text-primary">{{ $totalOrders }}</h3>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <div class="card shadow rounded-4 border-0">
                 <div class="card-body text-center">
                     <h5 class="card-title">Tổng doanh thu</h5>
-                    <h3 class="text-success">152,300,000₫</h3>
+                    <h3 class="text-success">{{ number_format($totalRevenue, 0, ',', '.') }}₫</h3>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="card shadow rounded-4 border-0">
                 <div class="card-body text-center">
                     <h5 class="card-title">Người dùng</h5>
-                    <h3 class="text-info">245</h3>
+                    <h3 class="text-info">{{ $totalUsers }}</h3>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card shadow rounded-4 border-0">
                 <div class="card-body text-center">
                     <h5 class="card-title">Sản phẩm</h5>
-                    <h3 class="text-warning">68</h3>
+                    <h3 class="text-warning">{{ $totalProducts }}</h3>
                 </div>
             </div>
         </div>
@@ -58,41 +58,41 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($recentOrders as $order)
                     <tr>
-                        <td>101</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>1,200,000₫</td>
-                        <td>28/04/2025</td>
-                        <td><span class="badge bg-success">Hoàn tất</span></td>
+                        <td>{{ $order->id }}</td>
+                        <td>{{ $order->user->name ?? 'Không rõ' }}</td>
+                        <td>{{ number_format($order->total_amount, 0, ',', '.') }}₫</td>
+                        <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</td>
+                        <td>
+                            @php
+                                $statusColors = [
+                                    'pending'    => 'bg-secondary',
+                                    'processing' => 'bg-warning text-dark',
+                                    'shipping'   => 'bg-info text-white',
+                                    'completed'  => 'bg-success',
+                                    'cancelled'  => 'bg-danger',
+                                ];
+                
+                                $statusLabels = [
+                                    'pending'    => 'Chờ xác nhận',
+                                    'processing' => 'Đang xử lý',
+                                    'shipping'   => 'Đang giao hàng',
+                                    'completed'  => 'Hoàn tất',
+                                    'cancelled'  => 'Đã hủy',
+                                ];
+                
+                                $color = $statusColors[$order->status] ?? 'bg-light text-dark';
+                                $label = $statusLabels[$order->status] ?? ucfirst($order->status);
+                            @endphp
+                            <span class="badge {{ $color }}">
+                                {{ $label }}
+                            </span>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Trần Thị B</td>
-                        <td>850,000₫</td>
-                        <td>27/04/2025</td>
-                        <td><span class="badge bg-warning text-dark">Đang xử lý</span></td>
-                    </tr>
-                    <tr>
-                        <td>103</td>
-                        <td>Lê Văn C</td>
-                        <td>3,400,000₫</td>
-                        <td>27/04/2025</td>
-                        <td><span class="badge bg-secondary">Hủy</span></td>
-                    </tr>
-                    <tr>
-                        <td>104</td>
-                        <td>Phạm Thị D</td>
-                        <td>2,100,000₫</td>
-                        <td>26/04/2025</td>
-                        <td><span class="badge bg-success">Hoàn tất</span></td>
-                    </tr>
-                    <tr>
-                        <td>105</td>
-                        <td>Đỗ Văn E</td>
-                        <td>1,750,000₫</td>
-                        <td>25/04/2025</td>
-                        <td><span class="badge bg-warning text-dark">Đang xử lý</span></td>
-                    </tr>
+                @endforeach
+                
+                    
                 </tbody>
             </table>
         </div>

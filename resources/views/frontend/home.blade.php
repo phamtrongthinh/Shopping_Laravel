@@ -21,7 +21,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                                <a href="product.html"
+                                <a href="http://127.0.0.1:8000/san-pham"
                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Mua Ngay
                                 </a>
@@ -96,7 +96,7 @@
                     <div class="block1 wrap-pic-w">
                         <img src="template/images/banner-01.jpg" alt="IMG-BANNER">
 
-                        <a href="product.html"
+                        <a href="{{ route('home.gender', ['gender' => 'nu']) }}"
                             class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                             <div class="block1-txt-child1 flex-col-l">
                                 <span class="block1-name ltext-102 trans-04 p-b-8">
@@ -122,7 +122,7 @@
                     <div class="block1 wrap-pic-w">
                         <img src="template/images/banner-02.jpg" alt="IMG-BANNER">
 
-                        <a href="product.html"
+                        <a href="{{ route('home.gender', ['gender' => 'nam']) }}"
                             class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                             <div class="block1-txt-child1 flex-col-l">
                                 <span class="block1-name ltext-102 trans-04 p-b-8">
@@ -148,7 +148,7 @@
                     <div class="block1 wrap-pic-w">
                         <img src="image/unisex10.png" alt="IMG-BANNER" style="height:248px; width:auto">
 
-                        <a href="product.html"
+                        <a href="{{ route('home.gender', ['gender' => 'unisex']) }}"
                             class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                             <div class="block1-txt-child1 flex-col-l">
                                 <span class="block1-name ltext-102 trans-04 p-b-8">
@@ -202,7 +202,7 @@
 
                 </div>
 
-                <div class="flex-w flex-c-m m-tb-10">
+                {{-- <div class="flex-w flex-c-m m-tb-10">
                     <div
                         class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                         <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
@@ -215,7 +215,7 @@
                         <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
                         Tìm kiếm
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Search product -->
                 <div class="dis-none panel-search w-full p-t-10 p-b-15">
@@ -417,9 +417,12 @@
                                     <a href="#"
                                         class="btn-addwish-b2 js-addwish-b2 {{ $isLiked ? 'js-addedwish-b2' : '' }}"
                                         data-id="{{ $item->id }}" style="position: relative;">
-                                        <img src="{{ $isLiked ? 'template/images/icons/icon-heart-02.png' : 'template/images/icons/icon-heart-01.png' }}"
-                                            alt="ICON" style="width: 24px; height: 24px;">
+                                        <img class="icon-heart1 dis-block trans-04"
+                                            src="{{ asset('template/images/icons/icon-heart-01.png') }}" alt="ICON">
+                                        <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                            src="{{ asset('template/images/icons/icon-heart-02.png') }}" alt="ICON">
                                     </a>
+
                                 </div>
                             </div>
                         </div>
