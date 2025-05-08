@@ -176,7 +176,11 @@
                                      <p><i class="zmdi zmdi-account"></i> {{ Auth::user()->name }}</p>
                                      <p><i class="zmdi zmdi-email"></i> {{ Auth::user()->email }}</p>
                                      <p><i class="zmdi zmdi-phone"></i> {{ Auth::user()->phone ?? 'Chưa cập nhật' }}</p>
-                                     <p><i class="zmdi zmdi-pin"></i> {{ Auth::user()->address ?? 'Chưa cập nhật' }}</p>
+                                     <p><i class="zmdi zmdi-pin"></i> {{ Auth::user()->address }},
+                                         {{ Auth::user()->wardRelation->name ?? 'Chưa có xã' }},
+                                         {{ Auth::user()->districtRelation->name ?? 'Chưa có huyện' }},
+                                         {{ Auth::user()->provinceRelation->name ?? 'Chưa có tỉnh' }}
+                                     </p>
                                  </div>
                                  <hr>
                                  <a href="{{ route('profile.edit') }}"><i class="zmdi zmdi-face"></i> Trang cá nhân</a>

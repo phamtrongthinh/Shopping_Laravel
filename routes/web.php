@@ -84,11 +84,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
-
-    // Địa chỉ
-    Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistricts']);
-    Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
 });
+ // Địa chỉ
+ Route::get('/get-districts/{province_id}', [AddressController::class, 'getDistricts']);
+ Route::get('/get-wards/{district_id}', [AddressController::class, 'getWards']);
 
 
 //------------------------Trang đơn hàng-------------------

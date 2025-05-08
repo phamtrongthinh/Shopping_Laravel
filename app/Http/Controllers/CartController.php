@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Color;
+use App\Models\District;
 use App\Models\ProductDetail;
 use App\Models\Province;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-       
+
         // Validate dữ liệu đầu vào
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -71,24 +73,36 @@ class CartController extends Controller
 
     public function index()
     {
-        // Lấy giỏ hàng của người dùng đang đăng nhập
+        // Lấy thông tin người dùng hiện tại
         $userId = auth()->id();
+        $user = auth()->user(); // Lấy người dùng hiện tại
+    
+        // Lấy giỏ hàng của người dùng đang đăng nhập
         $cart = Cart::where('user_id', $userId)->first(); // Lấy giỏ hàng của người dùng
-
+    
         // Nếu giỏ hàng không tồn tại, tạo một giỏ hàng mới
         if (!$cart) {
             $cart = Cart::create(['user_id' => $userId]);
         }
-
+    
         // Lấy các sản phẩm trong giỏ hàng
         $cartItems = $cart->cartItems; // Giả sử bạn đã định nghĩa mối quan hệ trong model Cart
-        $provinces = Province::orderBy('name')->get(); // Lấy tất cả tỉnh, sắp xếp theo tên     
-        
+    
+        // Lấy tất cả các tỉnh, sắp xếp theo tên
+        $provinces = Province::orderBy('name')->get();
+    
+        // Lấy các huyện của tỉnh mà user đã chọn
+        $districts = District::where('province_id', $user->province)->orderBy('name')->get();
+    
+        // Lấy các xã của huyện mà user đã chọn
+        $wards = Ward::where('district_id', $user->district)->orderBy('name')->get();
+    
+        // Lấy tất cả tên màu
         $colorNames = \App\Models\Color::pluck('name')->toArray(); // Mảng tên màu
-
-
-        return view('frontend.cart', compact('cartItems', 'provinces','colorNames'));
+    
+        return view('frontend.cart', compact('cartItems', 'provinces', 'districts', 'wards', 'colorNames'));
     }
+    
     public function remove($id)
     {
 

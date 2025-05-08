@@ -14,7 +14,7 @@
 
     .modal-content {
 
-        margin-top: 80px;
+        /* margin-top: 80px; */
 
     }
 
@@ -287,53 +287,74 @@
                                         @csrf
                                         <h4 class="mb-4 text-center">Thông tin người đặt hàng</h4>
                                         <!-- Name & Phone -->
+
+                                        <!-- Full Name -->
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
                                                 <label for="fullname" class="form-label">Họ và tên</label>
                                                 <input type="text" id="fullname" name="fullname"
                                                     class="form-control" placeholder="Nhập họ và tên"
-                                                    value="{{ old('name', $user->name ?? '') }}" autofocus>
+                                                    value="{{ old('name', Auth::user()->name) }}" autofocus>
                                             </div>
 
+                                            <!-- Phone -->
                                             <div class="col-md-4 mb-3">
                                                 <label for="phone" class="form-label">Số điện thoại</label>
                                                 <input type="text" id="phone" name="phone" class="form-control"
                                                     placeholder="Nhập số điện thoại"
-                                                    value="{{ old('phone', $user->phone ?? '') }}">
+                                                    value="{{ old('phone', Auth::user()->phone) }}">
                                             </div>
+
                                             <!-- Email -->
                                             <div class="col-md-4 mb-3">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="email" id="email" name="email" class="form-control"
                                                     placeholder="Nhập email (nếu có)"
-                                                    value="{{ old('email', $user->email ?? '') }}">
+                                                    value="{{ old('email', Auth::user()->email) }}">
                                             </div>
                                         </div>
 
                                         <!-- Address -->
                                         <div class="row">
+                                            <!-- Province -->
                                             <div class="col-md-4 mb-3">
                                                 <label for="province" class="form-label">Tỉnh / Thành phố</label>
                                                 <select id="province" name="province" class="form-select">
                                                     <option value="">-- Chọn tỉnh / thành phố --</option>
                                                     @foreach ($provinces as $province)
-                                                        <option value="{{ $province->id }}">{{ $province->name }}
+                                                        <option value="{{ $province->id }}"
+                                                            {{ old('province', Auth::user()->province) == $province->id ? 'selected' : '' }}>
+                                                            {{ $province->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
 
+                                            <!-- District -->
                                             <div class="col-md-4 mb-3">
                                                 <label for="district" class="form-label">Quận / Huyện</label>
                                                 <select id="district" name="district" class="form-select">
                                                     <option value="">-- Chọn quận / huyện --</option>
+                                                    @foreach ($districts as $district)
+                                                        <option value="{{ $district->id }}"
+                                                            {{ old('district', Auth::user()->district) == $district->id ? 'selected' : '' }}>
+                                                            {{ $district->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
 
+                                            <!-- Ward -->
                                             <div class="col-md-4 mb-3">
                                                 <label for="ward" class="form-label">Xã / Phường</label>
                                                 <select id="ward" name="ward" class="form-select">
                                                     <option value="">-- Chọn xã / phường --</option>
+                                                    @foreach ($wards as $ward)
+                                                        <option value="{{ $ward->id }}"
+                                                            {{ old('ward', Auth::user()->ward) == $ward->id ? 'selected' : '' }}>
+                                                            {{ $ward->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -341,9 +362,9 @@
                                         <!-- Detailed Address -->
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Địa chỉ giao hàng</label>
-                                            <input type="text" id="detail_address" name="address"
-                                                class="form-control" placeholder="Nhập địa chỉ giao hàng"
-                                                value="{{ old('address', $user->address ?? '') }}">
+                                            <input type="text" id="address" name="address" class="form-control"
+                                                placeholder="Nhập địa chỉ giao hàng"
+                                                value="{{ old('address', Auth::user()->address) }}">
                                         </div>
 
                                         <!-- Note -->
@@ -587,7 +608,7 @@
                         showError(response.html);
                     }
                 },
-                ,
+
                 error: function() {
                     showError('Gửi thông tin thất bại');
                 }

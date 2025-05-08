@@ -10,6 +10,14 @@
 
             <div class="card-body">
                 <p><strong>Khách hàng:</strong> {{ $order->fullname }}</p>
+                <p><strong>Email:</strong> {{ $order->email }}</p>
+                <p><strong>Số điện thoại:</strong> {{ $order->phone }}</p>
+                <p><strong>Địa chỉ:</strong>
+                    {{ $order->address }},
+                    {{ $order->wardRelation->name ?? 'Chưa có xã' }},
+                    {{ $order->districtRelation->name ?? 'Chưa có huyện' }},
+                    {{ $order->provinceRelation->name ?? 'Chưa có tỉnh' }}
+                </p>
                 <p><strong>Ngày đặt hàng:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
 
                 <p><strong>Trạng thái:</strong>

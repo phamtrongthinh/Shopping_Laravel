@@ -24,6 +24,9 @@ class User extends Authenticatable
         'phone',
         'address',
         'role',
+        'province',
+        'district', // Kiểm tra quận/huyện
+        'ward', // Kiểm tra xã/phường
         'status'
     ];
 
@@ -50,9 +53,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
-    
+
     public function cart()
     {
         return $this->hasOne(Cart::class);
+    }
+    public function provinceRelation()
+    {
+        return $this->belongsTo(Province::class, 'province');
+    }
+    public function districtRelation()
+    {
+        return $this->belongsTo(District::class, 'district');
+    }
+    public function wardRelation()
+    {
+        return $this->belongsTo(Ward::class, 'ward');
     }
 }
