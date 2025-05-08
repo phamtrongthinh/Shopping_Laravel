@@ -69,31 +69,21 @@
                             {{ $category->name }}
                         </button>
                     @endforeach
-
-
-                    {{-- 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-                        Nam
-                    </button>
-
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                        Unisex
-                    </button> --}}
                 </div>
 
-                {{-- <div class="flex-w flex-c-m m-tb-10">
+                <div class="flex-w flex-c-m m-tb-10">
                     <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                         <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
                         <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
                         Filter
                     </div>
 
-                    <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+                    {{-- <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
                         <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
                         <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
                         Search
-                    </div>
-                </div> --}}
+                    </div> --}}
+                </div>
 
                 <!-- Search product -->
                 <div class="dis-none panel-search w-full p-t-10 p-b-15">
@@ -107,199 +97,67 @@
                     </div>
                 </div>
 
-                <!-- Filter -->
+                <!-- Bộ lọc -->
                 <div class="dis-none panel-filter w-full p-t-10">
-                    <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-                        <div class="filter-col1 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Sort By
+                    <div class="wrap-filter bg6 w-full p-6 rounded-xl shadow-md">
+                        <form action="{{ route('product') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+                            <!-- Sắp xếp theo -->
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Sắp xếp theo</label>
+                                <select name="sort_by"
+                                    class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Mặc định</option>
+                                    <option value="newest" {{ request('sort_by') == 'newest' ? 'selected' : '' }}>Mới nhất
+                                    </option>
+                                   
+                                </select>
                             </div>
 
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Default
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Popularity
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Average rating
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        Newness
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Price: Low to High
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Price: High to Low
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col2 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Price
+                            <!-- Lọc theo Giá -->
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Khoảng giá</label>
+                                <select name="price_range"
+                                    class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="all">Tất cả</option>
+                                    <option value="0-200000" {{ request('price_range') == '0-200000' ? 'selected' : '' }}>0
+                                        - 200,000 VND</option>
+                                    <option value="200000-400000"
+                                        {{ request('price_range') == '200000-400000' ? 'selected' : '' }}>200,000 - 400,000
+                                        VND</option>
+                                    <option value="400000-1000000"
+                                        {{ request('price_range') == '400000-1000000' ? 'selected' : '' }}>400,000 VND trở
+                                        lên</option>
+                                </select>
                             </div>
 
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        All
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $0.00 - $50.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $50.00 - $100.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $100.00 - $150.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $150.00 - $200.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $200.00+
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col3 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Color
+                            <!-- Lọc theo Màu sắc -->
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Màu sắc</label>
+                                <select name="color_id"
+                                    class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Tất cả</option>
+                                    @foreach ($colors as $color)
+                                        <option value="{{ $color->id }}"
+                                            {{ request('color_id') == $color->id ? 'selected' : '' }}>
+                                            {{ $color->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                            <ul>
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #222;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Black
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        Blue
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Grey
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Green
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Red
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-                                        <i class="zmdi zmdi-circle-o"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        White
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col4 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Tags
+                            <!-- Nút lọc -->
+                            <div class="flex items-end">
+                                <button type="submit"
+                                    class="w-full bg-blue-600 text-black font-semibold py-2 rounded hover:bg-blue-700 transition">
+                                    Lọc sản phẩm
+                                </button>
                             </div>
-
-                            <div class="flex-w p-t-4 m-r--5">
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Fashion
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Lifestyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Denim
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Streetstyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Crafts
-                                </a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
+
+
             </div>
             <div class="container mt-5">
                 <div class="row isotope-grid g-4">
@@ -340,14 +198,12 @@
 
                                             <!-- Icon trái tim rỗng -->
                                             <img class="icon-heart1 dis-block trans-04"
-                                                src="{{ asset('template/images/icons/icon-heart-01.png') }}"
-                                                alt="ICON"
+                                                src="{{ asset('template/images/icons/icon-heart-01.png') }}" alt="ICON"
                                                 style="width: 24px; height: 24px; position: absolute; top: 0; left: 0;">
 
                                             <!-- Icon trái tim đầy -->
                                             <img class="icon-heart2 dis-block trans-04"
-                                                src="{{ asset('template/images/icons/icon-heart-02.png') }}"
-                                                alt="ICON"
+                                                src="{{ asset('template/images/icons/icon-heart-02.png') }}" alt="ICON"
                                                 style="width: 24px; height: 24px; position: absolute; top: 0; left: 0;">
                                         </a>
 

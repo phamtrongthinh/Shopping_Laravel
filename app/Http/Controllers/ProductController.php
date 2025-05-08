@@ -27,24 +27,65 @@ class ProductController extends Controller
         $this->color = new Color();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-
+        // Bắt đầu truy vấn sản phẩm
         $query = $this->product->where('status', 1);
 
+        // Lọc danh mục
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Lọc màu
+        if ($request->filled('color_id')) {
+            $query->whereHas('details.colors', function ($q) use ($request) {
+                $q->where('color_id', $request->color_id);
+            });
+        }
+
+        // Lọc giá
+        if ($request->filled('price_range') && $request->price_range != 'all') {
+            $priceRange = explode('-', $request->price_range);
+            if (count($priceRange) == 2) {
+                $query->whereHas('details', function ($q) use ($priceRange) {
+                    $q->whereBetween('price', [$priceRange[0], $priceRange[1]]);
+                });
+            }
+        }
+
+
+        $sortBy = $request->sort_by;
+
+        if ($sortBy === 'newest') {
+            $query = $query->orderBy('created_at', 'desc');
+        } else {
+            $query = $query->orderBy('id', 'asc'); // mặc định
+        }
+
+
+
+
+        // Kiểm tra người dùng có đăng nhập không và lấy sản phẩm yêu thích của họ
         if (auth()->check()) {
             $userId = auth()->id();
             $query = $query->with(['likes' => function ($q) use ($userId) {
                 $q->where('user_id', $userId);
             }]);
         }
+
+        // Lấy danh sách các danh mục đã kích hoạt
         $categorys = $this->category->where('active', 1)->get();
 
-        // Phân trang, 20 sản phẩm mỗi trang
-        $dataproduct = $query->paginate(20);
+        // Lấy danh sách màu sắc có trong cơ sở dữ liệu
+        $colors = Color::all();
 
-        return view('frontend.product', compact('dataproduct', 'categorys'));
+        // Phân trang kết quả (20 sản phẩm mỗi trang)
+        $dataproduct = $query->with('details.color')->paginate(20);
+
+        return view('frontend.product', compact('dataproduct', 'categorys', 'colors'));
     }
+
 
 
     public function getProductDetails($id)

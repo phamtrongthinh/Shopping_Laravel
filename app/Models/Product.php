@@ -40,4 +40,10 @@ class Product extends Model
     {
         return $this->hasMany(Like::class);
     }
+    // app/Models/Product.php
+
+    public function details()
+    {
+        return $this->hasMany(ProductDetail::class);
+    }
 }

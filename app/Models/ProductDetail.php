@@ -30,5 +30,9 @@ class ProductDetail extends Model
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+    public function colors()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
+    }
     
 }
