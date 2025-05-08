@@ -77,10 +77,14 @@ class ContactController extends Controller
     // ----------------------------------------admin-------------------------------------------------
     public function index()
     {
-        $contacts = Contact::paginate(5); // 10 liên hệ mỗi trang
-
+        $contacts = Contact::orderBy('created_at', 'desc')->paginate(5); // ✅ Đúng
         $users = User::pluck('email')->toArray(); // Lấy tất cả email user
-        return view('admin.contacts.index', ['title' => 'Quản lý liên hệ'] + compact('contacts', 'users'));
+        return view('admin.contacts.index', [
+            'title' => 'Quản lý liên hệ',
+            'contacts' => $contacts,
+            'users' => $users
+        ]);
+        
     }
 
     public function updateStatus(Request $request, $id)

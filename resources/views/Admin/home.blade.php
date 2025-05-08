@@ -5,7 +5,6 @@
     <h2 class="mb-4">Dashboard - Quản trị hệ thống</h2>
 
     <div class="row g-4">
-        <!-- Thẻ thống kê -->
         <div class="col-md-6 col-xl-3">
             <div class="card shadow rounded-4 border-0">
                 <div class="card-body text-center">
@@ -43,7 +42,6 @@
         </div>
     </div>
 
-    <!-- Đơn hàng gần đây -->
     <div class="mt-5">
         <h4>Đơn hàng gần đây</h4>
         <div class="table-responsive">
@@ -59,43 +57,42 @@
                 </thead>
                 <tbody>
                     @foreach ($recentOrders as $order)
-                    <tr>
-                        <td>{{ $order->id }}</td>
-                        <td>{{ $order->user->name ?? 'Không rõ' }}</td>
-                        <td>{{ number_format($order->total_amount, 0, ',', '.') }}₫</td>
-                        <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</td>
-                        <td>
-                            @php
-                                $statusColors = [
-                                    'pending'    => 'bg-secondary',
-                                    'processing' => 'bg-warning text-dark',
-                                    'shipping'   => 'bg-info text-white',
-                                    'completed'  => 'bg-success',
-                                    'cancelled'  => 'bg-danger',
-                                ];
-                
-                                $statusLabels = [
-                                    'pending'    => 'Chờ xác nhận',
-                                    'processing' => 'Đang xử lý',
-                                    'shipping'   => 'Đang giao hàng',
-                                    'completed'  => 'Hoàn tất',
-                                    'cancelled'  => 'Đã hủy',
-                                ];
-                
-                                $color = $statusColors[$order->status] ?? 'bg-light text-dark';
-                                $label = $statusLabels[$order->status] ?? ucfirst($order->status);
-                            @endphp
-                            <span class="badge {{ $color }}">
-                                {{ $label }}
-                            </span>
-                        </td>
-                    </tr>
-                @endforeach
-                
-                    
+                        <tr>
+                            <td>{{ $order->id }}</td>
+                            <td>{{ $order->user->name ?? 'Không rõ' }}</td>
+                            <td>{{ number_format($order->total_amount, 0, ',', '.') }}₫</td>
+                            <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</td>
+                            <td>
+                                @php
+                                    $statusColors = [
+                                        'pending'    => 'bg-secondary',
+                                        'processing' => 'bg-warning text-dark',
+                                        'shipping'   => 'bg-info text-white',
+                                        'completed'  => 'bg-success',
+                                        'cancelled'  => 'bg-danger',
+                                    ];
+
+                                    $statusLabels = [
+                                        'pending'    => 'Chờ xác nhận',
+                                        'processing' => 'Đang xử lý',
+                                        'shipping'   => 'Đang giao hàng',
+                                        'completed'  => 'Hoàn tất',
+                                        'cancelled'  => 'Đã hủy',
+                                    ];
+
+                                    $color = $statusColors[$order->status] ?? 'bg-light text-dark';
+                                    $label = $statusLabels[$order->status] ?? ucfirst($order->status);
+                                @endphp
+                                <span class="badge {{ $color }}">
+                                    {{ $label }}
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
 @endsection

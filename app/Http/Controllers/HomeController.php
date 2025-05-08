@@ -43,6 +43,7 @@ class HomeController extends Controller
 
         return view('frontend.home', compact('dataproduct'));
     }
+    
     public function search(Request $request)
     {
         $keyword = $request->input('search');
@@ -98,9 +99,8 @@ class HomeController extends Controller
     }
 
 
-    public function favorites2()   {
-        
-
+    public function favorites2()
+    {
         // Lấy danh sách sản phẩm mà user đã yêu thích
         $user = auth()->user();
         if ($user) {
@@ -110,28 +110,6 @@ class HomeController extends Controller
         } else {
             $dataproduct = collect(); // Nếu không đăng nhập, trả về một tập rỗng
         }
-
         return view('frontend.list_like', compact('dataproduct'));
-    }
-
-    public function index_Admin()
-{
-    $totalOrders = Order::count();
-    $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
-    $totalUsers = User::count();
-    $totalProducts = Product::count();
-
-    $recentOrders = Order::with('user') // nếu có quan hệ user()
-                        ->latest()
-                        ->take(5)
-                        ->get();
-
-    return view('admin.home', [
-        'totalOrders' => $totalOrders,
-        'totalRevenue' => $totalRevenue,
-        'totalUsers' => $totalUsers,
-        'totalProducts' => $totalProducts,
-        'recentOrders' => $recentOrders,
-    ]);
-}
+    }   
 }

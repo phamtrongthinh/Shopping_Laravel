@@ -44,10 +44,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::middleware(['auth', 'role'])->group(function () {
     // Trang chủ  admin
     Route::get('admin', [MainController::class, 'index'])->name('admin');
-    // Route::get('admin/main', [MainController::class, 'index'])->name('admin.main');   
-    Route::get('admin/main', [HomeController::class, 'index_Admin'])->name('admin.main');
-
-
+    Route::get('admin/main', [MainController::class, 'index'])->name('admin.main');
 
     // Quản lý tài khoản
     Route::prefix('admin/account')->name('admin.account.')->group(function () {
@@ -120,7 +117,6 @@ Route::middleware(['auth', 'role'])->group(function () {
         // Route cập nhật trạng thái đơn hàng
         Route::put('/orders/{id}/status', [OrderController::class, 'Admin_updateStatus'])->name('orders.updateStatus');
         Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
-
     });
 
     Route::prefix('admin')->group(function () {
@@ -136,8 +132,5 @@ Route::middleware(['auth', 'role'])->group(function () {
         Route::delete('/inventory/imports/{id}', [InventoryImportController::class, 'destroy'])->name('admin.inventory.imports.destroy');
         Route::get('/inventory/imports/{id}/edit', [InventoryImportController::class, 'edit'])->name('admin.inventory.imports.edit');
         Route::put('/inventory/imports/{id}', [InventoryImportController::class, 'update'])->name('admin.inventory.imports.update');
-
-
     });
-    
 });
