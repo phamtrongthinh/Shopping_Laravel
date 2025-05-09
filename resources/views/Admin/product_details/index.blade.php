@@ -23,7 +23,7 @@
                             <th>Màu</th>
                             <th>Kích Thước</th>
                             <th class="text-center">Giá</th>
-                            <th class="text-center">Giảm giá</th>
+                            {{-- <th class="text-center">Giảm giá</th> --}}
                             <th>Số Lượng</th>
                             <th>Ảnh</th>
                             <th>Hành Động</th>
@@ -35,7 +35,7 @@
                                 <td>{{ $detail->color->name ?? '-' }}</td>
                                 <td>{{ $detail->size }}</td>
                                 <td>{{ number_format($detail->price, 0, ',', '.') }} đ</td>
-                                <td>{{ $detail->sale ?? 0 }}%</td>
+                                {{-- <td>{{ $detail->sale ?? 0 }}%</td> --}}
                                 <td>{{ $detail->quantity }}</td>
                                 <td>
                                     @if ($detail->image)

@@ -28,7 +28,7 @@
                             'shipping' => 'Đang giao hàng',
                             'completed' => 'Hoàn thành',
                             'cancelled' => 'Đã huỷ',
-                            'cancel_requested'=> 'Yêu cầu huỷ',
+                            'cancel_requested' => 'Yêu cầu huỷ',
                         ][$order->status] ?? $order->status }}
                     </span>
                 </p>
@@ -55,6 +55,7 @@
 
                 @if (!$order->printed)
                     <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Chỉnh sửa trạng thái</a>
+
                     <a href="{{ route('admin.orders.print', $order->id) }}" class="btn btn-success"
                         onclick="return confirm('Bạn có chắc chắn muốn in phiếu không? Sau khi in sẽ không thể chỉnh sửa đơn hàng này!');">
                         In phiếu

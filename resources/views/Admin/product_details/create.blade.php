@@ -56,10 +56,10 @@
                         </div>
 
                         <!-- Giảm giá -->
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label for="sale">Giảm Giá (%)</label>
                             <input type="number" name="sale" class="form-control" id="sale" value="{{ old('sale', 0) }}" placeholder="Nhập giảm giá nếu có">
-                        </div>
+                        </div> --}}
 
                         <!-- Số lượng -->
                         <div class="col-md-4">

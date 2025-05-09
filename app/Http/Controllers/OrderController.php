@@ -25,6 +25,18 @@ class OrderController extends Controller
                 ]);
             }
 
+            // Kiểm tra tồn kho trước
+            foreach ($cart->cartItems as $item) {
+                $productDetail = $item->productDetail;
+
+                if (!$productDetail || $item->quantity > $productDetail->quantity) {
+                    return response()->json([
+                        'code' => 400,
+                        'html' => 'Sản phẩm "' . $item->product_name . '" không đủ số lượng trong kho. Chỉ còn ' . $productDetail->quantity . ' sản phẩm.',
+                    ]);
+                }
+            }
+
             $totalAmount = $cart->cartItems->sum(function ($item) {
                 return $item->price * $item->quantity;
             });
@@ -47,6 +59,11 @@ class OrderController extends Controller
             ]);
 
             foreach ($cart->cartItems as $item) {
+                // Trừ số lượng tồn kho
+                $productDetail = $item->productDetail;
+                $productDetail->quantity -= $item->quantity;
+                $productDetail->save();
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
@@ -62,7 +79,6 @@ class OrderController extends Controller
             $cart->cartItems()->delete();
             DB::commit();
 
-            // Nếu request là AJAX thì trả JSON
             if ($request->ajax()) {
                 return response()->json([
                     'code' => 200,
@@ -70,7 +86,6 @@ class OrderController extends Controller
                 ]);
             }
 
-            // Nếu không phải AJAX thì redirect như bình thường
             return redirect()->route('orders.index')->with('success', 'Đặt hàng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -80,6 +95,7 @@ class OrderController extends Controller
             ]);
         }
     }
+
 
     public function index()
     {
@@ -166,6 +182,10 @@ class OrderController extends Controller
         if ($order->printed) {
             return redirect()->route('admin.orders.show', $id)->with('error', 'Đơn hàng đã in phiếu, không thể chỉnh sửa.');
         }
+        // Nếu đơn hàng đã huỷ thì không cho chỉnh sửa
+        if ($order->status === 'cancelled') {
+            return redirect()->route('admin.orders.show', $id)->with('error', 'Đơn hàng đã bị huỷ, không thể chỉnh sửa.');
+        }
 
         return view('admin.orders.edit', [
             'order' => $order,
@@ -174,10 +194,9 @@ class OrderController extends Controller
     }
 
 
-    // Cập nhật trạng thái đơn hàng
     public function Admin_updateStatus(Request $request, $id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::with('orderDetails')->findOrFail($id);
 
         $validatedData = $request->validate([
             'status' => 'required|in:pending,processing,shipping,completed,cancelled,cancel_requested',
@@ -206,10 +225,18 @@ class OrderController extends Controller
                 if (!$order->cancelled_at) {
                     $order->cancelled_at = now();
                 }
-                break;
-                // Nếu bạn muốn theo dõi thời gian yêu cầu huỷ:
 
+                // Tăng lại số lượng tồn kho
+                foreach ($order->orderDetails as $item) {
+                    $productDetail = \App\Models\ProductDetail::find($item->product_detail_id);
+                    if ($productDetail) {
+                        $productDetail->quantity += $item->quantity;
+                        $productDetail->save();
+                    }
+                }
+                break;
         }
+
         if ($request->has('shop_note')) {
             $order->note3 = $request->input('shop_note');
         }
@@ -218,6 +245,7 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.show', $id)->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
     }
+
     public function Admin_print($id)
     {
         $order = Order::with('orderDetails.product', 'wardRelation', 'districtRelation', 'provinceRelation')->findOrFail($id);
