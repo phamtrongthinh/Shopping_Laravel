@@ -67,7 +67,9 @@ Route::get('/san-pham', [ProductController::class, 'index'])->name('product');
 //------------------------Trang chi tiết sản phẩm-------------------
 Route::get('/san-pham/{id}', [ProductController::class, 'show'])->name('product.detail');
 Route::get('/get-sizes-by-color', [ProductController::class, 'getSizesByColor'])->name('getSizesByColor');
+Route::get('/get-image-by-color', [ProductController::class, 'getImagesByColor'])->name('getImageByColor');
 Route::get('/get-price', [ProductController::class, 'getPrice']);
+
 
 
 //------------------------Trang yeu thich sản phẩm-------------------

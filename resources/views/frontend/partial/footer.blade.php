@@ -37,7 +37,7 @@
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">
     <div class="container">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Danh mục
@@ -114,7 +114,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-lg-3 p-b-50">
+            {{-- <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Đăng ký nhận tin
                 </h4>
@@ -132,7 +132,7 @@
                         </button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
         </div>
 
 
@@ -574,109 +574,13 @@
 </script>
 <!--===============================================================================================-->
 <script src="../template/js/main.js"></script>
-<!-- jQuery -->
+{{-- <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-{{-- <script>
-
-    //Mỗi lần click vào một <a> bên trong .gallery-lb, sẽ mở ảnh đó trong lightbox.
-    $('.gallery-lb').each(function() { // the containers for all your galleries
-        $(this).magnificPopup({
-            delegate: 'a', // the selector for gallery item
-            type: 'image',
-            gallery: {
-                enabled: true
-            },
-            mainClass: 'mfp-fade'
-        });
-    });
-</script> --}}
-
-{{-- 
-<script>
-    function formatCurrency(value) {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(value);
-    }
-
-    $(document).ready(function () {
-        $('.js-show-modal1').on('click', function (e) {
-            e.preventDefault();
-
-            // Hiện modal
-            $('.js-modal1').addClass('show-modal1');
-
-            const productId = $(this).closest('.block2').data('id');
-
-            $.ajax({
-                url: '/san-pham/' + productId,
-                type: 'GET',
-                success: function (product) {
-                    // Tên sản phẩm
-                    $('.js-name-detail').text(product.name);
-
-                    // Giá sản phẩm
-                    $('.price').text(formatCurrency(product.price));
-
-                    // Mô tả sản phẩm
-                    $('.description').text(product.description || 'Chưa có mô tả cho sản phẩm này.');
-
-                    // Gán hình ảnh
-                    const $gallery = $('.js-gallery-modal');
-                    let imageHtml = '';
-
-                    product.product_details?.forEach(detail => {
-                        if (detail.image_path) {
-                            imageHtml += `
-                                <div class="item-slick3" data-thumb="${detail.image_path}">
-                                    <div class="wrap-pic-w pos-relative">
-                                        <img src="${detail.image_path}" alt="${product.name}">
-                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                            href="${detail.image_path}">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                    });
-                    
-
-                    // Cập nhật slider
-                    if ($gallery.hasClass('slick-initialized')) {
-                        $gallery.slick('unslick');
-                    }
-
-                    $gallery.html(imageHtml);
-
-                    $gallery.slick({
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        arrows: true,
-                        fade: true,
-                        dots: true
-                    });
-                    
-                },
-                error: function (err) {
-                    console.error('AJAX Error:', err);
-                    alert('Không thể tải dữ liệu sản phẩm. Vui lòng thử lại sau.');
-                }
-            });
-        });
-
-        // Đóng modal
-        $('.js-hide-modal1').on('click', function () {
-            $('.js-modal1').removeClass('show-modal1');
-        });
-    });
-</script>
- --}}
+<!-- Magnific Popup JS -->
+<script src="../template/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script> --}}
 
 
 @yield('js')

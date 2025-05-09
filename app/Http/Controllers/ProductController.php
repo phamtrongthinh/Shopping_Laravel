@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 class ProductController extends Controller
@@ -157,6 +158,25 @@ class ProductController extends Controller
         // Trả về các size dưới dạng JSON
         return response()->json($sizes);
     }
+    public function getImagesByColor(Request $request)
+    {
+        $productId = $request->product_id;
+        $colorId = $request->color_id;
+
+        $images = DB::table('product_details')
+            ->where('product_id', $productId)
+            ->where('color_id', $colorId)
+            ->pluck('image') // image đang là đường dẫn tương đối, ví dụ: uploads/product_details/...
+            ->map(function ($image) {
+                return asset($image); // Chuyển thành URL đầy đủ
+            });
+
+        return response()->json([
+            'images' => $images
+        ]);
+    }
+
+
 
     public function getPrice(Request $request)
     {
