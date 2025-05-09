@@ -21,6 +21,7 @@ class Order extends Model
         'note',
         'total_amount',
         'status',
+        'printed',
         'processing_at',
         'shipping_at',
         'completed_at',

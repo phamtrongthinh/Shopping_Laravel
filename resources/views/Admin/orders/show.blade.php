@@ -5,7 +5,7 @@
     <div class="container py-4">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Đơn hàng #{{ $order->id }}</h4>                
+                <h4>Đơn hàng #{{ $order->id }}</h4>
             </div>
 
             <div class="card-body">
@@ -27,7 +27,7 @@
                             'processing' => 'Đang xử lý',
                             'shipping' => 'Đang giao hàng',
                             'completed' => 'Hoàn thành',
-                            'cancelled' => 'Đã huỷ'
+                            'cancelled' => 'Đã huỷ',
                         ][$order->status] ?? $order->status }}
                     </span>
                 </p>
@@ -35,7 +35,7 @@
                 <p><strong>Tổng tiền:</strong> {{ number_format($order->total_amount, 0, ',', '.') }}₫</p>
 
                 <h5 class="mt-4">Danh sách sản phẩm</h5>
-                <ul class="list-group">                   
+                <ul class="list-group">
                     @if ($order->orderDetails && $order->orderDetails->count() > 0)
                         @foreach ($order->orderDetails as $item)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -51,8 +51,18 @@
 
             <div class="card-footer text-end">
                 <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">Quay lại danh sách</a>
-                <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Chỉnh sửa trạng thái</a>
+
+                @if (!$order->printed)
+                    <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Chỉnh sửa trạng thái</a>
+                    <a href="{{ route('admin.orders.print', $order->id) }}" class="btn btn-success"
+                        onclick="return confirm('Bạn có chắc chắn muốn in phiếu không? Sau khi in sẽ không thể chỉnh sửa đơn hàng này!');">
+                        In phiếu
+                    </a>
+                @else
+                    <button class="btn btn-secondary" disabled>Đã in phiếu</button>
+                @endif
             </div>
+
         </div>
     </div>
 @endsection

@@ -118,7 +118,7 @@ class OrderController extends Controller
             $query->where('status', $request->status);
         }
 
-        $orders = $query->orderBy('created_at', 'desc')->paginate(6);
+        $orders = $query->orderBy('created_at', 'desc')->paginate(5);
 
 
         return view('admin.orders.index', [
@@ -140,11 +140,18 @@ class OrderController extends Controller
     public function Admin_edit($id)
     {
         $order = Order::findOrFail($id);
+
+        // Nếu đơn hàng đã in thì không cho chỉnh sửa
+        if ($order->printed) {
+            return redirect()->route('admin.orders.show', $id)->with('error', 'Đơn hàng đã in phiếu, không thể chỉnh sửa.');
+        }
+
         return view('admin.orders.edit', [
             'order' => $order,
             'title' => 'Cập nhật đơn hàng',
         ]);
     }
+
 
     // Cập nhật trạng thái đơn hàng
     public function Admin_updateStatus(Request $request, $id)
@@ -185,6 +192,25 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('admin.orders.show', $id)->with('success', 'Cập nhật trạng thái đơn hàng thành công!');
+    }
+    public function Admin_print($id)
+    {
+        $order = Order::with('orderDetails.product', 'wardRelation', 'districtRelation', 'provinceRelation')->findOrFail($id);
+
+        // Chỉ cho in nếu đơn hàng đã hoàn thành
+        if ($order->status !== 'completed') {
+            return redirect()->back()->with('error', 'Chỉ có thể in phiếu cho đơn hàng đã hoàn thành.');
+        }
+        // Nếu chưa in thì đánh dấu đã in
+        if (!$order->printed) {
+            $order->printed = true;
+            $order->save();
+        }
+
+        return view('admin.orders.print', [
+            'order' => $order,
+            'title' => 'In phiếu đơn hàng',
+        ]);
     }
 
     public function destroy($id)

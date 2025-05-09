@@ -128,9 +128,9 @@ class InventoryImportController extends Controller
     {
         $import = InventoryImport::with('items')->findOrFail($id);
         // Kiểm tra nếu đã quá 2 ngày thì không cho sửa
-        if (now()->diffInDays($import->created_at) > 2) {
+        if (now()->diffInSeconds($import->created_at) > 120) {
             return redirect()->route('admin.inventory.imports.index')
-                ->with('error', 'Phiếu nhập đã quá hạn chỉnh sửa (quá 2 ngày).');
+                ->with('error', 'Chỉ có thể chỉnh sửa phiếu nhập trong vòng 2 tiếng (7200 giây) sau khi tạo.');
         }
         $productDetails = ProductDetail::with('product', 'color')->get()->sortByDesc(function ($item) {
             return $item->product->name ?? '';
@@ -153,7 +153,7 @@ class InventoryImportController extends Controller
         //         ->with('error', 'Không thể cập nhật phiếu nhập đã quá 2 ngày.');
         // }
         // Không cho cập nhật nếu đã quá 2 tiếng kể từ khi tạo
-        if (now()->diffInHours($import->created_at) > 2) {
+        if (now()->diffInSeconds($import->created_at) > 120) {
             return redirect()->route('admin.inventory.imports.index')
                 ->with('error', 'Không thể cập nhật phiếu nhập sau 2 tiếng kể từ khi tạo.');
         }

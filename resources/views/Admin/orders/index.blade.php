@@ -99,6 +99,7 @@
                         <th>Ngày đặt</th>
                         <th>Tổng giá trị</th>
                         <th>Trạng thái</th>
+                        <th>In phiếu</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -121,6 +122,18 @@
                                     $statusText = $statusLabels[$order->status] ?? 'Không xác định';
                                 @endphp
                                 <span class="badge {{ $order->status }}">{{ $statusText }}</span>
+                            </td>
+                            <td>
+                                @if ($order->printed)
+                                    <span class="text-success">Đã in phiếu</span>
+                                @else
+                                    <form action="{{ route('admin.orders.print', $order->id) }}" method="GET"
+                                        style="display:inline-block;"
+                                        onsubmit="return confirm('Bạn có chắc chắn muốn in phiếu không? Sau khi in sẽ không thể chỉnh sửa đơn hàng này!');">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success">In phiếu</button>
+                                    </form>
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info">Xem</a>
