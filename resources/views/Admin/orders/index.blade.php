@@ -1,5 +1,6 @@
 @extends('admin.main')
 @section('title', 'Quản lý Đơn Hàng')
+
 <style>
     .badge {
         padding: 5px 10px;
@@ -8,7 +9,6 @@
 
     .badge.pending {
         background-color: #ffcc00;
-
     }
 
     .badge.processing {
@@ -27,6 +27,10 @@
         background-color: #e74c3c;
     }
 
+    .badge.cancel_requested {
+        background-color: #d66d6d; /* tím nhạt */
+    }
+
     .custom-card {
         padding: 15px !important;
     }
@@ -39,9 +43,9 @@
 
     button.btn {
         padding: 6px 12px;
-        /* Điều chỉnh padding cho nút */
     }
 </style>
+
 @section('content')
     <div class="container">
         <h2 style="padding:10px">Quản lý đơn hàng</h2>
@@ -57,11 +61,12 @@
                 <option value="shipping" {{ request('status') == 'shipping' ? 'selected' : '' }}>Đang giao</option>
                 <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
                 <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Huỷ</option>
+                <option value="cancel_requested" {{ request('status') == 'cancel_requested' ? 'selected' : '' }}>Yêu cầu huỷ</option>
             </select>
-            <button type="submit" class="btn btn-primary">Tìm </button>
+            <button type="submit" class="btn btn-primary">Tìm</button>
         </form>
 
-        <!-- Thông báo nếu có kết quả tìm kiếm -->
+        <!-- Thông báo kết quả tìm kiếm -->
         @if (request('search') || request('status'))
             <div class="alert alert-info">
                 Kết quả tìm kiếm:
@@ -76,12 +81,12 @@
                             'shipping' => 'Đang giao',
                             'completed' => 'Hoàn thành',
                             'cancelled' => 'Huỷ',
+                            'cancel_requested' => 'Yêu cầu huỷ',
                         ];
                         $statusText = $statusLabels[request('status')] ?? 'Không xác định';
                     @endphp
                     <span> Trạng thái: {{ $statusText }}</span>
                 @endif
-
             </div>
         @endif
 
@@ -118,6 +123,7 @@
                                         'shipping' => 'Đang giao',
                                         'completed' => 'Hoàn thành',
                                         'cancelled' => 'Huỷ',
+                                        'cancel_requested' => 'Yêu cầu huỷ',
                                     ];
                                     $statusText = $statusLabels[$order->status] ?? 'Không xác định';
                                 @endphp
@@ -137,12 +143,11 @@
                             </td>
                             <td>
                                 <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-info">Xem</a>
-                                <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning">Chỉnh
-                                    sửa</a>
+                                <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning">Chỉnh sửa</a>
                                 @if (in_array($order->status, ['completed', 'cancelled']))
                                     <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"
                                         style="display:inline-block;"
-                                        onsubmit="return confirm('Bạn có chắc muốn xóa đơn hàng này không?, xoá lịch sử sẽ không được lưu lai');">
+                                        onsubmit="return confirm('Bạn có chắc muốn xóa đơn hàng này không? Xoá lịch sử sẽ không được lưu lại.');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Xóa</button>

@@ -101,6 +101,27 @@ class OrderController extends Controller
         return view('frontend.order_detail', compact('order'));
     }
 
+    public function cancelRequest(Request $request)
+    {
+        $order = Order::where('id', $request->order_id)
+            ->where('user_id', auth()->id())
+            ->where('status', 'pending')
+            ->firstOrFail();
+
+        $order->update([
+            'status' => 'cancel_requested',
+            'note2' => $request->cancel_reason,
+        ]);
+
+        // Đánh dấu đã gửi yêu cầu trong session
+        $cancelledOrders = session('cancel_requested_orders', []);
+        $cancelledOrders[] = $order->id;
+        session(['cancel_requested_orders' => $cancelledOrders]);
+
+        return back()->with('success', 'Đã gửi yêu cầu huỷ đơn hàng.');
+    }
+
+
     //-------------------------------------------------------Admin------------------------------------------------
     // Hiển thị danh sách đơn hàng
     public function Admin_index(Request $request)
@@ -159,8 +180,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         $validatedData = $request->validate([
-            'status' => 'required|in:pending,processing,shipping,completed,cancelled',
-            // thêm các trường khác nếu có
+            'status' => 'required|in:pending,processing,shipping,completed,cancelled,cancel_requested',
         ]);
 
         $order->status = $validatedData['status'];
@@ -187,6 +207,11 @@ class OrderController extends Controller
                     $order->cancelled_at = now();
                 }
                 break;
+                // Nếu bạn muốn theo dõi thời gian yêu cầu huỷ:
+
+        }
+        if ($request->has('shop_note')) {
+            $order->note3 = $request->input('shop_note');
         }
 
         $order->save();

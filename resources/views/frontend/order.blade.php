@@ -32,6 +32,7 @@
                                 'shipping' => 'Đang giao',
                                 'completed' => 'Hoàn thành',
                                 'cancelled' => 'Đã hủy',
+                                'cancel_requested'=> 'Yêu cầu huỷ',
                             ];
 
                             $statusColors = [

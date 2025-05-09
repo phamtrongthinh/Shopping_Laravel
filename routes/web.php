@@ -95,6 +95,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/dat-hang', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/don-hang', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/don-hang/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/don-hang/yeu-cau-huy', [OrderController::class, 'cancelRequest'])->name('orders.cancelRequest');
+
 });
 
 

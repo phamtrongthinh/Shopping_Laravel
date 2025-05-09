@@ -353,6 +353,13 @@
             </div>
         </div>
         <h2 class="section-title">Trạng thái đơn hàng</h2>
+        {{-- Hiển thị phản hồi từ shop nếu có --}}
+        @if (!empty($order->note3))
+            <div class="alert alert-info mt-3">
+                <strong>Phản hồi yêu cầu huỷ từ shop:</strong>
+                <p class="mb-0">{{ $order->note3 }}</p>
+            </div>
+        @endif
         @php
             $currentStatus = $order->status;
 
@@ -406,42 +413,54 @@
             </div>
         </div>
 
+        <div class="actions">
+            {{-- Hàng nút --}}
+            <div class="d-flex align-items-center" style="gap: 12px; margin-bottom: 10px;">
+                {{-- Nút quay lại --}}
+                <a href="{{ route('orders.index') }}" class="btn" style="background-color: #6f42c1; color: white;">
+                    Quay lại
+                </a>
 
-        <div class="actions d-flex align-items-center gap-2" style="display: flex; align-items: center; gap: 10px;">
-            {{-- Nút quay lại --}}
-            <a href="{{ route('orders.index') }}" class="btn" style="background-color: #6f42c1; color: white;">
-                Quay lại
-            </a>
-            @php
-                $cancelledOrders = session('cancel_requested_orders', []);
-            @endphp
+                @php
+                    $cancelledOrders = session('cancel_requested_orders', []);
+                @endphp
 
-            @if ($order->status === 'cancelled' || $order->status === 'completed' )
-                {{-- Không hiển thị gì nếu đơn đã bị huỷ --}}
-            @elseif (in_array($order->id, $cancelledOrders))
-                <button class="btn btn-secondary" disabled>Đã gửi yêu cầu</button>
-            @else
-                <form id="cancel-request-form" action="{{ route('contact.store') }}" method="POST"
-                    onsubmit="return confirmCancelRequest();" style="display: inline-block; margin: 0;">
+                {{-- Hiển thị nút Yêu cầu huỷ nếu đơn ở trạng thái pending --}}
+                @if ($order->status === 'cancelled' || $order->status === 'completed')
+                    {{-- Không hiển thị nút huỷ --}}
+                @elseif ($order->status === 'pending')
+                    @if (in_array($order->id, $cancelledOrders))
+                        <button class="btn btn-secondary" disabled>Đã gửi yêu cầu</button>
+                    @else
+                        <button class="btn btn-danger" onclick="showCancelForm()">Yêu cầu huỷ</button>
+                    @endif
+                @endif
+            </div>
+
+            {{-- Form nhập lý do huỷ (ẩn mặc định) --}}
+            @if ($order->status === 'pending' && !in_array($order->id, $cancelledOrders))
+                <form id="cancel-request-form" action="{{ route('orders.cancelRequest') }}" method="POST"
+                    onsubmit="return confirmSubmitCancel();" style="display: none;" class="mt-2">
                     @csrf
-                    <input type="hidden" name="name" value="{{ auth()->user()->name }}">
-                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                    <input type="hidden" name="phone" value="{{ auth()->user()->phone }}">
-                    <input type="hidden" name="message" value="Tôi muốn huỷ đơn hàng #{{ $order->id }}">
                     <input type="hidden" name="order_id" value="{{ $order->id }}">
-
-                    <button type="submit" id="cancel-request-button" class="btn btn-danger">Yêu cầu huỷ</button>
+                    <div class="form-group mb-2">
+                        <label for="cancel_reason">Lý do huỷ đơn:</label>
+                        <textarea name="cancel_reason" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="d-flex" style="gap: 10px;">
+                        <button type="submit" class="btn btn-danger">Gửi yêu cầu huỷ</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideCancelForm()">Đóng</button>
+                    </div>
                 </form>
             @endif
-
-
         </div>
+
 
 
 
     </div>
 
-    <script>
+    {{-- <script>
         function confirmCancelRequest() {
             if (confirm('Bạn có chắc muốn gửi yêu cầu huỷ đơn hàng này không?')) {
                 // Đổi nội dung và disable nút
@@ -454,6 +473,18 @@
             }
             return false; // Không gửi nếu người dùng từ chối
         }
-    </script>
+    </script> --}}
+    <script>
+        function showCancelForm() {
+            document.getElementById('cancel-request-form').style.display = 'block';
+        }
 
+        function hideCancelForm() {
+            document.getElementById('cancel-request-form').style.display = 'none';
+        }
+
+        function confirmSubmitCancel() {
+            return confirm('Bạn chắc chắn muốn gửi yêu cầu huỷ đơn hàng này?');
+        }
+    </script>
 @endsection

@@ -19,6 +19,8 @@ class Order extends Model
         'district',
         'ward',
         'note',
+        'note2',
+        'note3',
         'total_amount',
         'status',
         'printed',

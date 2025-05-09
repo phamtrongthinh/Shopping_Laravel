@@ -28,6 +28,7 @@
                             'shipping' => 'Đang giao hàng',
                             'completed' => 'Hoàn thành',
                             'cancelled' => 'Đã huỷ',
+                            'cancel_requested'=> 'Yêu cầu huỷ',
                         ][$order->status] ?? $order->status }}
                     </span>
                 </p>
