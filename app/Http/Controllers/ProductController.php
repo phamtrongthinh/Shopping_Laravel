@@ -64,8 +64,6 @@ class ProductController extends Controller
         }
 
 
-
-
         // Kiểm tra người dùng có đăng nhập không và lấy sản phẩm yêu thích của họ
         if (auth()->check()) {
             $userId = auth()->id();

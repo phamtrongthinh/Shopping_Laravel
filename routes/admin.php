@@ -121,6 +121,10 @@ Route::middleware(['auth', 'role'])->group(function () {
 
     Route::prefix('admin')->group(function () {
         Route::get('/statistics/revenue', [StatisticsController::class, 'revenue'])->name('admin.statistics.revenue');
+        // Route in phiếu thống kê
+        Route::get('/admin/statistics/revenue/print', [StatisticsController::class, 'printReport'])->name('admin.statistics.revenue.print');
+        Route::get('/test-pdf', [StatisticsController::class, 'testPdf']);
+
         Route::get('/statistics/products', [StatisticsController::class, 'topProducts'])->name('admin.statistics.products');
     });
 

@@ -88,7 +88,7 @@ class InventoryImportController extends Controller
 
     public function show($id)
     {
-        $import = InventoryImport::with('items.productDetail.product','user')->findOrFail($id);
+        $import = InventoryImport::with('items.productDetail.product', 'user')->findOrFail($id);
 
 
         return view('admin.inventory_imports.show', [
@@ -127,7 +127,12 @@ class InventoryImportController extends Controller
     public function edit($id)
     {
         $import = InventoryImport::with('items')->findOrFail($id);
-        $productDetails = ProductDetail::with('product', 'color')->get() ->sortByDesc(function ($item) {
+        // Kiểm tra nếu đã quá 2 ngày thì không cho sửa
+        if (now()->diffInDays($import->created_at) > 2) {
+            return redirect()->route('admin.inventory.imports.index')
+                ->with('error', 'Phiếu nhập đã quá hạn chỉnh sửa (quá 2 ngày).');
+        }
+        $productDetails = ProductDetail::with('product', 'color')->get()->sortByDesc(function ($item) {
             return $item->product->name ?? '';
         });;
 
@@ -142,6 +147,17 @@ class InventoryImportController extends Controller
     public function update(Request $request, $id)
     {
         $import = InventoryImport::with('items')->findOrFail($id);
+        // Kiểm tra nếu đã quá 2 ngày thì không cho cập nhật
+        // if (now()->diffInDays($import->created_at) > 2) {
+        //     return redirect()->route('admin.inventory.imports.index')
+        //         ->with('error', 'Không thể cập nhật phiếu nhập đã quá 2 ngày.');
+        // }
+        // Không cho cập nhật nếu đã quá 2 tiếng kể từ khi tạo
+        if (now()->diffInHours($import->created_at) > 2) {
+            return redirect()->route('admin.inventory.imports.index')
+                ->with('error', 'Không thể cập nhật phiếu nhập sau 2 tiếng kể từ khi tạo.');
+        }
+
 
         // ✅ Bước 1: Trừ lại số lượng đã nhập trước đó
         foreach ($import->items as $oldItem) {
